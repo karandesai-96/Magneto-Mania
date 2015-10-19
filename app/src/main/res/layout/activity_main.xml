@@ -29,99 +29,18 @@
         android:layout_margin="5dp"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/InstructionsForAlphaTesters"
-        android:layout_below="@id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="#FFFFFF"
-        android:layout_margin="5dp"
-        android:text="@string/instructions" />
 
-    <TextView
-        android:id="@+id/firstIns"
-        android:layout_below="@id/InstructionsForAlphaTesters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="#FFFFFF"
-        android:layout_margin="5dp"
-        android:text="@string/firstIns" />
-
-    <TextView
-        android:id="@+id/secondIns"
-        android:layout_below="@id/firstIns"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="#FFFFFF"
-        android:layout_margin="5dp"
-        android:text="@string/secondIns" />
-
-    <TextView
-        android:id="@+id/thirdIns"
-        android:layout_below="@id/secondIns"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="#FFFFFF"
-        android:layout_margin="3dp"
-        android:text="@string/thirdIns" />
-
-    <TextView
-        android:id="@+id/fourthIns"
-        android:layout_below="@id/thirdIns"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="#FFFFFF"
-        android:layout_margin="3dp"
-        android:text="@string/fourthIns" />
-
-    <TextView
-        android:id="@+id/fifthIns"
-        android:layout_below="@id/fourthIns"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="#FFFFFF"
-        android:layout_margin="3dp"
-        android:text="@string/fifthIns" />
-
+</RelativeLayout>
+</ScrollView>
 
     <Button
         android:id="@+id/playButton"
-        android:layout_below="@id/fifthIns"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="@string/play"
         android:clickable="true"
-        android:onClick="onClickPlay" />
-
-
-    <TextView
-        android:id="@+id/sixthIns"
-        android:layout_below="@id/playButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="#FFFFFF"
-        android:layout_margin="5dp"
-        android:text="@string/last" />
-
-
-    <TextView
-        android:id="@+id/finalIns"
-        android:layout_below="@id/sixthIns"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="#FFFFFF"
-        android:layout_margin="5dp"
-        android:text="@string/finalIns" />
-
-</RelativeLayout>
-</ScrollView>
+        android:onClick="onClickPlay"
+        android:layout_below="@id/title"
+        android:layout_gravity="center" />
 </FrameLayout>
