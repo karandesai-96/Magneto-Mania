@@ -12,10 +12,11 @@ public class GameScreen implements Screen {
     /** CLASS MEMBERS *******************************************************/
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
+    /************************************************************************/
 
     public GameScreen() {
         gameWorld = new GameWorld();
-        gameRenderer = new GameRenderer();
+        gameRenderer = new GameRenderer(gameWorld);
         Gdx.app.log("GameScreen", "Attached");
     }
 
