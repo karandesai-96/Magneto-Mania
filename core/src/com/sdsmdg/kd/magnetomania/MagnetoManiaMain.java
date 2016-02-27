@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import com.sdsmdg.kd.screens.GameScreen;
+
 
 public class MagnetoManiaMain extends Game {
 	SpriteBatch batch;
@@ -15,5 +17,6 @@ public class MagnetoManiaMain extends Game {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
         Gdx.app.log("MagnetoManiaMain", "create");
+        setScreen(new GameScreen());
     }
 }
