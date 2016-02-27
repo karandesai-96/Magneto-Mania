@@ -2,12 +2,20 @@ package com.sdsmdg.kd.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
+
+import com.sdsmdg.kd.gameworld.GameRenderer;
+import com.sdsmdg.kd.gameworld.GameWorld;
 
 
 public class GameScreen implements Screen {
 
+    /** CLASS MEMBERS *******************************************************/
+    private GameWorld gameWorld;
+    private GameRenderer gameRenderer;
+
     public GameScreen() {
+        gameWorld = new GameWorld();
+        gameRenderer = new GameRenderer();
         Gdx.app.log("GameScreen", "Attached");
     }
 
@@ -18,12 +26,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        // Sets a Color to Fill the Screen with (RGB = 10, 15, 230), Opacity of 1 (100%)
-        Gdx.gl.glClearColor(10/255.0f, 15/255.0f, 230/255.0f, 1f);
-        // Fills the screen with the selected color
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // Convert Frame rate to String, print it
-        Gdx.app.log("GameScreen FPS", (1/delta) + "");
+        gameWorld.update(delta);
+        gameRenderer.render();
     }
 
     @Override
