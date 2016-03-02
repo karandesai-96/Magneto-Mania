@@ -35,4 +35,26 @@ public class Magnus {
         this.magnusSleepTime    = random.nextInt(15) + 15;
     }
     /**--------------------------------------------------------------------**/
+
+    /** GETTER FUNCTIONS *****************************************************/
+    public Vector2 getMagnusPosition() {
+        return magnusPosition;
+    }
+
+    public int getMagnusSleepTime() {
+        return magnusSleepTime;
+    }
+    /**--------------------------------------------------------------------**/
+
+    /**SETTER FUNCTIONS *****************************************************/
+    public void setMagnusPosition(float x, float y) {
+        magnusPosition.x = x;
+        magnusPosition.y = y;
+    }
+
+    public void setMagnusSleepTime(int t) {
+        magnusSleepTime = t;
+    }
 }
+
+
