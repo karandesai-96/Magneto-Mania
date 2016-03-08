@@ -1,9 +1,9 @@
-package com.sdsmdg.kd.gameobjects;
+package com.sdsmdg.kd.gameplay.objects;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
-
 
 public class Magnus {
     /** CLASS MEMBERS *******************************************************/
@@ -11,10 +11,8 @@ public class Magnus {
     private double        magnusVelocity;
     private int           magnusRadius;
 
-    private int           magnusSleepTime;
-    private RandomXS128   random;
+    private RandomXS128 random;
     /**--------------------------------------------------------------------**/
-
 
     /** CONSTRUCTOR *********************************************************/
     public Magnus() {
@@ -32,7 +30,18 @@ public class Magnus {
         this.magnusPosition     = new Vector2(x, y);
         this.magnusRadius       = gameWidth * gameHeight / (int)(12 * Math.PI);
         this.magnusVelocity     = random.nextInt(15) + 15;
-        this.magnusSleepTime    = random.nextInt(15) + 15;
+    }
+    /**--------------------------------------------------------------------**/
+
+    /** GETTER FUNCTIONS *****************************************************/
+    public Vector2 getMagnusPosition() {
+        return magnusPosition;
+    }
+    /**--------------------------------------------------------------------**/
+
+    /**SETTER FUNCTIONS *****************************************************/
+        public void setMagnusPosition(Vector2 a) {
+        magnusPosition = a;
     }
     /**--------------------------------------------------------------------**/
 }

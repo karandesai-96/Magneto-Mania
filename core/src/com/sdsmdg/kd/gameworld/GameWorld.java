@@ -8,6 +8,8 @@ public class GameWorld {
 
     /** CLASS MEMBERS *******************************************************/
     private Rectangle rect = new Rectangle(0, 0, 17, 12);
+//  private Magnus magnus;
+//    private MagnusCOntroller magnusController;
 
     public void update(float delta) {
         Gdx.app.log("GameWorld", "update");

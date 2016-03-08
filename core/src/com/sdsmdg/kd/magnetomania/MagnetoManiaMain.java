@@ -9,13 +9,9 @@ import com.sdsmdg.kd.screens.GameScreen;
 
 
 public class MagnetoManiaMain extends Game {
-	SpriteBatch batch;
-    Texture img;
 
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
         Gdx.app.log("MagnetoManiaMain", "create");
         setScreen(new GameScreen());
     }
