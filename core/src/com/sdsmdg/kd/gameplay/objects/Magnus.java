@@ -37,6 +37,10 @@ public class Magnus {
     public Vector2 getMagnusPosition() {
         return magnusPosition;
     }
+
+    public float getMagnusRadius() {
+        return magnusRadius;
+    }
     /**--------------------------------------------------------------------**/
 
     /**SETTER FUNCTIONS *****************************************************/

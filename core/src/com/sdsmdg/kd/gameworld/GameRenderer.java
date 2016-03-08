@@ -27,30 +27,16 @@ public class GameRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Tells shapeRenderer to begin drawing filled shapes
+        //Begin drawing filled shape
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        // Chooses RGB Color of 87, 109, 120 at full opacity
+        //Set up (Red,Green,Blue,Alpha)
         shapeRenderer.setColor(87 / 255.0f, 109 / 255.0f, 120 / 255.0f, 1);
 
-        // Draws the rectangle from myWorld (Using ShapeType.Filled)
-        shapeRenderer.rect(gameWorld.getRect().x, gameWorld.getRect().y,
-                gameWorld.getRect().width, gameWorld.getRect().height);
+        //Draws circle from GameWorld
+        shapeRenderer.circle(gameWorld.magnusPosition.x,gameWorld.magnusPosition.y,gameWorld.magnusRadius);
 
-        // Tells the shapeRenderer to finish rendering
-        // We MUST do this every time.
-        shapeRenderer.end();
-
-        // Tells shapeRenderer to draw an outline of the following shapes
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-
-        // Chooses RGB Color of 255, 109, 120 at full opacity
-        shapeRenderer.setColor(255 / 255.0f, 109 / 255.0f, 120 / 255.0f, 1);
-
-        // Draws the rectangle from myWorld (Using ShapeType.Line)
-        shapeRenderer.rect(gameWorld.getRect().x, gameWorld.getRect().y,
-                gameWorld.getRect().width, gameWorld.getRect().height);
-
+        //Tells the shape renderer to finish rendering. This must be done every time.
         shapeRenderer.end();
     }
 }
