@@ -7,19 +7,19 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Magnus {
     /** CLASS MEMBERS *******************************************************/
-    private Vector2       magnusPosition;
-    private double        magnusVelocity;
-    private int           magnusRadius;
-    float                 screenWidth;
-    float                 screenHeight;
-
-    private RandomXS128   random;
+    public Vector2             magnusPosition;
+    public double              magnusVelocity;
+    public int                 magnusRadius;
+    float                      screenWidth;
+    float                      screenHeight;
+    private RandomXS128        random;
     /**--------------------------------------------------------------------**/
 
     /** CONSTRUCTOR *********************************************************/
     public Magnus() {
-        screenWidth       = Gdx.graphics.getWidth();
-        screenHeight      = Gdx.graphics.getHeight();
+        this.screenWidth       = Gdx.graphics.getWidth();
+        this.screenHeight      = Gdx.graphics.getHeight();
+        this.random            = new RandomXS128();
         int gameWidth           = 136;
         int gameHeight          = (int)((screenHeight/screenWidth) * gameWidth);
 
@@ -32,25 +32,6 @@ public class Magnus {
         this.magnusPosition     = new Vector2(x, y);
         this.magnusRadius       = gameWidth * gameHeight / (int)(12 * Math.PI);
         this.magnusVelocity     = random.nextInt(15) + 15;
-    }
-    /**--------------------------------------------------------------------**/
-
-    /** GETTER FUNCTIONS *****************************************************/
-    public Vector2 getMagnusPosition() {
-        return magnusPosition;
-    }
-
-    public float getMagnusRadius() {
-        return magnusRadius;
-    }
-    public double getMagnusVelocity () {
-        return magnusVelocity;
-    }
-    /**--------------------------------------------------------------------**/
-
-    /**SETTER FUNCTIONS *****************************************************/
-        public void setMagnusPosition(Vector2 a) {
-        magnusPosition = a;
     }
     /**--------------------------------------------------------------------**/
 

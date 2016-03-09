@@ -9,14 +9,12 @@ import com.sdsmdg.kd.gameplay.objects.Magnus;
 public class GameWorld {
     /** CLASS MEMBERS *******************************************************/
 
-    private Magnus magnus;
-    private MagnusController magnusController;
+    protected Magnus magnus = new Magnus();
+    protected MagnusController magnusController = new MagnusController(magnus);
 
     /**--------------------------------------------------------------------**/
     /** MAGNUS RELATED *******************************************************/
 
-    Vector2 magnusPosition = magnus.getMagnusPosition();
-    float   magnusRadius   = magnus.getMagnusRadius();
     /**--------------------------------------------------------------------**/
 
     /** UPDATE METHOD *******************************************************/

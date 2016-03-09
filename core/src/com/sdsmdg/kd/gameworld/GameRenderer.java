@@ -37,7 +37,7 @@ public class GameRenderer {
         shapeRenderer.setColor(87 / 255.0f, 109 / 255.0f, 120 / 255.0f, 1);
 
         //Draws circle from GameWorld
-        shapeRenderer.circle(gameWorld.magnusPosition.x,gameWorld.magnusPosition.y,gameWorld.magnusRadius);
+        shapeRenderer.circle(gameWorld.magnus.magnusPosition.x,gameWorld.magnus.magnusPosition.y,gameWorld.magnus.magnusRadius);
 
         //Tells the shape renderer to finish rendering. This must be done every time.
         shapeRenderer.end();
