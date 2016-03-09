@@ -11,7 +11,7 @@ public class GameRenderer {
 
     /** CLASS MEMBERS *******************************************************/
     private GameWorld gameWorld;
-    private OrthographicCamera cam;
+    public static OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
     private float screenWidth = Gdx.graphics.getWidth();
     private float screenHeight = Gdx.graphics.getHeight();
@@ -40,7 +40,7 @@ public class GameRenderer {
         shapeRenderer.setColor(255 / 255.0f, 0 / 255.0f, 0 / 255.0f, 1);
 
         //Draws circle from GameWorld
-        shapeRenderer.circle((Gdx.graphics.getWidth()) / 2, (Gdx.graphics.getHeight()) / 2, gameWorld.magnus.magnusRadius);
+        shapeRenderer.circle(gameWorld.magnus.magnusPosition.x, gameWorld.magnus.magnusPosition.y, gameWorld.magnus.magnusRadius);
 
         //Tells the shape renderer to finish rendering. This must be done every time.
         shapeRenderer.end();

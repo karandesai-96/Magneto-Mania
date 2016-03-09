@@ -1,7 +1,12 @@
 package com.sdsmdg.kd.helpers;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector3;
+import com.sdsmdg.kd.gameplay.controllers.MagnusController;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
+import com.sdsmdg.kd.gameworld.GameRenderer;
+import com.sdsmdg.kd.screens.GameScreen;
 
 /**
  * Created by Haresh on 09-03-2016.
@@ -9,6 +14,7 @@ import com.sdsmdg.kd.gameplay.objects.Magnus;
 public class InputHandler implements InputProcessor {
     /**CLASS MEMBERS*******************************************************/
     private Magnus magnus;
+    public static Vector3 touch = new Vector3(0,0,0);
     /**-------------------------------------------------------------------**/
 
     /**CONSTRUCTOR **********************************************************/
@@ -35,6 +41,8 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        GameScreen.isTouched = true;
+        GameRenderer.cam.unproject(touch.set(screenX, screenY, 0));
         return false;
     }
 

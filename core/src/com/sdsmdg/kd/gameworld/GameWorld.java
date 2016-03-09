@@ -9,7 +9,7 @@ import com.sdsmdg.kd.screens.GameScreen;
 
 public class GameWorld {
     /** CLASS MEMBERS *******************************************************/
-    protected Magnus            magnus;
+    public Magnus            magnus;
     protected MagnusController  magnusController;
     /**--------------------------------------------------------------------**/
 
@@ -20,8 +20,10 @@ public class GameWorld {
     }
     /** UPDATE METHOD *******************************************************/
     public void update(float delta) {
+        if (GameScreen.isTouched){
+            magnusController.MagnusControl();
+        }
         Gdx.app.log("GameWorld", "update");
-        //Update code
     }
     /**--------------------------------------------------------------------**/
 }
