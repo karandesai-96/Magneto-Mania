@@ -12,8 +12,9 @@ public class GameRenderer {
     private GameWorld gameWorld;
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
-    /************************************************************************/
+    /**-------------------------------------------------------------------**/
 
+    /** CONSTRUCTOR *******************************************************/
     public GameRenderer (GameWorld gameWorld) {
         this.gameWorld = gameWorld;
         this.cam = new OrthographicCamera();
@@ -21,7 +22,9 @@ public class GameRenderer {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
     }
+    /**-------------------------------------------------------------------**/
 
+    /** RENDERING METHOD *******************************************************/
     public void render() {
         Gdx.app.log("GameRenderer", "render");
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -39,4 +42,5 @@ public class GameRenderer {
         //Tells the shape renderer to finish rendering. This must be done every time.
         shapeRenderer.end();
     }
+    /**-------------------------------------------------------------------**/
 }
