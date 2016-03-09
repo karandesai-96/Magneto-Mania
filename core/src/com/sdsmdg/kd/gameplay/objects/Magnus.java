@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.gameplay.controllers.MagnusController;
 import com.sdsmdg.kd.gameplay.utilities.Geometry;
 import com.sdsmdg.kd.helpers.InputHandler;
+import com.sdsmdg.kd.screens.GameScreen;
 
 public class Magnus {
     /** CLASS MEMBERS *******************************************************/
@@ -14,11 +15,12 @@ public class Magnus {
     MagnusController           magnusController;
     public double              magnusVelocity;
     public int                 magnusRadius;
+    public int                 magnusSleepTime;
     float                      screenWidth;
     float                      screenHeight;
     private RandomXS128        random;
     private Vector2            mVelocityComponent;
-    private boolean            temp;
+    public static boolean      temp;
     /**--------------------------------------------------------------------**/
 
     /** CONSTRUCTOR *********************************************************/
@@ -28,6 +30,7 @@ public class Magnus {
         this.random            = new RandomXS128();
         this.magnusController  = new MagnusController(this);
         this.temp              = false;
+        this.magnusSleepTime   = random.nextInt(15) + 15;
         int gameWidth          = 136;
         int gameHeight         = (int)((screenHeight/screenWidth) * gameWidth);
 
@@ -52,23 +55,28 @@ public class Magnus {
             if (magnusPosition.x > screenWidth) {
                 magnusPosition.x = screenWidth;
                 mVelocityComponent.set(0,0);
+                GameScreen.isTouched = false;
             }
-            else if (magnusPosition.x < 0) {
+            if (magnusPosition.x < 0) {
                 magnusPosition.x = 0;
                 mVelocityComponent.set(0,0);
+                GameScreen.isTouched = false;
             }
-            else if (magnusPosition.y > screenHeight) {
+            if (magnusPosition.y > screenHeight) {
                 magnusPosition.y = screenHeight;
                 mVelocityComponent.set(0,0);
+                GameScreen.isTouched = false;
             }
-            else if (magnusPosition.y < 0) {
+            if (magnusPosition.y < 0) {
                 magnusPosition.y = 0;
                 mVelocityComponent.set(0,0);
+                GameScreen.isTouched = false;
             }
 
             magnusController.destinationPoint = new Vector2(InputHandler.touch.x,InputHandler.touch.y);
             magnusController.initialPoint = magnusPosition;
             magnusVelocity = random.nextInt(15) + 15 + (int)(magnusController.score / 1000);
+            magnusSleepTime = random.nextInt(15) + 15;
         }
     }
 

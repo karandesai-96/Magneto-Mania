@@ -21,7 +21,14 @@ public class GameWorld {
     /** UPDATE METHOD *******************************************************/
     public void update(float delta) {
         if (GameScreen.isTouched){
-            magnusController.MagnusControl();
+            if (magnus.magnusSleepTime>0) {
+                magnus.magnusSleepTime--;
+                Magnus.temp = false;
+            }
+            else {
+                magnus.magnusSleepTime=0;
+                magnusController.MagnusControl();
+            }
         }
         Gdx.app.log("GameWorld", "update");
     }
