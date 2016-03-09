@@ -17,6 +17,8 @@ public class Magnus {
     float                      screenWidth;
     float                      screenHeight;
     private RandomXS128        random;
+    private Vector2            mVelocityComponent;
+    private boolean            temp;
     /**--------------------------------------------------------------------**/
 
     /** CONSTRUCTOR *********************************************************/
@@ -25,6 +27,7 @@ public class Magnus {
         this.screenHeight      = Gdx.graphics.getHeight();
         this.random            = new RandomXS128();
         this.magnusController  = new MagnusController(this);
+        this.temp              = false;
         int gameWidth          = 136;
         int gameHeight         = (int)((screenHeight/screenWidth) * gameWidth);
 
@@ -48,15 +51,19 @@ public class Magnus {
             // For preventing glitchy movement at the boundary.
             if (magnusPosition.x > screenWidth) {
                 magnusPosition.x = screenWidth;
+                mVelocityComponent.set(0,0);
             }
             else if (magnusPosition.x < 0) {
                 magnusPosition.x = 0;
+                mVelocityComponent.set(0,0);
             }
             else if (magnusPosition.y > screenHeight) {
                 magnusPosition.y = screenHeight;
+                mVelocityComponent.set(0,0);
             }
             else if (magnusPosition.y < 0) {
                 magnusPosition.y = 0;
+                mVelocityComponent.set(0,0);
             }
 
             magnusController.destinationPoint = new Vector2(InputHandler.touch.x,InputHandler.touch.y);
@@ -66,11 +73,18 @@ public class Magnus {
     }
 
     public void attackFingerPosition(){
-        Vector2 mVelocityComponent    = Geometry.calcVelocityComponents(magnusController.destinationPoint,magnusController.initialPoint,(int)magnusVelocity);
+        if (!temp){
+            setVelocityComponent();
+            temp = true;
+        }
         magnusVelocity               -= 0.05;
         magnusPosition.x             += mVelocityComponent.x;
         magnusPosition.y             += mVelocityComponent.y;
 
+    }
+
+    public void setVelocityComponent(){
+        mVelocityComponent    = Geometry.calcVelocityComponents(magnusController.destinationPoint,magnusController.initialPoint,(int)magnusVelocity);
     }
     /**--------------------------------------------------------------------**/
 }
