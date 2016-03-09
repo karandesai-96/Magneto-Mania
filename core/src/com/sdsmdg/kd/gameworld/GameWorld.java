@@ -4,19 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.gameplay.controllers.MagnusController;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
+import com.sdsmdg.kd.screens.GameScreen;
 
 
 public class GameWorld {
     /** CLASS MEMBERS *******************************************************/
-
-    protected Magnus magnus = new Magnus();
-    protected MagnusController magnusController = new MagnusController(magnus);
-
-    /**--------------------------------------------------------------------**/
-    /** MAGNUS RELATED *******************************************************/
-
+    protected Magnus            magnus;
+    protected MagnusController  magnusController;
     /**--------------------------------------------------------------------**/
 
+    /** CONSTRUCTOR *********************************************************/
+    public GameWorld() {
+        magnus = new Magnus();
+        magnusController = new MagnusController(magnus);
+    }
     /** UPDATE METHOD *******************************************************/
     public void update(float delta) {
         Gdx.app.log("GameWorld", "update");

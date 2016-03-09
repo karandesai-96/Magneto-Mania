@@ -20,8 +20,8 @@ public class Magnus {
         this.screenWidth       = Gdx.graphics.getWidth();
         this.screenHeight      = Gdx.graphics.getHeight();
         this.random            = new RandomXS128();
-        int gameWidth           = 136;
-        int gameHeight          = (int)((screenHeight/screenWidth) * gameWidth);
+        int gameWidth          = 136;
+        int gameHeight         = (int)((screenHeight/screenWidth) * gameWidth);
 
         int x = random.nextInt(2);
         if(x == 1) {
@@ -30,7 +30,7 @@ public class Magnus {
         int y = random.nextInt(gameHeight + 1);
 
         this.magnusPosition     = new Vector2(x, y);
-        this.magnusRadius       = gameWidth * gameHeight / (int)(12 * Math.PI);
+        this.magnusRadius       = (int)(Math.sqrt((screenWidth*screenHeight) / (int)(12 * Math.PI)));
         this.magnusVelocity     = random.nextInt(15) + 15;
     }
     /**--------------------------------------------------------------------**/
@@ -57,15 +57,18 @@ public class Magnus {
             //GameView.destinationPoint = Geometry.setCoordinates(GameView.fingerPosition);
             //GameView.initialPoint     = Geometry.setCoordinates(magnusPosition);
 
-            //magnusPrevPosition       = Geometry.setCoordinates(magnusPosition);
-
-            //magnusAttackTrick = 0;
             //magnusVelocity  = random.nextInt(15) + 15 + (int)(GameView.Score / 1000);
-            //magnusSleepTime = random.nextInt(15) + 15;
         }
     }
 
     public void attackFingerPosition(){
+        //Point mVelocityComponent    = Geometry.calcVelocityComponents(GameView.destinationPoint, GameView.initialPoint, (int)monsterVelocity);
+
+        //monsterPrevPosition         = Geometry.setCoordinates(monsterPosition);
+
+        //monsterVelocity            -= 0.05;
+        //monsterPosition.x          += mVelocityComponent.x;
+        //monsterPosition.y          += mVelocityComponent.y;
 
     }
     /**--------------------------------------------------------------------**/

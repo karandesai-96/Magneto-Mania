@@ -15,8 +15,8 @@ public class GameScreen implements Screen {
     /************************************************************************/
 
     public GameScreen() {
-        gameWorld = new GameWorld();
-        gameRenderer = new GameRenderer(gameWorld);
+        this.gameWorld = new GameWorld();
+        this.gameRenderer = new GameRenderer(gameWorld);
         Gdx.app.log("GameScreen", "Attached");
     }
 
