@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 
 import com.sdsmdg.kd.gameworld.GameRenderer;
 import com.sdsmdg.kd.gameworld.GameWorld;
+import com.sdsmdg.kd.helpers.InputHandler;
 
 
 public class GameScreen implements Screen {
@@ -12,11 +13,14 @@ public class GameScreen implements Screen {
     /** CLASS MEMBERS *******************************************************/
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
+    public static boolean isTouched;
     /************************************************************************/
 
     public GameScreen() {
-        gameWorld = new GameWorld();
-        gameRenderer = new GameRenderer(gameWorld);
+        this.gameWorld = new GameWorld();
+        this.gameRenderer = new GameRenderer(gameWorld);
+        this.isTouched = false;
+        Gdx.input.setInputProcessor(new InputHandler(gameWorld.magnus));
         Gdx.app.log("GameScreen", "Attached");
     }
 
