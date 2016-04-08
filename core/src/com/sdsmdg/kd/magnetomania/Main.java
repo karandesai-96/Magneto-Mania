@@ -2,22 +2,21 @@ package com.sdsmdg.kd.magnetomania;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.screens.GameScreen;
 
 
 public class Main extends Game {
 
-    public static float screenWidth;
-    public static float screenHeight;
+    public static Vector2 screen = new Vector2(0, 0);
+    public static float screenArea;
 
 	@Override
 	public void create () {
         Gdx.app.log("MagnetoManiaMain", "create");
+        screen.set(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        screenArea = screen.x * screen.y;
         setScreen(new GameScreen());
-        screenWidth = Gdx.graphics.getWidth();
-        screenHeight = Gdx.graphics.getHeight();
     }
 }
