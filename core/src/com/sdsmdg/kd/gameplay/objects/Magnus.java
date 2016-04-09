@@ -4,95 +4,59 @@ package com.sdsmdg.kd.gameplay.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
-import com.sdsmdg.kd.gameplay.controllers.MagnusController;
-import com.sdsmdg.kd.gameplay.utilities.Geometry;
 import com.sdsmdg.kd.helpers.InputHandler;
-import com.sdsmdg.kd.screens.GameScreen;
+import com.sdsmdg.kd.magnetomania.Main;
 
-public class Magnus {
-    /** CLASS MEMBERS *******************************************************/
-    public Vector2             magnusPosition;
-    MagnusController           magnusController;
-    public double              magnusVelocity;
-    public int                 magnusRadius;
-    public int                 magnusSleepTime;
-    float                      screenWidth;
-    float                      screenHeight;
-    private RandomXS128        random;
-    private Vector2            mVelocityComponent;
-    public static boolean      temp;
-    /**--------------------------------------------------------------------**/
 
-    /** CONSTRUCTOR *********************************************************/
-    public Magnus() {
-        this.screenWidth       = Gdx.graphics.getWidth();
-        this.screenHeight      = Gdx.graphics.getHeight();
-        this.random            = new RandomXS128();
-        this.magnusController  = new MagnusController(this);
-        this.temp              = false;
-        this.magnusSleepTime   = random.nextInt(15) + 15;
-        int gameWidth          = 136;
-        int gameHeight         = (int)((screenHeight/screenWidth) * gameWidth);
+public class Magnus extends GameObject {
+    private RandomXS128 random;
+    public int sleepTime;
 
-        int x = random.nextInt(2);
-        if(x == 1) {
-            x = (int)screenWidth;
-        }
-        int y = random.nextInt((int)screenHeight + 1);
 
-        this.magnusPosition     = new Vector2(x, y);
-        this.magnusRadius       = (int)(Math.sqrt((screenWidth*screenHeight) / (int)(12 * Math.PI)));
-        this.magnusVelocity     = random.nextInt(15) + 15;
+    public Magnus () {
+        this.random = new RandomXS128();
+        this.sleepTime = 0;
+
+        if(random.nextInt(2) == 1)
+            this.x = (int) Main.screen.x;
+        else
+            this.x = 0;
+
+        this.y = random.nextInt((int)Main.screen.y + 1);
+        Gdx.app.log("X: " + this.x, "Y: " + this.y);
+        this.radius = (int)(Math.sqrt((Main.screenArea) / (12 * Math.PI)));
+        this.velocity = random.nextInt(15) + 15;
+        this.active = true;
     }
-    /**--------------------------------------------------------------------**/
 
-    /**MOTION REGULATIONS *****************************************************/
-    public void prepareForSleepAndAttack(){
-        if (magnusPosition.x >= screenWidth-5 || magnusPosition.x <= 5 ||
-                magnusPosition.y >= screenHeight-5 || magnusPosition.y <= 5) {
 
-            // For preventing glitchy movement at the boundary.
-            if (magnusPosition.x > screenWidth) {
-                magnusPosition.x = screenWidth;
-                mVelocityComponent.set(0,0);
-                GameScreen.isTouched = false;
-            }
-            if (magnusPosition.x < 0) {
-                magnusPosition.x = 0;
-                mVelocityComponent.set(0,0);
-                GameScreen.isTouched = false;
-            }
-            if (magnusPosition.y > screenHeight) {
-                magnusPosition.y = screenHeight;
-                mVelocityComponent.set(0,0);
-                GameScreen.isTouched = false;
-            }
-            if (magnusPosition.y < 0) {
-                magnusPosition.y = 0;
-                mVelocityComponent.set(0,0);
-                GameScreen.isTouched = false;
-            }
+    public void prepareForSleep () {
+        deactivate();
+        Gdx.app.log("Deactivated", "" + active);
+        sleepTime = random.nextInt(15) + 15;
+        Gdx.app.log("Preparing to sleep, sleepTime: ", "" + sleepTime);
+    }
 
-            magnusController.destinationPoint = new Vector2(InputHandler.touch.x,InputHandler.touch.y);
-            magnusController.initialPoint = magnusPosition;
-            magnusVelocity = random.nextInt(15) + 15 + (int)(magnusController.score / 1000);
-            magnusSleepTime = random.nextInt(15) + 15;
+
+    public void sleep () {
+        sleepTime--;
+        Gdx.app.log("Sleeping: ", "" + sleepTime);
+        if (sleepTime < 1) {
+            activate();
+            Gdx.app.log("Activated !", "" + active);
         }
     }
 
-    public void attackFingerPosition(){
-        if (!temp){
-            setVelocityComponent();
-            temp = true;
-        }
-        magnusVelocity               -= 0.05;
-        magnusPosition.x             += mVelocityComponent.x;
-        magnusPosition.y             += mVelocityComponent.y;
 
+    public void prepareForAttack () {
+        velocity = random.nextInt(15) + 15;
+        calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
+        Gdx.app.log("Preparing to attack, components: ", "" + velocityComponent.x + " " + velocityComponent.y);
     }
 
-    public void setVelocityComponent(){
-        mVelocityComponent    = Geometry.calcVelocityComponents(magnusController.destinationPoint,magnusController.initialPoint,(int)magnusVelocity);
+    public void attack () {
+        velocity -= 0.05;
+        x += velocityComponent.x;
+        y += velocityComponent.y;
     }
-    /**--------------------------------------------------------------------**/
 }
