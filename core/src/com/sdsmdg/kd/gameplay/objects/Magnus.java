@@ -55,8 +55,6 @@ public class Magnus extends GameObject {
     }
 
     public void attack () {
-        velocity -= 0.05;
-        x += velocityComponent.x;
-        y += velocityComponent.y;
+        add(velocityComponent);
     }
 }
