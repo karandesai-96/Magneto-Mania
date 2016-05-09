@@ -51,7 +51,7 @@ public class Magnus extends GameObject {
     public void prepareForAttack () {
         velocity = random.nextInt(15) + 15;
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
-        Gdx.app.log("Preparing to attack, components: ", "" + velocityComponent.x + " " + velocityComponent.y);
+        Gdx.app.log("Magnus preparing to attack, components: ", "" + velocityComponent.x + " " + velocityComponent.y);
     }
 
     public void attack () {

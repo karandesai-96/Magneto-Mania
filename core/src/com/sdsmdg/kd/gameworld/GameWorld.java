@@ -6,8 +6,8 @@ import com.sdsmdg.kd.gameplay.controllers.MagnusController;
 
 
 public class GameWorld {
-    public Magnus magnus;
-    protected MagnusController magnusController;
+    public static Magnus magnus;
+    protected static MagnusController magnusController;
 
 
     public GameWorld() {
