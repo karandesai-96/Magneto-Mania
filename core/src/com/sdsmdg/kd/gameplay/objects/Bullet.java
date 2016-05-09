@@ -1,6 +1,7 @@
 package com.sdsmdg.kd.gameplay.objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.gameworld.GameWorld;
 import com.sdsmdg.kd.helpers.InputHandler;
@@ -14,7 +15,7 @@ public class Bullet extends GameObject{
         this.x = 0;
         this.y = 0;
         this.velocity = 0;
-        this.radius = (int) Math.sqrt(Main.screenArea/(300*Math.PI));
+        this.radius = (int) Math.sqrt(Main.screenArea/(300* MathUtils.PI));
         Gdx.app.log("X: " + this.x, "Y: " + this.y);
         this.active = false;
     }
