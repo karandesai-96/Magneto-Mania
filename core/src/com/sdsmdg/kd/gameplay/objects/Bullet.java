@@ -20,11 +20,16 @@ public class Bullet extends GameObject{
         this.active = false;
     }
 
-    public void initBullets(){
+    public void initBullets(Magnus magnus){
         this.active = true;
-        this.x = GameWorld.magnus.x;
-        this.y = GameWorld.magnus.y;
+        this.x = magnus.x;
+        this.y = magnus.y;
         this.velocity = 20;
+    }
+
+    public void reset(Magnus magnus){
+        this.x = magnus.x;
+        this.y = magnus.y;
     }
 
     public void setDirectionAndShoot(){
@@ -32,8 +37,6 @@ public class Bullet extends GameObject{
         add(velocityComponent);
         Gdx.app.log("Bullet preparing to attack, components: ", "" + velocityComponent.x + " " + velocityComponent.y);
     }
-
-
 
     public boolean didBulletGetTheFinger(){
         //some code
