@@ -37,11 +37,12 @@ public class BulletController {
 
         if (bullet.active){
             bullet.initBullets(magnus);
-            bullet.setDirectionAndShoot();
+            bullet.shootBullet();
         }
 
         if (!bullet.active){
             bullet.reset(magnus);
+            bullet.setDirection();
         }
     }
 }

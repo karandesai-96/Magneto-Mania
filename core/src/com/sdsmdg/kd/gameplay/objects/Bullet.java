@@ -32,8 +32,12 @@ public class Bullet extends GameObject{
         this.y = magnus.y;
     }
 
-    public void setDirectionAndShoot(){
+    public void setDirection(){
         calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
+        Gdx.app.log("Bullet direction set.","");
+    }
+
+    public void shootBullet(){
         add(velocityComponent);
         Gdx.app.log("Bullet preparing to attack, components: ", "" + velocityComponent.x + " " + velocityComponent.y);
     }
