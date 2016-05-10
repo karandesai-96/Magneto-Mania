@@ -17,22 +17,11 @@ public class BulletController {
     }
 
     public void control(){
-        if (bullet.active && (bullet.x >= Main.screen.x - 5 || bullet.x <= 5 || bullet.y >= Main.screen.y - 5 || bullet.y <= 5)) {
-
+        if (bullet.active && (bullet.x >= (Main.screen.x + (2*bullet.radius)) || bullet.x <= (0-(2*bullet.radius)) || bullet.y >= (Main.screen.y + (2*bullet.radius)) || bullet.y <= (0-(2*bullet.radius)))) {
             // For preventing glitchy movement at the boundary.
-            if (bullet.x > Main.screen.x) {
-                bullet.x = Main.screen.x;
-            }
-            if (bullet.y > Main.screen.y) {
-                bullet.y = Main.screen.y;
-            }
+            bullet.reset(magnus);
 
-            if (bullet.x < 0) {
-                bullet.x = 0;
-            }
-            if (bullet.y < 0) {
-                bullet.y = 0;
-            }
+            /// if number of bullets shot is sufficient then bullet.active can be set to false here.
         }
 
         if (bullet.active){
