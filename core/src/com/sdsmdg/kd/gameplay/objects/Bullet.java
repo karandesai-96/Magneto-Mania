@@ -3,7 +3,6 @@ package com.sdsmdg.kd.gameplay.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.sdsmdg.kd.gameworld.GameWorld;
 import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
@@ -25,11 +24,6 @@ public class Bullet extends GameObject{
         this.x = magnus.x;
         this.y = magnus.y;
         this.velocity = 20;
-    }
-
-    public void reset(Magnus magnus){
-        this.x = magnus.x;
-        this.y = magnus.y;
     }
 
     public void setDirection(){

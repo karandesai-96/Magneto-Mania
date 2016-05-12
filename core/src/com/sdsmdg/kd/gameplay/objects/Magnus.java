@@ -44,6 +44,7 @@ public class Magnus extends GameObject {
         Gdx.app.log("Sleeping: ", "" + sleepTime);
         if (sleepTime < 1) {
             activate();
+            sleepTime = 0;
             Gdx.app.log("Activated !", "" + active);
         }
     }

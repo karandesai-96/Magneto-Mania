@@ -20,18 +20,17 @@ public class BulletController {
         if (bullet.active && (bullet.x >= (Main.screen.x + (2*bullet.radius)) || bullet.x <= (0-(2*bullet.radius)) ||
                 bullet.y >= (Main.screen.y + (2*bullet.radius)) || bullet.y <= (0-(2*bullet.radius)))) {
             // For preventing glitched movement at the boundary.
-            bullet.reset(magnus);
+            bullet.initBullets(magnus);
 
             /// if number of bullets shot is sufficient then bullet.active can be set to false here.
         }
 
         if (bullet.active){
-            bullet.initBullets(magnus);
             bullet.shootBullet();
         }
 
         if (!bullet.active){
-            bullet.reset(magnus);
+            bullet.initBullets(magnus);
             bullet.setDirection();
         }
     }

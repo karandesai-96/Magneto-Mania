@@ -1,23 +1,13 @@
 package com.sdsmdg.kd.gameplay.controllers;
 
-import com.badlogic.gdx.math.RandomXS128;
-import com.sdsmdg.kd.gameplay.objects.Bullet;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.magnetomania.Main;
 
 public class MagnusController {
     private Magnus magnus;
-    private Bullet bullet;
-    private BulletController bulletController;
-    private RandomXS128 randomXS128;
-    private int weaponSelector;
 
-
-    public MagnusController(Magnus magnus, Bullet bullet, BulletController bulletController) {
+    public MagnusController(Magnus magnus) {
         this.magnus = magnus;
-        this.bullet = bullet;
-        this.bulletController = bulletController;
-        this.randomXS128 = new RandomXS128();
     }
 
 
@@ -40,22 +30,15 @@ public class MagnusController {
             }
 
             magnus.prepareForSleep();
-            weaponSelector = randomXS128.nextInt(2);
         }
 
         if (!magnus.active) {
-            if (weaponSelector%2==0) {
-                magnus.sleep();
+            magnus.sleep();
 
-                if (magnus.active) {
-                    magnus.prepareForAttack();
-                    magnus.attack();
-                }
-            }
-            else if (weaponSelector%2==1) {
-                bullet.activate();
-                bullet.setDirection();
-                bulletController.control();
+            //this will never be encountered because of the condition checking in GameWorld class.
+            if (magnus.active) {
+                magnus.prepareForAttack();
+                magnus.attack();
             }
         }
         else {
