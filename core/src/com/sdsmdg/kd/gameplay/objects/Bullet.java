@@ -21,7 +21,7 @@ public class Bullet extends GameObject{
     }
 
     public void initBullets(Magnus magnus){
-        this.active = true;
+        activate();
         this.x = magnus.x;
         this.y = magnus.y;
         this.velocity = 20;
