@@ -51,6 +51,23 @@ public class Bullet extends GameObject {
         Gdx.app.log("Bullet attacking, components:", " " + velocityComponent.x + " " + velocityComponent.y);
     }
 
+    public void resetBullet(Magnus magnus) {
+        /**
+         * This method resets the bullets when they escape the screen while moving.
+         * The bullets are deactivated and their center is set outside the screen again.
+         * shoot them is determined, by finger's position.
+         *
+         * @param magnus For using the coordinates of its center.
+         */
+        deactivate();
+
+        this.x = Main.screen.x + (4 * this.radius);
+        this.y = Main.screen.y + (4 * this.radius);
+
+        calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
+        Gdx.app.log("Bullet has been reset.","");
+    }
+
     public boolean didBulletGetTheFinger() {
         //some code
         return false;
