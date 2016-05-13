@@ -44,6 +44,7 @@ public class GameWorld {
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
 
+        //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
         magnus.prepareForAttack();
     }
 
@@ -74,5 +75,6 @@ public class GameWorld {
 
     public void selectWeapon() {
         currentWeapon = 1;
+        bullet.initBullets(magnus);
     }
 }
