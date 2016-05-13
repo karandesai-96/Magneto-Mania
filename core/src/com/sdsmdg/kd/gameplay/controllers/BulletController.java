@@ -5,21 +5,16 @@ import com.sdsmdg.kd.gameplay.objects.Bullet;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.magnetomania.Main;
 
-/**
- * Created by Haresh on 10-05-2016.
- */
 public class BulletController {
     private Bullet bullet;
-    private Magnus magnus;
     private RandomXS128 randomXS128;
 
-    public BulletController(Bullet bullet, Magnus magnus){
+    public BulletController(Bullet bullet){
         this.bullet = bullet;
-        this.magnus = magnus;
         this.randomXS128 = new RandomXS128();
     }
 
-    public void control(){
+    public void control(Magnus magnus) {
         if (bullet.active && (bullet.x >= (Main.screen.x + (2*bullet.radius)) || bullet.x <= (0-(2*bullet.radius)) ||
                 bullet.y >= (Main.screen.y + (2*bullet.radius)) || bullet.y <= (0-(2*bullet.radius)))) {
             // For preventing glitched movement at the boundary.
@@ -36,7 +31,6 @@ public class BulletController {
 
         if (!bullet.active){
             bullet.initBullets(magnus);
-            bullet.setDirection();
         }
     }
 }
