@@ -12,12 +12,13 @@ public class BulletController {
     }
 
     public void control(Magnus magnus) {
-        if (bullet.active && (bullet.x >= (Main.screen.x + (2*bullet.radius)) || bullet.x <= (0-(2*bullet.radius)) ||
-                bullet.y >= (Main.screen.y + (2*bullet.radius)) || bullet.y <= (0-(2*bullet.radius)))) {
+        if (bullet.active &&
+                (bullet.x >= Main.screen.x + 2 * bullet.radius || bullet.x <= -2 * bullet.radius ||
+                 bullet.y >= Main.screen.y + 2 * bullet.radius || bullet.y <= -2 * bullet.radius)) {
             bullet.resetBullet(magnus);
         }
 
-        if (bullet.active){
+        if (bullet.active) {
             bullet.shootBullet();
         }
     }
