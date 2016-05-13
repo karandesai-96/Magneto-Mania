@@ -11,11 +11,17 @@ import com.sdsmdg.kd.magnetomania.Main;
  */
 public class Bullet extends GameObject{
     public Bullet() {
-        this.x = 0;
-        this.y = 0;
-        this.velocity = 20;
+        // Setting the radius such that the bullet is (1/300)th the size of screen.
         this.radius = (int) Math.sqrt(Main.screenArea/(300* MathUtils.PI));
-        Gdx.app.log("X: " + this.x, "Y: " + this.y);
+
+        // The bullet should be out of screen when the game starts, hence its
+        // coordinates are set a little outside the screen.
+        this.x = Main.screen.x + (4 * this.radius);
+        this.y = Main.screen.y + (4 * this.radius);
+
+        this.velocity = 20;
+
+        // Bullet is inactive when game starts.
         this.active = false;
     }
 
