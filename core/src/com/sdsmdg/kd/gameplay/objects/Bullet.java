@@ -7,9 +7,10 @@ import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 /**
- * Created by Haresh on 09-05-2016.
+ * @author Haresh Khanna
+ * @author Karan Desai
  */
-public class Bullet extends GameObject{
+public class Bullet extends GameObject {
     public Bullet() {
         // Setting the radius such that the bullet is (1/300)th the size of screen.
         this.radius = (int) Math.sqrt(Main.screenArea/(300* MathUtils.PI));
@@ -25,23 +26,32 @@ public class Bullet extends GameObject{
         this.active = false;
     }
 
-    public void initBullets(Magnus magnus){
+    public void initBullets(Magnus magnus) {
+        /**
+         * This method initializes bullets when time to shoot them arrives.
+         * The bullets' center is set as Magnus' center and the direction to
+         * shoot them is determined, by finger's position.
+         *
+         * @param magnus For using the coordinates of its center.
+         */
         activate();
         this.x = magnus.x;
         this.y = magnus.y;
-    }
 
-    public void setDirection(){
         calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
         Gdx.app.log("Bullet direction set.","");
     }
 
-    public void shootBullet(){
+    public void shootBullet() {
+        /**
+         * This method adds the velocity components to current position of bullet,
+         * hence making it move in a specific direction.
+         */
         add(velocityComponent);
-        Gdx.app.log("Bullet attacking, components: ", "" + velocityComponent.x + " " + velocityComponent.y);
+        Gdx.app.log("Bullet attacking, components:", " " + velocityComponent.x + " " + velocityComponent.y);
     }
 
-    public boolean didBulletGetTheFinger(){
+    public boolean didBulletGetTheFinger() {
         //some code
         return false;
     }
