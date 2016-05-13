@@ -13,21 +13,21 @@ public class MagnusController {
 
 
     public void control () {
-        if (magnus.active && (magnus.x >= Main.screen.x - 5 || magnus.x <= 5 ||
-                              magnus.y >= Main.screen.y - 5 || magnus.y <= 5)) {
+        if (magnus.active && (magnus.x >= Main.screen.x + 5 || magnus.x <= -5 ||
+                              magnus.y >= Main.screen.y + 5 || magnus.y <= -5)) {
 
             // For preventing glitchy movement at the boundary.
-            if (magnus.x > Main.screen.x) {
+            if (magnus.x > Main.screen.x+5) {
                 magnus.x = Main.screen.x;
             }
-            if (magnus.y > Main.screen.y) {
+            if (magnus.y > Main.screen.y+5) {
                 magnus.y = Main.screen.y;
             }
 
-            if (magnus.x < 0) {
+            if (magnus.x < -5) {
                 magnus.x = 0;
             }
-            if (magnus.y < 0) {
+            if (magnus.y < -5) {
                 magnus.y = 0;
             }
 

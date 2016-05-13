@@ -43,17 +43,19 @@ public class GameWorld {
         bullet = new Bullet();
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
+
+        magnus.prepareForAttack();
     }
 
     public void update(float delta) {
-        Gdx.app.log("Update called", "");
+        Gdx.app.log("GameWorld", "Update called");
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
-                Gdx.app.log("BulletController called","");
+                Gdx.app.log("GameWorld","BulletController called");
                 bulletController.control(magnus);
             }
             else {
-                Gdx.app.log("MagnusController called","");
+                Gdx.app.log("GameWorld", "MagnusController called");
                 magnusController.control();
             }
 
