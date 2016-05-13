@@ -7,7 +7,6 @@ import com.sdsmdg.kd.magnetomania.Main;
 public class MagnusController {
     private Magnus magnus;
     private RandomXS128 randomXS128;
-    public static int weaponSelector;
 
     public MagnusController(Magnus magnus) {
         this.magnus = magnus;
@@ -38,11 +37,8 @@ public class MagnusController {
 
         if (!magnus.active) {
             magnus.sleep();
-            if (magnus.sleepTime == 1) {
-                weaponSelector = randomXS128.nextInt();
-            }
 
-            if (magnus.active && weaponSelector%2==0) {
+            if (magnus.active) {
                 magnus.prepareForAttack();
                 magnus.attack();
             }
