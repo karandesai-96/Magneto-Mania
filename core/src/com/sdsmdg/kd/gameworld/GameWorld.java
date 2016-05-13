@@ -1,5 +1,6 @@
 package com.sdsmdg.kd.gameworld;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.RandomXS128;
 import com.sdsmdg.kd.gameplay.controllers.BulletController;
 import com.sdsmdg.kd.gameplay.objects.Bullet;
@@ -45,11 +46,14 @@ public class GameWorld {
     }
 
     public void update(float delta) {
+        Gdx.app.log("Update called", "");
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
+                Gdx.app.log("BulletController called","");
                 bulletController.control(magnus);
             }
             else {
+                Gdx.app.log("MagnusController called","");
                 magnusController.control();
             }
 

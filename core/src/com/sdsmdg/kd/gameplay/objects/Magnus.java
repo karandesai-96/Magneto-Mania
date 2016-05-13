@@ -27,6 +27,8 @@ public class Magnus extends GameObject {
         Gdx.app.log("X: " + this.x, "Y: " + this.y);
         this.radius = (int)(Math.sqrt((Main.screenArea) / (12 * MathUtils.PI)));
         this.velocity = random.nextInt(15) + 15;
+
+        //Magnus is active when game starts
         this.active = true;
     }
 
