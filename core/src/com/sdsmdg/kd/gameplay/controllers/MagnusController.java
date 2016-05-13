@@ -1,21 +1,20 @@
 package com.sdsmdg.kd.gameplay.controllers;
 
-import com.badlogic.gdx.math.RandomXS128;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
+import com.sdsmdg.kd.gameworld.GameWorld;
 import com.sdsmdg.kd.magnetomania.Main;
 
 public class MagnusController {
     private Magnus magnus;
-    private RandomXS128 randomXS128;
 
     public MagnusController(Magnus magnus) {
         this.magnus = magnus;
-        this.randomXS128 = new RandomXS128();
     }
 
 
     public void control () {
-        if (magnus.active && (magnus.x >= Main.screen.x - 5 || magnus.x <= 5 || magnus.y >= Main.screen.y - 5 || magnus.y <= 5)) {
+        if (magnus.active && (magnus.x >= Main.screen.x - 5 || magnus.x <= 5 ||
+                              magnus.y >= Main.screen.y - 5 || magnus.y <= 5)) {
 
             // For preventing glitchy movement at the boundary.
             if (magnus.x > Main.screen.x) {
@@ -33,6 +32,7 @@ public class MagnusController {
             }
 
             magnus.prepareForSleep();
+            GameWorld.gameState = GameWorld.GameState.NEXT_WEAPON;
         }
 
         if (!magnus.active) {
