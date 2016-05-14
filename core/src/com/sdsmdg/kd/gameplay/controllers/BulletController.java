@@ -21,8 +21,16 @@ public class BulletController {
              * goes out of the screen, it is reset to its default position
              * and the gameState is changed.
              */
-            bullet.resetBullet(magnus);
-            GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
+
+            if(bullet.bulletsFired==7) {
+                bullet.resetBullet(magnus);
+                GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
+            }
+            else{
+                bullet.bulletsFired++;
+                bullet.initBullets(magnus);
+                bullet.velocity += (2*bullet.bulletsFired);
+            }
         }
 
         if (bullet.active) {

@@ -11,6 +11,7 @@ import com.sdsmdg.kd.magnetomania.Main;
  * @author Karan Desai
  */
 public class Bullet extends GameObject {
+    public int bulletsFired;
     public Bullet() {
         // Setting the radius such that the bullet is (1/300)th the size of screen.
         this.radius = (int) Math.sqrt(Main.screenArea/(300* MathUtils.PI));
@@ -20,10 +21,11 @@ public class Bullet extends GameObject {
         this.x = Main.screen.x + (4 * this.radius);
         this.y = Main.screen.y + (4 * this.radius);
 
-        this.velocity = 20;
+        this.velocity = 30;
 
         // Bullet is inactive when game starts.
         this.active = false;
+        this.bulletsFired = 0;
     }
 
     public void initBullets(Magnus magnus) {
@@ -63,6 +65,8 @@ public class Bullet extends GameObject {
 
         this.x = Main.screen.x + (4 * this.radius);
         this.y = Main.screen.y + (4 * this.radius);
+        this.bulletsFired = 0;
+        this.velocity = 30;
 
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
         Gdx.app.log("Bullet has been reset.","");
