@@ -75,6 +75,13 @@ public class GameWorld {
 
     public void selectWeapon() {
         currentWeapon = 1;
+
+        /* when Bullets are selected to be fired, initial point and direction
+         * are set using initBullets method.
+         *
+         * @param magnus For using the coordinates of its center.
+         */
+
         bullet.initBullets(magnus);
     }
 }

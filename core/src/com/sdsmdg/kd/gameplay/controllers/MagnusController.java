@@ -32,6 +32,8 @@ public class MagnusController {
             }
 
             magnus.prepareForSleep();
+
+            //after the Magnus reaches one of the walls, next a weapon is selected and fired.
             GameWorld.gameState = GameWorld.GameState.NEXT_WEAPON;
         }
 

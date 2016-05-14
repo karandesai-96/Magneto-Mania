@@ -25,6 +25,7 @@ public class Magnus extends GameObject {
 
         this.y = random.nextInt((int)Main.screen.y + 1);
         Gdx.app.log("X: " + this.x, "Y: " + this.y);
+
         this.radius = (int)(Math.sqrt((Main.screenArea) / (12 * MathUtils.PI)));
         this.velocity = random.nextInt(15) + 15;
 
