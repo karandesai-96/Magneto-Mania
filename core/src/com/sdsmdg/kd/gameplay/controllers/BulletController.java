@@ -29,7 +29,7 @@ public class BulletController {
             else{
                 bullet.bulletsFired++;
                 bullet.initBullets(magnus);
-                bullet.velocity += (2*bullet.bulletsFired);
+                bullet.velocity += (bullet.bulletsFired);
             }
         }
 
