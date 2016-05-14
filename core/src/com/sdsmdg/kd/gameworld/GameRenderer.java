@@ -31,6 +31,18 @@ public class GameRenderer {
         shapeRenderer.begin(ShapeType.Filled);
 
         //Set up (Red,Green,Blue,Alpha)
+        shapeRenderer.setColor(0 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1);
+
+        //Draws circle from GameWorld
+        shapeRenderer.circle(gameWorld.bullet.x, gameWorld.bullet.y, gameWorld.bullet.radius);
+
+        //Tells the shape renderer to finish rendering. This must be done every time.
+        shapeRenderer.end();
+
+        //Begin drawing filled shape
+        shapeRenderer.begin(ShapeType.Filled);
+
+        //Set up (Red,Green,Blue,Alpha)
         shapeRenderer.setColor(255 / 255.0f, 0 / 255.0f, 0 / 255.0f, 1);
 
         //Draws circle from GameWorld

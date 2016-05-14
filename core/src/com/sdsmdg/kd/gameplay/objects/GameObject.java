@@ -8,7 +8,6 @@ public abstract class GameObject extends Vector2 {
     public float radius;
     public float velocity;
     public boolean active;
-
     public Vector2 velocityComponent = new Vector2(0, 0);
 
     public GameObject () {

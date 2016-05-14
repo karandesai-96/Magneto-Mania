@@ -2,6 +2,7 @@ package com.sdsmdg.kd.gameplay.objects;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.helpers.InputHandler;
@@ -24,8 +25,11 @@ public class Magnus extends GameObject {
 
         this.y = random.nextInt((int)Main.screen.y + 1);
         Gdx.app.log("X: " + this.x, "Y: " + this.y);
-        this.radius = (int)(Math.sqrt((Main.screenArea) / (12 * Math.PI)));
+
+        this.radius = (int)(Math.sqrt((Main.screenArea) / (12 * MathUtils.PI)));
         this.velocity = random.nextInt(15) + 15;
+
+        //Magnus is active when game starts
         this.active = true;
     }
 
@@ -43,6 +47,7 @@ public class Magnus extends GameObject {
         Gdx.app.log("Sleeping: ", "" + sleepTime);
         if (sleepTime < 1) {
             activate();
+            sleepTime = 0;
             Gdx.app.log("Activated !", "" + active);
         }
     }
@@ -51,7 +56,7 @@ public class Magnus extends GameObject {
     public void prepareForAttack () {
         velocity = random.nextInt(15) + 15;
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
-        Gdx.app.log("Preparing to attack, components: ", "" + velocityComponent.x + " " + velocityComponent.y);
+        Gdx.app.log("Magnus preparing to attack, components: ", "" + velocityComponent.x + " " + velocityComponent.y);
     }
 
     public void attack () {
