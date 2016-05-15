@@ -62,9 +62,6 @@ public class Rocket extends GameObject {
         add(velocityComponent);
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
         Gdx.app.log("Rocket following, components:", " " + velocityComponent.x + " " + velocityComponent.y);
-
-        // Rocket's activeTime decreases on every game update.
-        activeTime--;
     }
 
 
