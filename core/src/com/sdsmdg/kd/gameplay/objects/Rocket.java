@@ -62,5 +62,23 @@ public class Rocket extends GameObject {
         add(velocityComponent);
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
         Gdx.app.log("Rocket following, components:", " " + velocityComponent.x + " " + velocityComponent.y);
+
+        // Rocket's activeTime decreases on every game update.
+        activeTime--;
+    }
+
+
+    public void reset(Magnus magnus) {
+        /**
+         * This method resets the rocket when its activeTime becomes zero.
+         * The rocket is deactivated, its center is set outside the screen again.
+         *
+         * @param magnus For using the coordinates of its center.
+         */
+        deactivate();
+
+        this.x = Main.screen.x + (4 * this.radius);
+        this.y = Main.screen.y + (4 * this.radius);
+        Gdx.app.log("Rocket has been reset.", "");
     }
 }
