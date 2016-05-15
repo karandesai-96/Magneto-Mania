@@ -1,32 +1,52 @@
 package com.sdsmdg.kd.gameplay.controllers;
 
-import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
+import com.sdsmdg.kd.gameworld.GameWorld;
+import com.sdsmdg.kd.magnetomania.Main;
 
-
-/**
- * Created by Haresh on 08-03-2016.
- */
 public class MagnusController {
-
-    /** CLASS MEMBERS *****************************************************/
     private Magnus magnus;
-    public int score;
-    public Vector2 destinationPoint;
-    public Vector2 initialPoint;
-    /**--------------------------------------------------------------------**/
 
-    /** CONSTRUCTOR *****************************************************/
     public MagnusController(Magnus magnus) {
         this.magnus = magnus;
-        score = 0;
     }
-    /**--------------------------------------------------------------------**/
 
-    /** MAGNUS UPDATE METHODS *****************************************************/
-    public void MagnusControl () {
-        magnus.prepareForSleepAndAttack();
-        magnus.attackFingerPosition();
+
+    public void control () {
+        if (magnus.active && (magnus.x >= Main.screen.x + 5 || magnus.x <= -5 ||
+                              magnus.y >= Main.screen.y + 5 || magnus.y <= -5)) {
+
+            // For preventing glitchy movement at the boundary.
+            if (magnus.x > Main.screen.x+5) {
+                magnus.x = Main.screen.x;
+            }
+            if (magnus.y > Main.screen.y+5) {
+                magnus.y = Main.screen.y;
+            }
+
+            if (magnus.x < -5) {
+                magnus.x = 0;
+            }
+            if (magnus.y < -5) {
+                magnus.y = 0;
+            }
+
+            magnus.prepareForSleep();
+
+            //after the Magnus reaches one of the walls, next a weapon is selected and fired.
+            GameWorld.gameState = GameWorld.GameState.NEXT_WEAPON;
+        }
+
+        if (!magnus.active) {
+            magnus.sleep();
+
+            if (magnus.active) {
+                magnus.prepareForAttack();
+                magnus.attack();
+            }
+        }
+        else {
+            magnus.attack();
+        }
     }
-    /**--------------------------------------------------------------------**/
 }
