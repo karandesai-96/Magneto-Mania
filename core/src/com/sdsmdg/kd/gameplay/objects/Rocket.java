@@ -34,4 +34,33 @@ public class Rocket extends GameObject {
         // Rocket is inactive when game starts
         this.active = false;
     }
+
+
+    public void initRocket(Magnus magnus) {
+        /**
+         * This method initializes rocket when time arrives. The rocket's center
+         * is set as Magnus' center and the direction to shoot it is determined
+         * by finger's position.
+         *
+         * @param magnus For using the coordinates of its center.
+         */
+        activate();
+        this.x = magnus.x;
+        this.y = magnus.y;
+
+        calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
+        Gdx.app.log("Rocket initialized.","");
+    }
+
+    public void follow() {
+        /**
+         * This method gets finger position, calculates the velocity components of
+         * the vector joining rocket's center and finger's position coordinates and
+         * adds the velocity components to current position of rocket, hence making
+         * it look like following the finger, as it happens in every game update.
+         */
+        add(velocityComponent);
+        calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
+        Gdx.app.log("Rocket following, components:", " " + velocityComponent.x + " " + velocityComponent.y);
+    }
 }
