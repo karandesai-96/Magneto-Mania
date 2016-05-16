@@ -45,6 +45,8 @@ public class Rocket extends GameObject {
          * @param magnus For using the coordinates of its center.
          */
         activate();
+        activeTime = random.nextInt(15) + 30;
+
         this.x = magnus.x;
         this.y = magnus.y;
 

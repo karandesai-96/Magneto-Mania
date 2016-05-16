@@ -2,11 +2,14 @@ package com.sdsmdg.kd.gameworld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.RandomXS128;
-import com.sdsmdg.kd.gameplay.controllers.BulletController;
-import com.sdsmdg.kd.gameplay.objects.Bullet;
 import com.sdsmdg.kd.screens.GameScreen;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
+import com.sdsmdg.kd.gameplay.objects.Bullet;
+import com.sdsmdg.kd.gameplay.objects.Rocket;
+
 import com.sdsmdg.kd.gameplay.controllers.MagnusController;
+import com.sdsmdg.kd.gameplay.controllers.BulletController;
+import com.sdsmdg.kd.gameplay.controllers.RocketController;
 
 
 public class GameWorld {
@@ -27,13 +30,16 @@ public class GameWorld {
      * Different values of currentWeapon integer correspond to:
      *      0: Magnus
      *      1: Bullets
+     *      2: Rocket
      */
     public static int currentWeapon;
-
+    public RandomXS128 random;
     public Magnus magnus;
     public Bullet bullet;
+    public Rocket rocket;
     public MagnusController magnusController;
     public BulletController bulletController;
+    public RocketController rocketController;
 
 
     public GameWorld() {
@@ -41,8 +47,10 @@ public class GameWorld {
         currentWeapon = 0;
         magnus = new Magnus();
         bullet = new Bullet();
+        rocket = new Rocket();
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
+        rocketController = new RocketController(rocket);
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
         magnus.prepareForAttack();
@@ -54,6 +62,10 @@ public class GameWorld {
             if (currentWeapon == 1) {
                 Gdx.app.log("GameWorld","BulletController called");
                 bulletController.control(magnus);
+            }
+            else if (currentWeapon == 2) {
+                Gdx.app.log("GameWorld","RocketController called");
+                rocketController.control(magnus);
             }
             else {
                 Gdx.app.log("GameWorld", "MagnusController called");
@@ -74,14 +86,14 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = 1;
-
-        /* when Bullets are selected to be fired, initial point and direction
-         * are set using initBullets method.
-         *
-         * @param magnus For using the coordinates of its center.
-         */
-
-        bullet.initBullets(magnus);
+        currentWeapon = random.nextInt(2);
+        if (currentWeapon == 1) {
+            // Bullets selected.
+            bullet.initBullets(magnus);
+        }
+        else if (currentWeapon == 2) {
+            // Rocket selected.
+            rocket.initRocket(magnus);
+        }
     }
 }
