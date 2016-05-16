@@ -51,6 +51,7 @@ public class GameWorld {
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
         rocketController = new RocketController(rocket);
+        this.random = new RandomXS128();
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
         magnus.prepareForAttack();
@@ -86,7 +87,7 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = random.nextInt(2);
+        currentWeapon = random.nextInt(3);
         if (currentWeapon == 1) {
             // Bullets selected.
             bullet.initBullets(magnus);

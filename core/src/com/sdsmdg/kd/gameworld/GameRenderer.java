@@ -34,7 +34,7 @@ public class GameRenderer {
         shapeRenderer.setColor(0 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1);
 
         //Draws circle from GameWorld for Bullet.
-        shapeRenderer.circle(gameWorld.bullet.x, gameWorld.bullet.y, gameWorld.bullet.radius);
+        shapeRenderer.circle(gameWorld.rocket.x, gameWorld.rocket.y, gameWorld.rocket.radius);
 
         //Set up (Red,Green,Blue,Alpha)
         shapeRenderer.setColor(0 / 255.0f, 0 / 255.0f, 255 / 255.0f, 1);
