@@ -4,7 +4,6 @@ import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.gameplay.objects.Rocket;
 import com.sdsmdg.kd.gameworld.GameWorld;
 
-
 public class RocketController {
     private Rocket rocket;
 
