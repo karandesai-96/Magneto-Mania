@@ -15,8 +15,8 @@ public class Rocket extends GameObject {
 
 
     public Rocket() {
-        // Setting the radius such that the rocket is (1/18)th the size of screen.
-        this.radius = (int) Math.sqrt(Main.screenArea / (18 * MathUtils.PI));
+        // Setting the radius such that the rocket is (1/50)th the size of screen.
+        this.radius = (int) Math.sqrt(Main.screenArea / (50 * MathUtils.PI));
 
         // The rocket should be out of screen when the game starts, hence its
         // coordinates are set a little outside the screen.
@@ -45,7 +45,7 @@ public class Rocket extends GameObject {
          * @param magnus For using the coordinates of its center.
          */
         activate();
-        activeTime = random.nextInt(15) + 30;
+        activeTime = random.nextInt(150) + 200;
 
         this.x = magnus.x;
         this.y = magnus.y;
