@@ -2,6 +2,8 @@ package com.sdsmdg.kd.gameworld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.RandomXS128;
+import com.sdsmdg.kd.gameplay.controllers.HeatWaveController;
+import com.sdsmdg.kd.gameplay.objects.HeatWave;
 import com.sdsmdg.kd.screens.GameScreen;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.gameplay.objects.Bullet;
@@ -30,15 +32,18 @@ public class GameWorld {
      * Different values of currentWeapon integer correspond to:
      *      0: Magnus
      *      1: Bullets
+     *      2: Heatwave
      *      2: Rocket
      */
     public static int currentWeapon;
     public RandomXS128 random;
     public Magnus magnus;
     public Bullet bullet;
+    public HeatWave heatwave;
     public Rocket rocket;
     public MagnusController magnusController;
     public BulletController bulletController;
+    public HeatWaveController heatwaveController;
     public RocketController rocketController;
 
 
@@ -47,9 +52,11 @@ public class GameWorld {
         currentWeapon = 0;
         magnus = new Magnus();
         bullet = new Bullet();
+        heatwave = new HeatWave();
         rocket = new Rocket();
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
+        heatwaveController = new HeatWaveController(heatwave);
         rocketController = new RocketController(rocket);
         this.random = new RandomXS128();
 
@@ -65,6 +72,10 @@ public class GameWorld {
                 bulletController.control(magnus);
             }
             else if (currentWeapon == 2) {
+                Gdx.app.log("GameWorld","HeatWaveController called");
+                heatwaveController.control(magnus);
+            }
+            else if (currentWeapon == 3) {
                 Gdx.app.log("GameWorld","RocketController called");
                 rocketController.control(magnus);
             }
@@ -87,12 +98,16 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = random.nextInt(3);
+        currentWeapon = random.nextInt(4);
         if (currentWeapon == 1) {
             // Bullets selected.
             bullet.initBullets(magnus);
         }
         else if (currentWeapon == 2) {
+            // Heatwave selected.
+            heatwave.init(magnus);
+        }
+        else if (currentWeapon == 3) {
             // Rocket selected.
             rocket.initRocket(magnus);
         }
