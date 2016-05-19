@@ -28,14 +28,14 @@ public class Bullet extends GameObject {
         this.bulletsFired = 0;
     }
 
+    /**
+     * This method initializes bullets when time to shoot them arrives.
+     * The bullets' center is set as Magnus' center and the direction to
+     * shoot them is determined, by finger's position.
+     *
+     * @param magnus For using the coordinates of its center.
+     */
     public void initBullets(Magnus magnus) {
-        /**
-         * This method initializes bullets when time to shoot them arrives.
-         * The bullets' center is set as Magnus' center and the direction to
-         * shoot them is determined, by finger's position.
-         *
-         * @param magnus For using the coordinates of its center.
-         */
         activate();
         this.x = magnus.x;
         this.y = magnus.y;
@@ -44,23 +44,23 @@ public class Bullet extends GameObject {
         Gdx.app.log("Bullet direction set.","");
     }
 
+    /**
+     * This method adds the velocity components to current position of bullet,
+     * hence making it move in a specific direction.
+     */
     public void shootBullet() {
-        /**
-         * This method adds the velocity components to current position of bullet,
-         * hence making it move in a specific direction.
-         */
         add(velocityComponent);
         Gdx.app.log("Bullet attacking, components:", " " + velocityComponent.x + " " + velocityComponent.y);
     }
 
+    /**
+     * This method resets the bullets when they escape the screen while moving.
+     * The bullets are deactivated and their center is set outside the screen again.
+     * shoot them is determined, by finger's position.
+     *
+     * @param magnus For using the coordinates of its center.
+     */
     public void resetBullet(Magnus magnus) {
-        /**
-         * This method resets the bullets when they escape the screen while moving.
-         * The bullets are deactivated and their center is set outside the screen again.
-         * shoot them is determined, by finger's position.
-         *
-         * @param magnus For using the coordinates of its center.
-         */
         deactivate();
 
         this.x = Main.screen.x + (4 * this.radius);
@@ -70,10 +70,5 @@ public class Bullet extends GameObject {
 
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
         Gdx.app.log("Bullet has been reset.","");
-    }
-
-    public boolean didBulletGetTheFinger() {
-        //some code
-        return false;
     }
 }

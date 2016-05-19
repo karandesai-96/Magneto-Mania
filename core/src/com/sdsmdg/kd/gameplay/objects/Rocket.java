@@ -35,15 +35,14 @@ public class Rocket extends GameObject {
         this.active = false;
     }
 
-
+    /**
+     * This method initializes rocket when time arrives. The rocket's center
+     * is set as Magnus' center and the direction to shoot it is determined
+     * by finger's position.
+     *
+     * @param magnus For using the coordinates of its center.
+     */
     public void initRocket(Magnus magnus) {
-        /**
-         * This method initializes rocket when time arrives. The rocket's center
-         * is set as Magnus' center and the direction to shoot it is determined
-         * by finger's position.
-         *
-         * @param magnus For using the coordinates of its center.
-         */
         activate();
         activeTime = random.nextInt(150) + 200;
 
@@ -54,26 +53,25 @@ public class Rocket extends GameObject {
         Gdx.app.log("Rocket initialized.","");
     }
 
+    /**
+     * This method gets finger position, calculates the velocity components of
+     * the vector joining rocket's center and finger's position coordinates and
+     * adds the velocity components to current position of rocket, hence making
+     * it look like following the finger, as it happens in every game update.
+     */
     public void follow() {
-        /**
-         * This method gets finger position, calculates the velocity components of
-         * the vector joining rocket's center and finger's position coordinates and
-         * adds the velocity components to current position of rocket, hence making
-         * it look like following the finger, as it happens in every game update.
-         */
         add(velocityComponent);
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
         Gdx.app.log("Rocket following, components:", " " + velocityComponent.x + " " + velocityComponent.y);
     }
 
-
+    /**
+     * This method resets the rocket when its activeTime becomes zero.
+     * The rocket is deactivated, its center is set outside the screen again.
+     *
+     * @param magnus For using the coordinates of its center.
+     */
     public void reset(Magnus magnus) {
-        /**
-         * This method resets the rocket when its activeTime becomes zero.
-         * The rocket is deactivated, its center is set outside the screen again.
-         *
-         * @param magnus For using the coordinates of its center.
-         */
         deactivate();
 
         this.x = Main.screen.x + (4 * this.radius);
