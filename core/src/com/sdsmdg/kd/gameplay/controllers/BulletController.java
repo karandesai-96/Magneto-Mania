@@ -22,19 +22,19 @@ public class BulletController {
              * and the gameState is changed.
              */
 
-            if(bullet.bulletsFired==7) {
-                bullet.resetBullet(magnus);
+            if(bullet.bulletsFired == 7) {
+                bullet.reset();
                 GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
             }
-            else{
+            else {
                 bullet.bulletsFired++;
-                bullet.initBullets(magnus);
+                bullet.init(magnus);
                 bullet.velocity += (bullet.bulletsFired);
             }
         }
 
         if (bullet.active) {
-            bullet.shootBullet();
+            bullet.shoot();
         }
     }
 }

@@ -42,7 +42,7 @@ public class Rocket extends GameObject {
      *
      * @param magnus For using the coordinates of its center.
      */
-    public void initRocket(Magnus magnus) {
+    public void init(Magnus magnus) {
         activate();
         activeTime = random.nextInt(150) + 200;
 
@@ -68,10 +68,8 @@ public class Rocket extends GameObject {
     /**
      * This method resets the rocket when its activeTime becomes zero.
      * The rocket is deactivated, its center is set outside the screen again.
-     *
-     * @param magnus For using the coordinates of its center.
      */
-    public void reset(Magnus magnus) {
+    public void reset() {
         deactivate();
 
         this.x = Main.screen.x + (4 * this.radius);

@@ -1,6 +1,5 @@
 package com.sdsmdg.kd.gameworld;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.RandomXS128;
 import com.sdsmdg.kd.gameplay.controllers.HeatWaveController;
 import com.sdsmdg.kd.gameplay.objects.HeatWave;
@@ -65,22 +64,17 @@ public class GameWorld {
     }
 
     public void update(float delta) {
-        Gdx.app.log("GameWorld", "Update called");
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
-                Gdx.app.log("GameWorld","BulletController called");
                 bulletController.control(magnus);
             }
             else if (currentWeapon == 2) {
-                Gdx.app.log("GameWorld","HeatWaveController called");
-                heatwaveController.control(magnus);
+                heatwaveController.control();
             }
             else if (currentWeapon == 3) {
-                Gdx.app.log("GameWorld","RocketController called");
-                rocketController.control(magnus);
+                rocketController.control();
             }
             else {
-                Gdx.app.log("GameWorld", "MagnusController called");
                 magnusController.control();
             }
 
@@ -101,7 +95,7 @@ public class GameWorld {
         currentWeapon = random.nextInt(4);
         if (currentWeapon == 1) {
             // Bullets selected.
-            bullet.initBullets(magnus);
+            bullet.init(magnus);
         }
         else if (currentWeapon == 2) {
             // Heatwave selected.
@@ -109,7 +103,7 @@ public class GameWorld {
         }
         else if (currentWeapon == 3) {
             // Rocket selected.
-            rocket.initRocket(magnus);
+            rocket.init(magnus);
         }
     }
 }

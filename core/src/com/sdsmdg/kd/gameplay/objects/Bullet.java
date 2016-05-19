@@ -35,7 +35,7 @@ public class Bullet extends GameObject {
      *
      * @param magnus For using the coordinates of its center.
      */
-    public void initBullets(Magnus magnus) {
+    public void init(Magnus magnus) {
         activate();
         this.x = magnus.x;
         this.y = magnus.y;
@@ -48,7 +48,7 @@ public class Bullet extends GameObject {
      * This method adds the velocity components to current position of bullet,
      * hence making it move in a specific direction.
      */
-    public void shootBullet() {
+    public void shoot() {
         add(velocityComponent);
         Gdx.app.log("Bullet attacking, components:", " " + velocityComponent.x + " " + velocityComponent.y);
     }
@@ -57,10 +57,8 @@ public class Bullet extends GameObject {
      * This method resets the bullets when they escape the screen while moving.
      * The bullets are deactivated and their center is set outside the screen again.
      * shoot them is determined, by finger's position.
-     *
-     * @param magnus For using the coordinates of its center.
      */
-    public void resetBullet(Magnus magnus) {
+    public void reset() {
         deactivate();
 
         this.x = Main.screen.x + (4 * this.radius);

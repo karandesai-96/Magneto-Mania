@@ -11,7 +11,7 @@ public class RocketController {
         this.rocket = rocket;
     }
 
-    public void control(Magnus magnus) {
+    public void control() {
         if (rocket.active && rocket.activeTime > 0) {
             rocket.follow();
 
@@ -19,7 +19,7 @@ public class RocketController {
             rocket.activeTime--;
         }
         else {
-            rocket.reset(magnus);
+            rocket.reset();
             GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
         }
     }
