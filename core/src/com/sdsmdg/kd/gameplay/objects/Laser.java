@@ -9,6 +9,7 @@ import com.sdsmdg.kd.magnetomania.Main;
  */
 public class Laser extends GameObject {
     private RandomXS128 random;
+    public Vector2 screenCenter;
     public int activeTime;
 
     /**
@@ -25,21 +26,45 @@ public class Laser extends GameObject {
         this.endPoints = new Vector2[5];
         this.activeTime = 0;
 
+        this.screenCenter = new Vector2((Main.screen.x)/2,(Main.screen.y)/2);
+
         //the weapon is Initially deactivated.
         this.active = false;
-        endPoints[0] = new Vector2(-10,-10);
-        endPoints[1] = new Vector2(-10,-10);
-        endPoints[2] = new Vector2(-10,-10);
-        endPoints[3] = new Vector2(-10,-10);
-        endPoints[4] = new Vector2(-10,-10);
+
+        //sets the end points out of the screen initially
+        endPoints[0].x = -10;
+        endPoints[0].y = -10;
+        endPoints[1].x = -10;
+        endPoints[1].y = -10;
+        endPoints[2].x = -10;
+        endPoints[2].y = -10;
+        endPoints[3].x = -10;
+        endPoints[3].y = -10;
+        endPoints[4].x = -10;
+        endPoints[4].y = -10;
     }
 
     public void setMagnusVelocityComponents (Magnus magnus) {
         magnus.velocity = random.nextInt(15) + 15;
-        magnus.calcVelocityComponent(new Vector2(Main.screen.x,Main.screen.y));
+        magnus.calcVelocityComponent(screenCenter);
     }
 
     public void moveMagnusToCentre(Magnus magnus) {
         magnus.add(velocityComponent);
+    }
+
+    public void init (Magnus magnus) {
+        setMagnusVelocityComponents(magnus);
+        moveMagnusToCentre(magnus);
+
+        endPoints[0] = screenCenter;
+        endPoints[1].x = 0;
+        endPoints[1].y = 0;
+        endPoints[2].x = 0;
+        endPoints[2].y = Main.screen.y;
+        endPoints[3].x = Main.screen.x;
+        endPoints[3].y = Main.screen.y;
+        endPoints[4].x = Main.screen.x;
+        endPoints[4].y = 0;
     }
 }
