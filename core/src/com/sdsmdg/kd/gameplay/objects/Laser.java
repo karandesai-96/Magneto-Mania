@@ -1,5 +1,6 @@
 package com.sdsmdg.kd.gameplay.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.helpers.InputHandler;
@@ -61,19 +62,23 @@ public class Laser extends GameObject {
         pointVelocity[0] = pointVelocity[1] = 0;
     }
 
-    public void setMagnusVelocityComponents (Magnus magnus) {
-        magnus.velocity = random.nextInt(15) + 15;
-        magnus.calcVelocityComponent(screenCenter);
+    public void fixMagnusPathToFinger (Magnus magnus) {
+        magnus.calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
     }
 
-    public void moveMagnus(Magnus magnus) {
-        magnus.add(velocityComponent);
+    public void moveMagnusToBoundary (Magnus magnus) {
+        magnus.add(magnus.velocityComponent);
+    }
+
+    public void moveMagnusToCenter (Magnus magnus) {
+        magnus.calcVelocityComponent(screenCenter);
+        magnus.add(magnus.velocityComponent);
     }
 
     public void init (Magnus magnus) {
+        Gdx.app.log("Laser","Initialised");
         activate();
-        setMagnusVelocityComponents(magnus);
-        moveMagnus(magnus);
+        moveMagnusToCenter(magnus);
         numberOfTurns = 4 + random.nextInt(12);
         turnTime = 20 + random.nextInt(50);
         pointVelocity[0] = (int) (Main.screen.x/turnTime); // lesser speed
@@ -97,17 +102,20 @@ public class Laser extends GameObject {
         //right up
         endPoints[4].x = Main.screen.x;
         endPoints[4].y = 0;
+
+        magnus.velocity = random.nextInt(15) + 15;
     }
 
     public void reset (Magnus magnus) {
         deactivate();
-        magnus.calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
-        moveMagnus(magnus);
+        fixMagnusPathToFinger(magnus);
+        moveMagnusToBoundary(magnus);
         numberOfTurns = 0;
         turnTime = 0;
         pointVelocity[0] = pointVelocity[1] = 0;
         endPoints[0].x = endPoints[1].x = endPoints[2].x = endPoints[3].x = endPoints[4].x = -10;
         endPoints[0].y = endPoints[1].y = endPoints[2].y = endPoints[3].y = endPoints[4].y = -10;
+        magnus.velocity = 0;
     }
 
     public void rotateLaser () {

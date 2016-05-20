@@ -1,19 +1,20 @@
 package com.sdsmdg.kd.gameworld;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.RandomXS128;
-import com.sdsmdg.kd.gameplay.controllers.LaserController;
-import com.sdsmdg.kd.gameplay.objects.Laser;
 import com.sdsmdg.kd.screens.GameScreen;
 
 import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.gameplay.objects.Bullet;
 import com.sdsmdg.kd.gameplay.objects.HeatWave;
 import com.sdsmdg.kd.gameplay.objects.Rocket;
+import com.sdsmdg.kd.gameplay.objects.Laser;
 
 import com.sdsmdg.kd.gameplay.controllers.MagnusController;
 import com.sdsmdg.kd.gameplay.controllers.BulletController;
 import com.sdsmdg.kd.gameplay.controllers.HeatWaveController;
 import com.sdsmdg.kd.gameplay.controllers.RocketController;
+import com.sdsmdg.kd.gameplay.controllers.LaserController;
 
 
 public class GameWorld {
@@ -106,18 +107,22 @@ public class GameWorld {
         currentWeapon = random.nextInt(5);
         if (currentWeapon == 1) {
             // Bullets selected.
+            Gdx.app.log("GameWorld","Bullet Initialised");
             bullet.init(magnus);
         }
         else if (currentWeapon == 2) {
             // Heatwave selected.
+            Gdx.app.log("GameWorld","HeatWave Initialised");
             heatwave.init(magnus);
         }
         else if (currentWeapon == 3) {
             // Rocket selected.
+            Gdx.app.log("GameWorld","Rocket Initialised");
             rocket.init(magnus);
         }
         else if (currentWeapon == 4) {
             //Laser selected.
+            Gdx.app.log("GameWorld","Laser Initialised");
             laser.init(magnus);
         }
     }
