@@ -41,7 +41,14 @@ public class Laser extends GameObject {
 
     public Laser() {
         this.random = new RandomXS128();
+
+        /**
+         * For instantiating a Vector2 type array.
+         */
         this.endPoints = new Vector2[5];
+        for (int i=0;i<5;i++) {
+            this.endPoints[i] = new Vector2(-10,-10);
+        }
         this.pointVelocity = new int[2];
         this.numberOfTurns = 0;
         this.turnTime = 0;
@@ -52,8 +59,6 @@ public class Laser extends GameObject {
 
         //sets the end points out of the screen initially
         pointVelocity[0] = pointVelocity[1] = 0;
-        endPoints[0].x = endPoints[1].x = endPoints[2].x = endPoints[3].x = endPoints[4].x = -10;
-        endPoints[0].y = endPoints[1].y = endPoints[2].y = endPoints[3].y = endPoints[4].y = -10;
     }
 
     public void setMagnusVelocityComponents (Magnus magnus) {
