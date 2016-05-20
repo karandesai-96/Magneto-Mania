@@ -97,6 +97,9 @@ public class Laser extends GameObject {
     }
 
     public void rotateLaser () {
-
+        endPoints[2].x = endPoints[2].x + pointVelocity[0];
+        endPoints[4].x = endPoints[4].x - pointVelocity[0];
+        endPoints[1].y = endPoints[1].y + pointVelocity[1];
+        endPoints[3].y = endPoints[3].y - pointVelocity[1];
     }
 }
