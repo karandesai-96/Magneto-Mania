@@ -1,15 +1,18 @@
 package com.sdsmdg.kd.gameworld;
 
 import com.badlogic.gdx.math.RandomXS128;
-import com.sdsmdg.kd.gameplay.controllers.HeatWaveController;
-import com.sdsmdg.kd.gameplay.objects.HeatWave;
+import com.sdsmdg.kd.gameplay.controllers.LaserController;
+import com.sdsmdg.kd.gameplay.objects.Laser;
 import com.sdsmdg.kd.screens.GameScreen;
+
 import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.gameplay.objects.Bullet;
+import com.sdsmdg.kd.gameplay.objects.HeatWave;
 import com.sdsmdg.kd.gameplay.objects.Rocket;
 
 import com.sdsmdg.kd.gameplay.controllers.MagnusController;
 import com.sdsmdg.kd.gameplay.controllers.BulletController;
+import com.sdsmdg.kd.gameplay.controllers.HeatWaveController;
 import com.sdsmdg.kd.gameplay.controllers.RocketController;
 
 
@@ -32,7 +35,8 @@ public class GameWorld {
      *      0: Magnus
      *      1: Bullets
      *      2: Heatwave
-     *      2: Rocket
+     *      3: Rocket
+     *      4: Laser
      */
     public static int currentWeapon;
     public RandomXS128 random;
@@ -40,10 +44,12 @@ public class GameWorld {
     public Bullet bullet;
     public HeatWave heatwave;
     public Rocket rocket;
+    public Laser laser;
     public MagnusController magnusController;
     public BulletController bulletController;
     public HeatWaveController heatwaveController;
     public RocketController rocketController;
+    public LaserController laserController;
 
 
     public GameWorld() {
@@ -53,10 +59,12 @@ public class GameWorld {
         bullet = new Bullet();
         heatwave = new HeatWave();
         rocket = new Rocket();
+        laser = new Laser();
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
         heatwaveController = new HeatWaveController(heatwave);
         rocketController = new RocketController(rocket);
+        laserController = new LaserController(laser);
         this.random = new RandomXS128();
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
@@ -73,6 +81,9 @@ public class GameWorld {
             }
             else if (currentWeapon == 3) {
                 rocketController.control();
+            }
+            else if (currentWeapon == 4) {
+                laserController.control(magnus);
             }
             else {
                 magnusController.control();
@@ -92,7 +103,7 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = random.nextInt(4);
+        currentWeapon = random.nextInt(5);
         if (currentWeapon == 1) {
             // Bullets selected.
             bullet.init(magnus);
@@ -104,6 +115,10 @@ public class GameWorld {
         else if (currentWeapon == 3) {
             // Rocket selected.
             rocket.init(magnus);
+        }
+        else if (currentWeapon == 4) {
+            //Laser selected.
+            laser.init(magnus);
         }
     }
 }

@@ -20,7 +20,6 @@ public class Laser extends GameObject {
     /**
      * Denotes the time taken for on quarter turn.
      */
-
     public int turnTime;
 
     /**
@@ -74,13 +73,23 @@ public class Laser extends GameObject {
         turnTime = 20 + random.nextInt(50);
         pointVelocity[0] = (int) (Main.screen.x/turnTime); // lesser speed
         pointVelocity[1] = (int) (Main.screen.y/turnTime); // greater speed
+
+        // center point
         endPoints[0] = screenCenter;
+
+        //left up
         endPoints[1].x = 0;
         endPoints[1].y = 0;
+
+        //left down
         endPoints[2].x = 0;
         endPoints[2].y = Main.screen.y;
+
+        //right down
         endPoints[3].x = Main.screen.x;
         endPoints[3].y = Main.screen.y;
+
+        //right up
         endPoints[4].x = Main.screen.x;
         endPoints[4].y = 0;
     }
