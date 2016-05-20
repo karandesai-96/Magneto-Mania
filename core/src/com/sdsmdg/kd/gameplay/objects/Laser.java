@@ -97,9 +97,20 @@ public class Laser extends GameObject {
     }
 
     public void rotateLaser () {
-        endPoints[2].x = endPoints[2].x + pointVelocity[0];
-        endPoints[4].x = endPoints[4].x - pointVelocity[0];
-        endPoints[1].y = endPoints[1].y + pointVelocity[1];
-        endPoints[3].y = endPoints[3].y - pointVelocity[1];
+        if (endPoints[1].y < Main.screen.y || endPoints[2].x < Main.screen.x
+                || endPoints[3].y > 0 || endPoints[4].x>0) {
+            endPoints[2].x = endPoints[2].x + pointVelocity[0];
+            endPoints[4].x = endPoints[4].x - pointVelocity[0];
+            endPoints[1].y = endPoints[1].y + pointVelocity[1];
+            endPoints[3].y = endPoints[3].y - pointVelocity[1];
+        }
+        else {
+            numberOfTurns --;
+            Vector2 temp = endPoints[1];
+            endPoints[1] = endPoints[4];
+            endPoints[4] = endPoints[3];
+            endPoints[3] = endPoints[2];
+            endPoints[2] = temp;
+        }
     }
 }
