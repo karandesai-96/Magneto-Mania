@@ -29,6 +29,9 @@ public class LaserController {
                     laser.moveMagnusToCenter(magnus);
                 }
 
+                /**
+                 * Avoids glitchy motion of Magnus when it migrates to center.
+                 */
                 if ((magnus.x <= Main.screenCenter.x + 10) && (magnus.x >= Main.screenCenter.x - 10)) {
                     magnus.x = Main.screenCenter.x;
                 }

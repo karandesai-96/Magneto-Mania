@@ -29,7 +29,7 @@ public class GameRenderer {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         shapeRenderer.begin(ShapeType.Line);
-        Gdx.gl.glLineWidth(24);
+        Gdx.gl.glLineWidth(30);
         shapeRenderer.setColor(new Color(0xaa23f4ff));
         shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
                 gameWorld.laser.endPoints[1].x,gameWorld.laser.endPoints[1].y);
