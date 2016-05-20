@@ -32,10 +32,10 @@ public class LaserController {
                 /**
                  * Avoids glitchy motion of Magnus when it migrates to center.
                  */
-                if ((magnus.x <= Main.screenCenter.x + 10) && (magnus.x >= Main.screenCenter.x - 10)) {
+                if ((magnus.x <= Main.screenCenter.x + 25) && (magnus.x >= Main.screenCenter.x - 25)) {
                     magnus.x = Main.screenCenter.x;
                 }
-                if ((magnus.y <= Main.screenCenter.y + 10) && (magnus.y >= Main.screenCenter.y - 10)) {
+                if ((magnus.y <= Main.screenCenter.y + 25) && (magnus.y >= Main.screenCenter.y - 25)) {
                     magnus.y = Main.screenCenter.y;
                 }
             }
