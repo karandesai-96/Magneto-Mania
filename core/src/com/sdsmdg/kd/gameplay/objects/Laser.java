@@ -11,7 +11,6 @@ import com.sdsmdg.kd.magnetomania.Main;
  */
 public class Laser extends GameObject {
     private RandomXS128 random;
-    public Vector2 screenCenter;
 
     /**
      * Denotes the number of quarter turns.
@@ -53,7 +52,6 @@ public class Laser extends GameObject {
         this.pointVelocity = new int[2];
         this.numberOfTurns = 0;
         this.turnTime = 0;
-        this.screenCenter = new Vector2((Main.screen.x)/2,(Main.screen.y)/2);
 
         //the weapon is Initially deactivated.
         this.active = false;
@@ -71,7 +69,7 @@ public class Laser extends GameObject {
     }
 
     public void moveMagnusToCenter (Magnus magnus) {
-        magnus.calcVelocityComponent(screenCenter);
+        magnus.calcVelocityComponent(Main.screenCenter);
         magnus.add(magnus.velocityComponent);
     }
 
@@ -80,30 +78,26 @@ public class Laser extends GameObject {
         activate();
         moveMagnusToCenter(magnus);
         numberOfTurns = 4 + random.nextInt(12);
-        turnTime = 20 + random.nextInt(50);
+        turnTime = 30 + random.nextInt(50);
         pointVelocity[0] = (int) (Main.screen.x/turnTime); // lesser speed
         pointVelocity[1] = (int) (Main.screen.y/turnTime); // greater speed
 
         // center point
-        endPoints[0] = screenCenter;
+        endPoints[0].set(Main.screenCenter.x,Main.screenCenter.y);
 
         //left up
-        endPoints[1].x = 0;
-        endPoints[1].y = 0;
+        endPoints[1].set(0,0);
 
         //left down
-        endPoints[2].x = 0;
-        endPoints[2].y = Main.screen.y;
+        endPoints[2].set(0,Main.screen.y);
 
         //right down
-        endPoints[3].x = Main.screen.x;
-        endPoints[3].y = Main.screen.y;
+        endPoints[3].set(Main.screen.x,Main.screen.y);
 
         //right up
-        endPoints[4].x = Main.screen.x;
-        endPoints[4].y = 0;
+        endPoints[4].set(Main.screen.x,0);
 
-        magnus.velocity = random.nextInt(15) + 15;
+        magnus.velocity = random.nextInt(15) + 10;
     }
 
     public void reset (Magnus magnus) {

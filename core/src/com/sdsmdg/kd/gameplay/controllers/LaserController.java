@@ -19,16 +19,21 @@ public class LaserController {
     public void control (Magnus magnus) {
         if (laser.active){
             if (laser.numberOfTurns>0) {
-                if (!(magnus.x > ((Main.screen.x/2)-7) || magnus.y > ((Main.screen.y/2)-7)
-                        || magnus.x < ((Main.screen.x/2)+7) || magnus.y < ((Main.screen.y/2)+7))) {
-                    Gdx.app.log("LaserController","Magnus moving for laser");
-                    laser.moveMagnusToCenter(magnus);
+                if (magnus.x >= ((Main.screenCenter.x)-10) && magnus.y > ((Main.screenCenter.y)-10)
+                        && magnus.x < ((Main.screenCenter.x)+10) && magnus.y < ((Main.screenCenter.y)+10)) {
+                    Gdx.app.log("LaserController","Laser rotating");
+                    laser.rotateLaser();
                 }
                 else {
-                    Gdx.app.log("LaserController","Laser rotating");
-                    magnus.x = Main.screen.x/2;
-                    magnus.y = Main.screen.y/2;
-                    laser.rotateLaser();
+                    Gdx.app.log("LaserController","Magnus moving to center");
+                    laser.moveMagnusToCenter(magnus);
+                }
+
+                if ((magnus.x <= Main.screenCenter.x + 10) && (magnus.x >= Main.screenCenter.x - 10)) {
+                    magnus.x = Main.screenCenter.x;
+                }
+                if ((magnus.y <= Main.screenCenter.y + 10) && (magnus.y >= Main.screenCenter.y - 10)) {
+                    magnus.y = Main.screenCenter.y;
                 }
             }
             else {
