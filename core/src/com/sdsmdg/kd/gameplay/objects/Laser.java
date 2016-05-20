@@ -52,18 +52,9 @@ public class Laser extends GameObject {
         this.active = false;
 
         //sets the end points out of the screen initially
-        endPoints[0].x = -10;
-        endPoints[0].y = -10;
-        endPoints[1].x = -10;
-        endPoints[1].y = -10;
-        endPoints[2].x = -10;
-        endPoints[2].y = -10;
-        endPoints[3].x = -10;
-        endPoints[3].y = -10;
-        endPoints[4].x = -10;
-        endPoints[4].y = -10;
-        pointVelocity[0] = 0;
-        pointVelocity[1] = 0;
+        pointVelocity[0] = pointVelocity[1] = 0;
+        endPoints[0].x = endPoints[1].x = endPoints[2].x = endPoints[3].x = endPoints[4].x = -10;
+        endPoints[0].y = endPoints[1].y = endPoints[2].y = endPoints[3].y = endPoints[4].y = -10;
     }
 
     public void setMagnusVelocityComponents (Magnus magnus) {
@@ -106,6 +97,6 @@ public class Laser extends GameObject {
     }
 
     public void rotateLaser () {
-        
+
     }
 }
