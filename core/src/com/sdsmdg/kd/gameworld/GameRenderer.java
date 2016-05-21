@@ -1,6 +1,7 @@
 package com.sdsmdg.kd.gameworld;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -24,31 +25,41 @@ public class GameRenderer {
 
 
     public void render() {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //Begin drawing filled shape
-        shapeRenderer.begin(ShapeType.Filled);
-
-        //Set up (Red,Green,Blue,Alpha)
-        shapeRenderer.setColor(0 / 255.0f, 255 / 255.0f, 0 / 255.0f, 1);
-
-        //Draws circle from GameWorld
-        shapeRenderer.circle(gameWorld.bullet.x, gameWorld.bullet.y, gameWorld.bullet.radius);
-
-        //Tells the shape renderer to finish rendering. This must be done every time.
+        shapeRenderer.begin(ShapeType.Line);
+        Gdx.gl.glLineWidth(30);
+        shapeRenderer.setColor(new Color(0xaa23f4ff));
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[1].x,gameWorld.laser.endPoints[1].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[2].x,gameWorld.laser.endPoints[2].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[3].x,gameWorld.laser.endPoints[3].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[4].x,gameWorld.laser.endPoints[4].y);
         shapeRenderer.end();
 
-        //Begin drawing filled shape
         shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0x4caf50ff));
+        shapeRenderer.circle(gameWorld.rocket.x, gameWorld.rocket.y, gameWorld.rocket.radius);
+        shapeRenderer.end();
 
-        //Set up (Red,Green,Blue,Alpha)
-        shapeRenderer.setColor(255 / 255.0f, 0 / 255.0f, 0 / 255.0f, 1);
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0x03a9f4ff));
+        shapeRenderer.circle(gameWorld.bullet.x, gameWorld.bullet.y, gameWorld.bullet.radius);
+        shapeRenderer.end();
 
-        //Draws circle from GameWorld
+        shapeRenderer.begin(ShapeType.Line);
+        Gdx.gl.glLineWidth(32);
+        shapeRenderer.setColor(new Color(0xffca28ff));
+        shapeRenderer.circle(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius);
+        shapeRenderer.end();
+
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0xf44336ff));
         shapeRenderer.circle(gameWorld.magnus.x, gameWorld.magnus.y, gameWorld.magnus.radius);
-
-        //Tells the shape renderer to finish rendering. This must be done every time.
         shapeRenderer.end();
     }
 }

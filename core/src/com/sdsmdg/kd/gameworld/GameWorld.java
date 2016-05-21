@@ -2,11 +2,19 @@ package com.sdsmdg.kd.gameworld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.RandomXS128;
-import com.sdsmdg.kd.gameplay.controllers.BulletController;
-import com.sdsmdg.kd.gameplay.objects.Bullet;
 import com.sdsmdg.kd.screens.GameScreen;
+
 import com.sdsmdg.kd.gameplay.objects.Magnus;
+import com.sdsmdg.kd.gameplay.objects.Bullet;
+import com.sdsmdg.kd.gameplay.objects.HeatWave;
+import com.sdsmdg.kd.gameplay.objects.Rocket;
+import com.sdsmdg.kd.gameplay.objects.Laser;
+
 import com.sdsmdg.kd.gameplay.controllers.MagnusController;
+import com.sdsmdg.kd.gameplay.controllers.BulletController;
+import com.sdsmdg.kd.gameplay.controllers.HeatWaveController;
+import com.sdsmdg.kd.gameplay.controllers.RocketController;
+import com.sdsmdg.kd.gameplay.controllers.LaserController;
 
 
 public class GameWorld {
@@ -27,13 +35,22 @@ public class GameWorld {
      * Different values of currentWeapon integer correspond to:
      *      0: Magnus
      *      1: Bullets
+     *      2: Heatwave
+     *      3: Rocket
+     *      4: Laser
      */
     public static int currentWeapon;
-
+    public RandomXS128 random;
     public Magnus magnus;
     public Bullet bullet;
+    public HeatWave heatwave;
+    public Rocket rocket;
+    public Laser laser;
     public MagnusController magnusController;
     public BulletController bulletController;
+    public HeatWaveController heatwaveController;
+    public RocketController rocketController;
+    public LaserController laserController;
 
 
     public GameWorld() {
@@ -41,22 +58,35 @@ public class GameWorld {
         currentWeapon = 0;
         magnus = new Magnus();
         bullet = new Bullet();
+        heatwave = new HeatWave();
+        rocket = new Rocket();
+        laser = new Laser();
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
+        heatwaveController = new HeatWaveController(heatwave);
+        rocketController = new RocketController(rocket);
+        laserController = new LaserController(laser);
+        this.random = new RandomXS128();
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
         magnus.prepareForAttack();
     }
 
     public void update(float delta) {
-        Gdx.app.log("GameWorld", "Update called");
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
-                Gdx.app.log("GameWorld","BulletController called");
                 bulletController.control(magnus);
             }
+            else if (currentWeapon == 2) {
+                heatwaveController.control();
+            }
+            else if (currentWeapon == 3) {
+                rocketController.control();
+            }
+            else if (currentWeapon == 4) {
+                laserController.control(magnus);
+            }
             else {
-                Gdx.app.log("GameWorld", "MagnusController called");
                 magnusController.control();
             }
 
@@ -74,14 +104,26 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = 1;
-
-        /* when Bullets are selected to be fired, initial point and direction
-         * are set using initBullets method.
-         *
-         * @param magnus For using the coordinates of its center.
-         */
-
-        bullet.initBullets(magnus);
+        currentWeapon = random.nextInt(5);
+        if (currentWeapon == 1) {
+            // Bullets selected.
+            Gdx.app.log("GameWorld","Bullet Initialised");
+            bullet.init(magnus);
+        }
+        else if (currentWeapon == 2) {
+            // Heatwave selected.
+            Gdx.app.log("GameWorld","HeatWave Initialised");
+            heatwave.init(magnus);
+        }
+        else if (currentWeapon == 3) {
+            // Rocket selected.
+            Gdx.app.log("GameWorld","Rocket Initialised");
+            rocket.init(magnus);
+        }
+        else if (currentWeapon == 4) {
+            //Laser selected.
+            Gdx.app.log("GameWorld","Laser Initialised");
+            laser.init(magnus);
+        }
     }
 }
