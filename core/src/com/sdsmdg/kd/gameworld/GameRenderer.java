@@ -28,21 +28,38 @@ public class GameRenderer {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        shapeRenderer.begin(ShapeType.Line);
+        Gdx.gl.glLineWidth(30);
+        shapeRenderer.setColor(new Color(0xaa23f4ff));
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[1].x,gameWorld.laser.endPoints[1].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[2].x,gameWorld.laser.endPoints[2].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[3].x,gameWorld.laser.endPoints[3].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[4].x,gameWorld.laser.endPoints[4].y);
+        shapeRenderer.end();
+
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x4caf50ff));
         shapeRenderer.circle(gameWorld.rocket.x, gameWorld.rocket.y, gameWorld.rocket.radius);
+        shapeRenderer.end();
 
+        shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x03a9f4ff));
         shapeRenderer.circle(gameWorld.bullet.x, gameWorld.bullet.y, gameWorld.bullet.radius);
-
-        shapeRenderer.setColor(new Color(0xf44336ff));
-        shapeRenderer.circle(gameWorld.magnus.x, gameWorld.magnus.y, gameWorld.magnus.radius);
         shapeRenderer.end();
 
         shapeRenderer.begin(ShapeType.Line);
         Gdx.gl.glLineWidth(32);
         shapeRenderer.setColor(new Color(0xffca28ff));
         shapeRenderer.circle(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius);
+        shapeRenderer.end();
+
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0xf44336ff));
+        shapeRenderer.circle(gameWorld.magnus.x, gameWorld.magnus.y, gameWorld.magnus.radius);
         shapeRenderer.end();
     }
 }
