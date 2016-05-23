@@ -13,6 +13,7 @@ import com.sdsmdg.kd.magnetomania.Main;
 public class Boomerang extends GameObject{
     public float acceleration;
     public Vector2 accelerationComponent;
+    private Vector2 inititalTouch;
     private RandomXS128 random;
 
     public Boomerang () {
@@ -30,6 +31,8 @@ public class Boomerang extends GameObject{
         // Boomerang is inactive when game starts.
         this.active = false;
 
+        this.accelerationComponent = new Vector2(0,0);
+        this.inititalTouch = new Vector2(0,0);
         this.random = new RandomXS128();
     }
 
@@ -37,10 +40,10 @@ public class Boomerang extends GameObject{
         float distance = dst(destination);
 
         // acceleration times cos(theta)
-        accelerationComponent.x = acceleration * (destination.x - this.x) / distance;
+        this.accelerationComponent.x = acceleration * (destination.x - this.x) / distance;
 
         // acceleration times sin(theta)
-        accelerationComponent.y = acceleration * (destination.y - this.y) / distance;
+        this.accelerationComponent.y = acceleration * (destination.y - this.y) / distance;
     }
 
     public void init (Magnus magnus) {
@@ -51,8 +54,22 @@ public class Boomerang extends GameObject{
         this.velocity = 15 + random.nextInt(10);
         this.acceleration = random.nextFloat();
 
-        calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
-        calcAccelerationComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
+        this.inititalTouch.set(InputHandler.touch.x,InputHandler.touch.y);
+
+        calcVelocityComponent(inititalTouch);
+        calcAccelerationComponent(inititalTouch);
         Gdx.app.log("Boomerang","Velocity and Acceleration set");
+    }
+
+    public void reset () {
+        deactivate();
+        this.x = Main.screen.x + (4 * this.radius);
+        this.y = Main.screen.y + (4 * this.radius);
+
+        this.velocity = 0;
+        this.acceleration = 0;
+
+        this.accelerationComponent.set(0,0);
+        this.inititalTouch.set(0,0);
     }
 }
