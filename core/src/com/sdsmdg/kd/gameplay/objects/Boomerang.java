@@ -36,14 +36,14 @@ public class Boomerang extends GameObject{
         this.random = new RandomXS128();
     }
 
-    public void calcAccelerationComponent (Vector2 destination) {
-        float distance = dst(destination);
+    public void calcAccelerationComponent (Vector2 source ,Vector2 destination) {
+        float distance = source.dst(destination);
 
         // acceleration times cos(theta)
-        this.accelerationComponent.x = acceleration * (destination.x - this.x) / distance;
+        this.accelerationComponent.x = acceleration * (destination.x - source.x) / distance;
 
         // acceleration times sin(theta)
-        this.accelerationComponent.y = acceleration * (destination.y - this.y) / distance;
+        this.accelerationComponent.y = acceleration * (destination.y - source.y) / distance;
     }
 
     public void init (Magnus magnus) {
@@ -57,7 +57,7 @@ public class Boomerang extends GameObject{
         this.inititalTouch.set(InputHandler.touch.x,InputHandler.touch.y);
 
         calcVelocityComponent(inititalTouch);
-        calcAccelerationComponent(inititalTouch);
+        calcAccelerationComponent(new Vector2(magnus.x,magnus.y),inititalTouch);
         Gdx.app.log("Boomerang","Velocity and Acceleration set");
     }
 
