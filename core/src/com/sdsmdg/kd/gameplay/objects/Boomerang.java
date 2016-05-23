@@ -72,4 +72,10 @@ public class Boomerang extends GameObject{
         this.accelerationComponent.set(0,0);
         this.inititalTouch.set(0,0);
     }
+
+    public void shootBoomerang (Magnus magnus) {
+        add(velocityComponent);
+        velocityComponent = velocityComponent.sub(accelerationComponent);
+        calcVelocityComponent(new Vector2(magnus.x,magnus.y),inititalTouch);
+    }
 }

@@ -30,4 +30,14 @@ public abstract class GameObject extends Vector2 {
         // velocity times sin(theta)
         velocityComponent.y = velocity * (destination.y - this.y) / distance;
     }
+
+    public void calcVelocityComponent (Vector2 source, Vector2 destination) {
+        float distance = source.dst(destination);
+
+        // velocity times cos(theta)
+        velocityComponent.x = velocity * (destination.x - source.x) / distance;
+
+        // velocity times sin(theta)
+        velocityComponent.y = velocity * (destination.y - source.y) / distance;
+    }
 }
