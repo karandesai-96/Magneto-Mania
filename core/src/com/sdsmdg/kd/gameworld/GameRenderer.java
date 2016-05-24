@@ -51,6 +51,11 @@ public class GameRenderer {
         shapeRenderer.circle(gameWorld.bullet.x, gameWorld.bullet.y, gameWorld.bullet.radius);
         shapeRenderer.end();
 
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0x8dfe7aff));
+        shapeRenderer.circle(gameWorld.boomerang.x, gameWorld.boomerang.y, gameWorld.boomerang.radius);
+        shapeRenderer.end();
+
         shapeRenderer.begin(ShapeType.Line);
         Gdx.gl.glLineWidth(32);
         shapeRenderer.setColor(new Color(0xffca28ff));
