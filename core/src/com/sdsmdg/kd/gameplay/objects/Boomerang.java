@@ -51,14 +51,16 @@ public class Boomerang extends GameObject{
         this.x = magnus.x;
         this.y = magnus.y;
 
-        this.velocity = 15 + random.nextInt(10);
-        this.acceleration = random.nextFloat();
+        this.velocity = 50 + random.nextInt(30);
+        this.acceleration = (float)0.25 + random.nextFloat();
 
         this.inititalTouch.set(InputHandler.touch.x,InputHandler.touch.y);
 
         calcVelocityComponent(inititalTouch);
         calcAccelerationComponent(new Vector2(magnus.x,magnus.y),inititalTouch);
         Gdx.app.log("Boomerang","Velocity and Acceleration set");
+        Gdx.app.log("Boomerang","Velocity components : "+velocityComponent.x+" "+velocityComponent.y);
+        Gdx.app.log("Boomerang","Acceleration components : "+accelerationComponent.x+" "+accelerationComponent.y);
     }
 
     public void reset () {
@@ -75,7 +77,9 @@ public class Boomerang extends GameObject{
 
     public void shootBoomerang (Magnus magnus) {
         add(velocityComponent);
-        velocityComponent = velocityComponent.sub(accelerationComponent);
-        calcVelocityComponent(new Vector2(magnus.x,magnus.y),inititalTouch);
+        velocityComponent.x = velocityComponent.x - accelerationComponent.x;
+        velocityComponent.y = velocityComponent.y - accelerationComponent.y;
+        //calcVelocityComponent(new Vector2(magnus.x,magnus.y),inititalTouch);
+        Gdx.app.log("Boomerang","Velocity components : "+velocityComponent.x+" "+velocityComponent.y);
     }
 }
