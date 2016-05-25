@@ -9,12 +9,14 @@ import com.sdsmdg.kd.gameplay.objects.Bullet;
 import com.sdsmdg.kd.gameplay.objects.HeatWave;
 import com.sdsmdg.kd.gameplay.objects.Rocket;
 import com.sdsmdg.kd.gameplay.objects.Laser;
+import com.sdsmdg.kd.gameplay.objects.Boomerang;
 
 import com.sdsmdg.kd.gameplay.controllers.MagnusController;
 import com.sdsmdg.kd.gameplay.controllers.BulletController;
 import com.sdsmdg.kd.gameplay.controllers.HeatWaveController;
 import com.sdsmdg.kd.gameplay.controllers.RocketController;
 import com.sdsmdg.kd.gameplay.controllers.LaserController;
+import com.sdsmdg.kd.gameplay.controllers.BoomerangController;
 
 
 public class GameWorld {
@@ -46,26 +48,33 @@ public class GameWorld {
     public HeatWave heatwave;
     public Rocket rocket;
     public Laser laser;
+    public Boomerang boomerang;
     public MagnusController magnusController;
     public BulletController bulletController;
     public HeatWaveController heatwaveController;
     public RocketController rocketController;
     public LaserController laserController;
+    public BoomerangController boomerangController;
 
 
     public GameWorld() {
         gameState = GameState.NEXT_MAGNUS;
         currentWeapon = 0;
+
         magnus = new Magnus();
         bullet = new Bullet();
         heatwave = new HeatWave();
         rocket = new Rocket();
         laser = new Laser();
+        boomerang = new Boomerang();
+
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
         heatwaveController = new HeatWaveController(heatwave);
         rocketController = new RocketController(rocket);
         laserController = new LaserController(laser);
+        boomerangController = new BoomerangController(boomerang);
+
         this.random = new RandomXS128();
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
@@ -86,6 +95,9 @@ public class GameWorld {
             else if (currentWeapon == 4) {
                 laserController.control(magnus);
             }
+            else if (currentWeapon == 5) {
+                boomerangController.control(magnus);
+            }
             else {
                 magnusController.control();
             }
@@ -104,7 +116,7 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = random.nextInt(5);
+        currentWeapon = random.nextInt(6);
         if (currentWeapon == 1) {
             // Bullets selected.
             Gdx.app.log("GameWorld","Bullet Initialised");
@@ -124,6 +136,11 @@ public class GameWorld {
             //Laser selected.
             Gdx.app.log("GameWorld","Laser Initialised");
             laser.init(magnus);
+        }
+        else if (currentWeapon == 5) {
+            //Boomerang Selected.
+            Gdx.app.log("GameWorld","Boomerang Initialised");
+            boomerang.init(magnus);
         }
     }
 }
