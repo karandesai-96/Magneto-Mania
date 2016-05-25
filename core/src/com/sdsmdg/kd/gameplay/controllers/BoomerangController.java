@@ -8,6 +8,7 @@ import com.sdsmdg.kd.magnetomania.Main;
 
 /**
  * @author Haresh Khanna
+ * @author Karan Desai
  */
 public class BoomerangController {
     private Boomerang boomerang;
@@ -18,29 +19,9 @@ public class BoomerangController {
 
     public void control (Magnus magnus) {
         if (boomerang.active) {
-            if (magnus.x==0) {
-                if (boomerang.x < -5) {
+            if (boomerang.velocity < -boomerang.initialVelocity) {
                     boomerang.deactivate();
-                    Gdx.app.log("BoomerangController","Boomerang deactivated.");
-                }
-            }
-            else if (magnus.x== Main.screen.x) {
-                if (boomerang.x > (Main.screen.x + 5)) {
-                    boomerang.deactivate();
-                    Gdx.app.log("BoomerangController","Boomerang deactivated.");
-                }
-            }
-            else if (magnus.y==0) {
-                if (boomerang.y < -5) {
-                    boomerang.deactivate();
-                    Gdx.app.log("BoomerangController","Boomerang deactivated.");
-                }
-            }
-            else if (magnus.x==Main.screen.y) {
-                if (boomerang.x > (Main.screen.y + 5)) {
-                    boomerang.deactivate();
-                    Gdx.app.log("BoomerangController","Boomerang deactivated.");
-                }
+                    Gdx.app.log("BoomerangController", "Boomerang deactivated.");
             }
             boomerang.shootBoomerang(magnus);
         }

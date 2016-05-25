@@ -14,6 +14,7 @@ import com.sdsmdg.kd.magnetomania.Main;
 public class Boomerang extends GameObject{
     public float acceleration;
     private Vector2 initialTouch;
+    public float initialVelocity;
     private RandomXS128 random;
 
     public Boomerang () {
@@ -26,6 +27,7 @@ public class Boomerang extends GameObject{
         this.y = Main.screen.y + (4 * this.radius);
 
         this.velocity = 0;
+        this.initialVelocity = 0;
         this.acceleration = 0;
 
         // Boomerang is inactive when game starts.
@@ -42,9 +44,10 @@ public class Boomerang extends GameObject{
         this.y = magnus.y;
 
         this.velocity = 30 + random.nextInt(15);
-        this.acceleration = 0.25f + random.nextFloat() / 5;
+        this.acceleration = 0.35f + random.nextFloat() / 5;
 
         this.initialTouch.set(InputHandler.touch.x, InputHandler.touch.y);
+        this.initialVelocity = this.velocity;
 
         calcVelocityComponent(initialTouch);
         Gdx.app.log("Boomerang","Velocity and Acceleration set");
