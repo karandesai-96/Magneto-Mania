@@ -83,6 +83,7 @@ public class GameWorld {
 
         this.random = new RandomXS128();
         this.gameScore = 0.0f;
+        this.multiplier = 1;
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
         magnus.prepareForAttack();
@@ -127,6 +128,10 @@ public class GameWorld {
                 gameScore += multiplier * 0.001;
             }
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
+
+            if (gameScore%1000 == 0){
+                multiplier++;
+            }
         }
     }
 
