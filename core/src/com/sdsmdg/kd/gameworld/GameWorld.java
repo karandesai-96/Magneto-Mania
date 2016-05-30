@@ -84,6 +84,7 @@ public class GameWorld {
 
         this.random = new RandomXS128();
         this.gameScore = 0.0f;
+        this.gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
         this.step = 0.1f;
         this.multiplier = 1;
 
