@@ -17,6 +17,7 @@ public class GameRenderer {
     private ShapeRenderer shapeRenderer;
     private BitmapFont bitmapFont;
     private SpriteBatch batch;
+    private float margin;
 
 
     public GameRenderer (GameWorld gameWorld) {
@@ -27,6 +28,7 @@ public class GameRenderer {
         shapeRenderer.setProjectionMatrix(cam.combined);
         bitmapFont = new BitmapFont();
         batch = new SpriteBatch();
+        margin = (15*(Main.screenArea)/(1920*1080));
     }
 
 
@@ -74,8 +76,8 @@ public class GameRenderer {
         shapeRenderer.end();
 
         batch.begin();
-        bitmapFont.setColor(new Color(0x111111ff));
-        bitmapFont.draw(batch, gameWorld.gameScoreToDisplay, 10, 10);
+        bitmapFont.setColor(0.1f, 0.1f, 0.1f, 1.0f);
+        bitmapFont.draw(batch, "Score :"+gameWorld.gameScoreToDisplay, margin, Main.screen.y-margin);
         batch.end();
     }
 }

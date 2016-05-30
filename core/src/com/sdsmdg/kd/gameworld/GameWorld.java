@@ -46,6 +46,7 @@ public class GameWorld {
     public RandomXS128 random;
     public float gameScore;
     public int multiplier;
+    private float step;
     public String gameScoreToDisplay;
 
     public Magnus magnus;
@@ -83,6 +84,7 @@ public class GameWorld {
 
         this.random = new RandomXS128();
         this.gameScore = 0.0f;
+        this.step = 0.1f;
         this.multiplier = 1;
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
@@ -121,17 +123,20 @@ public class GameWorld {
                 }
             }
 
-            if (gameScore == 0){
-                gameScore = 1;
-            }
-            else{
-                gameScore += multiplier * 0.001;
-            }
+
+            gameScore += multiplier * step;
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
 
             if (gameScore%1000 == 0){
                 multiplier++;
+                step = 0.1f;
             }
+            else{
+                if (gameScore%100 == 0){
+                    step += 0.05f;
+                }
+            }
+
         }
     }
 
