@@ -1,6 +1,7 @@
 package com.sdsmdg.kd.gameworld;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
 import com.sdsmdg.kd.screens.GameScreen;
 
@@ -45,6 +46,7 @@ public class GameWorld {
     public RandomXS128 random;
     public float gameScore;
     public int multiplier;
+    public String gameScoreToDisplay;
 
     public Magnus magnus;
     public Bullet bullet;
@@ -124,6 +126,7 @@ public class GameWorld {
             else{
                 gameScore += multiplier * 0.001;
             }
+            gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
         }
     }
 

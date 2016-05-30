@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.sdsmdg.kd.magnetomania.Main;
@@ -13,6 +15,8 @@ public class GameRenderer {
     private GameWorld gameWorld;
     public static OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
+    private BitmapFont bitmapFont;
+    private SpriteBatch batch;
 
 
     public GameRenderer (GameWorld gameWorld) {
@@ -21,6 +25,8 @@ public class GameRenderer {
         cam.setToOrtho(true, Main.screen.x, Main.screen.y);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
+        bitmapFont = new BitmapFont();
+        batch = new SpriteBatch();
     }
 
 
@@ -66,5 +72,10 @@ public class GameRenderer {
         shapeRenderer.setColor(new Color(0xf44336ff));
         shapeRenderer.circle(gameWorld.magnus.x, gameWorld.magnus.y, gameWorld.magnus.radius);
         shapeRenderer.end();
+
+        batch.begin();
+        bitmapFont.setColor(new Color(0x111111ff));
+        bitmapFont.draw(batch, gameWorld.gameScoreToDisplay, 10, 10);
+        batch.end();
     }
 }
