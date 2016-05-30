@@ -43,12 +43,16 @@ public class GameWorld {
      */
     public static int currentWeapon;
     public RandomXS128 random;
+    public float gameScore;
+    public int multiplier;
+
     public Magnus magnus;
     public Bullet bullet;
     public HeatWave heatwave;
     public Rocket rocket;
     public Laser laser;
     public Boomerang boomerang;
+
     public MagnusController magnusController;
     public BulletController bulletController;
     public HeatWaveController heatwaveController;
@@ -76,6 +80,7 @@ public class GameWorld {
         boomerangController = new BoomerangController(boomerang);
 
         this.random = new RandomXS128();
+        this.gameScore = 0.0f;
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
         magnus.prepareForAttack();
@@ -111,6 +116,13 @@ public class GameWorld {
                     currentWeapon = 0;
                     gameState = GameState.MAGNUS_ACTIVE;
                 }
+            }
+
+            if (gameScore == 0){
+                gameScore = 1;
+            }
+            else{
+                gameScore += multiplier * 0.001;
             }
         }
     }
