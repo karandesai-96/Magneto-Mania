@@ -79,5 +79,11 @@ public class GameRenderer {
         bitmapFont.setColor(0.1f, 0.1f, 0.1f, 1.0f);
         bitmapFont.draw(batch, "Score :"+gameWorld.gameScoreToDisplay, margin, Main.screen.y-margin);
         batch.end();
+
+        batch.begin();
+        bitmapFont.setColor(0.1f, 0.1f, 0.1f, 1.0f);
+        bitmapFont.draw(batch, "X"+gameWorld.gameMultiplierToDisplay,
+                Main.screen.x - 2*margin, Main.screen.y - margin);
+        batch.end();
     }
 }

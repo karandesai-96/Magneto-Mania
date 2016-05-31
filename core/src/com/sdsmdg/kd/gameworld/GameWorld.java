@@ -48,6 +48,7 @@ public class GameWorld {
     public int multiplier;
     private float step;
     public String gameScoreToDisplay;
+    public String gameMultiplierToDisplay;
 
     public Magnus magnus;
     public Bullet bullet;
@@ -95,8 +96,9 @@ public class GameWorld {
          */
         this.gameScore = 0.0f;
         this.gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
-        this.step = 0.1f;
         this.multiplier = 1;
+        this.gameMultiplierToDisplay = String.valueOf(multiplier);
+        this.step = 0.1f;
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
         magnus.prepareForAttack();
@@ -137,14 +139,17 @@ public class GameWorld {
 
             gameScore += multiplier * step;
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
+            gameMultiplierToDisplay = String.valueOf(multiplier);
 
-            if (gameScore%1000 == 0){
+            if (((int)(gameScore))%1000 == 0 && ((int)gameScore)!=0){
                 multiplier++;
                 step = 0.1f;
+                Gdx.app.log("GameWorld","Multiplier incremented, Step reset to 0.1"+" Multiplier: "+multiplier);
             }
             else{
                 if (gameScore%100 == 0){
                     step += 0.05f;
+                    Gdx.app.log("GameWorld","Step incremented");
                 }
             }
 
