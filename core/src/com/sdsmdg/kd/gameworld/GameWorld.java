@@ -83,6 +83,16 @@ public class GameWorld {
         boomerangController = new BoomerangController(boomerang);
 
         this.random = new RandomXS128();
+
+        /**
+         * gameScore is the variable which is incremented with each
+         * call of update function. gameScoreToDisplay is the String
+         * which is rendered in GameRenderer and contains the floor
+         * function of the gameScore variable. "Step" and "Multiplier"
+         * are the two increment controlling variables, wherein,
+         * step helps in minor controlling, multiplier increases the "rate
+         * of increase" much more rapidly.
+         */
         this.gameScore = 0.0f;
         this.gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
         this.step = 0.1f;
