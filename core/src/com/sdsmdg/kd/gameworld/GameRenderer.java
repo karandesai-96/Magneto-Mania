@@ -28,7 +28,7 @@ public class GameRenderer {
         shapeRenderer.setProjectionMatrix(cam.combined);
         bitmapFont = new BitmapFont();
         batch = new SpriteBatch();
-        margin = (15*(Main.screenArea)/(1920*1080));
+        margin = (15 * Main.screenArea) / (1920*1080);
     }
 
 

@@ -136,23 +136,23 @@ public class GameWorld {
                 }
             }
 
-
+            /**
+             *------------Scoring-------------*
+             **/
+            multiplier = 1 + (MathUtils.floor(gameScore))/1000;
+            if (multiplier >= 60) {
+                multiplier = 60;
+            }
+            step = (gameScore > 10) ? gameScore : 10;
+            while (step >= 0.5) {
+                step = step/10;
+            }
             gameScore += multiplier * step;
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
             gameMultiplierToDisplay = String.valueOf(multiplier);
-
-            if (((int)(gameScore))%1000 == 0 && ((int)gameScore)!=0){
-                multiplier++;
-                step = 0.1f;
-                Gdx.app.log("GameWorld","Multiplier incremented, Step reset to 0.1"+" Multiplier: "+multiplier);
-            }
-            else{
-                if (gameScore%100 == 0){
-                    step += 0.05f;
-                    Gdx.app.log("GameWorld","Step incremented");
-                }
-            }
-
+            Gdx.app.log("GameScore","Step is "+ step);
+            Gdx.app.log("GameScore","Multiplier is "+ multiplier);
+            Gdx.app.log("GameScore","Score is "+ gameScore);
         }
     }
 
