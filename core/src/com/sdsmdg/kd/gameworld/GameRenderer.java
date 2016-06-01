@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.magnetomania.Main;
 
 
@@ -28,7 +29,8 @@ public class GameRenderer {
         shapeRenderer.setProjectionMatrix(cam.combined);
         bitmapFont = new BitmapFont();
         batch = new SpriteBatch();
-        margin = (15 * Main.screenArea) / (1920*1080);
+        bitmapFont.setColor(0.1f, 0.1f, 0.1f, 1.0f);
+        margin = Main.screen.x / 20;
     }
 
 
@@ -39,14 +41,14 @@ public class GameRenderer {
         shapeRenderer.begin(ShapeType.Line);
         Gdx.gl.glLineWidth(30);
         shapeRenderer.setColor(new Color(0xaa23f4ff));
-        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
-                gameWorld.laser.endPoints[1].x,gameWorld.laser.endPoints[1].y);
-        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
-                gameWorld.laser.endPoints[2].x,gameWorld.laser.endPoints[2].y);
-        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
-                gameWorld.laser.endPoints[3].x,gameWorld.laser.endPoints[3].y);
-        shapeRenderer.line(gameWorld.laser.endPoints[0].x,gameWorld.laser.endPoints[0].y,
-                gameWorld.laser.endPoints[4].x,gameWorld.laser.endPoints[4].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x, gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[1].x, gameWorld.laser.endPoints[1].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x, gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[2].x, gameWorld.laser.endPoints[2].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x, gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[3].x, gameWorld.laser.endPoints[3].y);
+        shapeRenderer.line(gameWorld.laser.endPoints[0].x, gameWorld.laser.endPoints[0].y,
+                gameWorld.laser.endPoints[4].x, gameWorld.laser.endPoints[4].y);
         shapeRenderer.end();
 
         shapeRenderer.begin(ShapeType.Filled);
@@ -76,14 +78,7 @@ public class GameRenderer {
         shapeRenderer.end();
 
         batch.begin();
-        bitmapFont.setColor(0.1f, 0.1f, 0.1f, 1.0f);
-        bitmapFont.draw(batch, "Score :"+gameWorld.gameScoreToDisplay, margin, Main.screen.y-margin);
-        batch.end();
-
-        batch.begin();
-        bitmapFont.setColor(0.1f, 0.1f, 0.1f, 1.0f);
-        bitmapFont.draw(batch, "X"+gameWorld.gameMultiplierToDisplay,
-                Main.screen.x - 2*margin, Main.screen.y - margin);
+        bitmapFont.draw(batch, "Score :" + gameWorld.gameScoreToDisplay, margin, Main.screen.y - margin);
         batch.end();
     }
 }

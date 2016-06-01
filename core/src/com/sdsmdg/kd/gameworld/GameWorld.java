@@ -89,16 +89,12 @@ public class GameWorld {
          * gameScore is the variable which is incremented with each
          * call of update function. gameScoreToDisplay is the String
          * which is rendered in GameRenderer and contains the floor
-         * function of the gameScore variable. "Step" and "Multiplier"
-         * are the two increment controlling variables, wherein,
-         * step helps in minor controlling, multiplier increases the "rate
-         * of increase" much more rapidly.
+         * function of the gameScore variable. Upon every update, the
+         * score as well as rate of score keeps on increasing. The rate
+         * of increase of score becomes constant after a certain limit.
          */
         this.gameScore = 0.0f;
         this.gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
-        this.multiplier = 1;
-        this.gameMultiplierToDisplay = String.valueOf(multiplier);
-        this.step = 0.1f;
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
         magnus.prepareForAttack();
@@ -139,19 +135,13 @@ public class GameWorld {
             /**
              *------------Scoring-------------*
              **/
-            multiplier = 1 + (MathUtils.floor(gameScore))/1000;
-            if (multiplier >= 60) {
-                multiplier = 60;
+            if (gameScore >= 10000f) {
+                gameScore += 5.0f;
             }
-            step = (gameScore > 10) ? gameScore : 10;
-            while (step >= 0.5) {
-                step = step/10;
+            else {
+                gameScore += 1.0f + (gameScore / 2500.0f);
             }
-            gameScore += multiplier * step;
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
-            gameMultiplierToDisplay = String.valueOf(multiplier);
-            Gdx.app.log("GameScore","Step is "+ step);
-            Gdx.app.log("GameScore","Multiplier is "+ multiplier);
             Gdx.app.log("GameScore","Score is "+ gameScore);
         }
     }
