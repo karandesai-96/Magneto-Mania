@@ -1,6 +1,7 @@
 package com.sdsmdg.kd.gameworld;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
 import com.sdsmdg.kd.screens.GameScreen;
 
@@ -43,12 +44,19 @@ public class GameWorld {
      */
     public static int currentWeapon;
     public RandomXS128 random;
+    public float gameScore;
+    public int multiplier;
+    private float step;
+    public String gameScoreToDisplay;
+    public String gameMultiplierToDisplay;
+
     public Magnus magnus;
     public Bullet bullet;
     public HeatWave heatwave;
     public Rocket rocket;
     public Laser laser;
     public Boomerang boomerang;
+
     public MagnusController magnusController;
     public BulletController bulletController;
     public HeatWaveController heatwaveController;
@@ -76,6 +84,17 @@ public class GameWorld {
         boomerangController = new BoomerangController(boomerang);
 
         this.random = new RandomXS128();
+
+        /**
+         * gameScore is the variable which is incremented with each
+         * call of update function. gameScoreToDisplay is the String
+         * which is rendered in GameRenderer and contains the floor
+         * function of the gameScore variable. Upon every update, the
+         * score as well as rate of score keeps on increasing. The rate
+         * of increase of score becomes constant after a certain limit.
+         */
+        this.gameScore = 0.0f;
+        this.gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
         magnus.prepareForAttack();
@@ -112,6 +131,18 @@ public class GameWorld {
                     gameState = GameState.MAGNUS_ACTIVE;
                 }
             }
+
+            /**
+             *------------Scoring-------------*
+             **/
+            if (gameScore >= 10000f) {
+                gameScore += 5.0f;
+            }
+            else {
+                gameScore += 1.0f + (gameScore / 2500.0f);
+            }
+            gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
+            Gdx.app.log("GameScore","Score is "+ gameScore);
         }
     }
 
