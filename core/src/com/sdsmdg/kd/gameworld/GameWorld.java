@@ -111,6 +111,7 @@ public class GameWorld {
             }
             else if (currentWeapon == 3) {
                 rocketController.control();
+                isGameOver = rocketController.check();
             }
             else if (currentWeapon == 4) {
                 laserController.control(magnus);
@@ -147,7 +148,7 @@ public class GameWorld {
             /**
              *--------Game Over Handling---------*
              **/
-            isGameOver = magnusController.check();
+            isGameOver = isGameOver & magnusController.check();
 
             if (isGameOver) {
                 gameScore = 0;
