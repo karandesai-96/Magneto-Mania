@@ -118,6 +118,7 @@ public class GameWorld {
             }
             else if (currentWeapon == 5) {
                 boomerangController.control(magnus);
+                isGameOver = boomerangController.check();
             }
             else {
                 magnusController.control();
