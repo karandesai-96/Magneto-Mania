@@ -1,8 +1,10 @@
 package com.sdsmdg.kd.gameplay.controllers;
 
+import com.badlogic.gdx.Gdx;
 import com.sdsmdg.kd.gameplay.objects.Bullet;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.gameworld.GameWorld;
+import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 public class BulletController {
@@ -36,5 +38,13 @@ public class BulletController {
         if (bullet.active) {
             bullet.shoot();
         }
+    }
+
+    public boolean check() {
+        if (bullet.dst(InputHandler.touch.x, InputHandler.touch.y) < bullet.radius) {
+            Gdx.app.log("GameOver","Collision with Bullet!");
+            return true;
+        }
+        return false;
     }
 }

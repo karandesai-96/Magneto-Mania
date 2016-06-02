@@ -105,6 +105,7 @@ public class GameWorld {
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
                 bulletController.control(magnus);
+                isGameOver = bulletController.check();
             }
             else if (currentWeapon == 2) {
                 heatwaveController.control();
@@ -136,7 +137,7 @@ public class GameWorld {
             }
 
             /**
-             *------------Scoring-------------*
+             *------------------------Scoring---------------------------*
              **/
             if (gameScore >= 10000f) {
                 gameScore += 5.0f;
