@@ -46,6 +46,7 @@ public class GameWorld {
     public RandomXS128 random;
     public float gameScore;
     public String gameScoreToDisplay;
+    public boolean isGameOver;
 
     public Magnus magnus;
     public Bullet bullet;
@@ -81,6 +82,9 @@ public class GameWorld {
         boomerangController = new BoomerangController(boomerang);
 
         this.random = new RandomXS128();
+
+        // Initially isGameOver boolean is set to false.
+        this.isGameOver = false;
 
         /**
          * gameScore is the variable which is incremented with each
@@ -139,7 +143,19 @@ public class GameWorld {
                 gameScore += 1.0f + (gameScore / 2500.0f);
             }
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
-            Gdx.app.log("GameScore","Score is "+ gameScore);
+
+            /**
+             *--------Game Over Handling---------*
+             **/
+            isGameOver = magnusController.check();
+
+            if (isGameOver) {
+                gameScore = 0;
+                //This will stop the game rendering for the while and game
+                //needs to be restarted in order to replay. This needs to be
+                //replaced by changing to game-over screen.
+                GameScreen.isTouched = false;
+            }
         }
     }
 
