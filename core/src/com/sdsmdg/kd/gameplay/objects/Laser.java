@@ -58,33 +58,22 @@ public class Laser extends GameObject {
         }
     }
 
-//    public void reset (Magnus magnus) {
-//        deactivate();
-//        fixMagnusPathToFinger(magnus);
-//        moveMagnusToBoundary(magnus);
-//        numberOfTurns = 0;
-//        turnTime = 0;
-//        pointVelocity[0] = pointVelocity[1] = 0;
-//        endPoints[0].x = endPoints[1].x = endPoints[2].x = endPoints[3].x = endPoints[4].x = -10;
-//        endPoints[0].y = endPoints[1].y = endPoints[2].y = endPoints[3].y = endPoints[4].y = -10;
-//        magnus.velocity = 0;
-//    }
-//
-//    public void rotateLaser () {
-//        if (endPoints[1].y < Main.screen.y || endPoints[2].x < Main.screen.x
-//                || endPoints[3].y > 0 || endPoints[4].x>0) {
-//            endPoints[2].x = endPoints[2].x + pointVelocity[0];
-//            endPoints[4].x = endPoints[4].x - pointVelocity[0];
-//            endPoints[1].y = endPoints[1].y + pointVelocity[1];
-//            endPoints[3].y = endPoints[3].y - pointVelocity[1];
-//        }
-//        else {
-//            numberOfTurns --;
-//            Vector2 temp = endPoints[1];
-//            endPoints[1] = endPoints[4];
-//            endPoints[4] = endPoints[3];
-//            endPoints[3] = endPoints[2];
-//            endPoints[2] = temp;
-//        }
-//    }
+    public void rotate(int orientation) {
+        if (orientation == 0) {
+            this.x -= Main.screen.x / 30.0;
+        }
+        else if (orientation == 1) {
+            this.y += Main.screen.y / 30.0;
+        }
+        else if (orientation == 2) {
+            this.x += Main.screen.x / 30.0;
+        }
+        else if (orientation == 3) {
+            this.y -= Main.screen.y / 30.0;
+        }
+    }
+
+    public void reset (Magnus magnus) {
+        deactivate();
+    }
 }
