@@ -45,10 +45,7 @@ public class GameWorld {
     public static int currentWeapon;
     public RandomXS128 random;
     public float gameScore;
-    public int multiplier;
-    private float step;
     public String gameScoreToDisplay;
-    public String gameMultiplierToDisplay;
 
     public Magnus magnus;
     public Bullet bullet;
@@ -166,7 +163,7 @@ public class GameWorld {
         else if (currentWeapon == 4) {
             //Laser selected.
             Gdx.app.log("GameWorld","Laser Initialised");
-            laser.init(magnus);
+            laser.init(8);
         }
         else if (currentWeapon == 5) {
             //Boomerang Selected.

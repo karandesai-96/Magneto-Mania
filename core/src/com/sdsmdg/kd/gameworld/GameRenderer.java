@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.magnetomania.Main;
 
 
@@ -38,18 +37,15 @@ public class GameRenderer {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        shapeRenderer.begin(ShapeType.Line);
-        Gdx.gl.glLineWidth(30);
-        shapeRenderer.setColor(new Color(0xaa23f4ff));
-        shapeRenderer.line(gameWorld.laser.endPoints[0].x, gameWorld.laser.endPoints[0].y,
-                gameWorld.laser.endPoints[1].x, gameWorld.laser.endPoints[1].y);
-        shapeRenderer.line(gameWorld.laser.endPoints[0].x, gameWorld.laser.endPoints[0].y,
-                gameWorld.laser.endPoints[2].x, gameWorld.laser.endPoints[2].y);
-        shapeRenderer.line(gameWorld.laser.endPoints[0].x, gameWorld.laser.endPoints[0].y,
-                gameWorld.laser.endPoints[3].x, gameWorld.laser.endPoints[3].y);
-        shapeRenderer.line(gameWorld.laser.endPoints[0].x, gameWorld.laser.endPoints[0].y,
-                gameWorld.laser.endPoints[4].x, gameWorld.laser.endPoints[4].y);
-        shapeRenderer.end();
+        if (gameWorld.laser.active) {
+            shapeRenderer.begin(ShapeType.Line);
+            Gdx.gl.glLineWidth(30);
+            shapeRenderer.setColor(new Color(0xaa23f4ff));
+            for (int i = 0; i < 4; i++) {
+                shapeRenderer.line(Main.screenCenter, gameWorld.laser.endPoints[i]);
+            }
+            shapeRenderer.end();
+        }
 
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x4caf50ff));

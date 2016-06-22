@@ -1,7 +1,6 @@
 package com.sdsmdg.kd.gameplay.objects;
 
 import com.badlogic.gdx.math.Vector2;
-import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 /**
@@ -9,41 +8,29 @@ import com.sdsmdg.kd.magnetomania.Main;
  * @author Karan Desai
  */
 public class Laser extends GameObject {
-    public final Vector2 center = new Vector2(Main.screen.x, Main.screen.y);
     public Vector2[] endPoints = new Vector2[4];
-
+    public int numberOfSwipes;
 
     public Laser() {
         for (int i = 0; i < 4; i++) {
-            this.endPoints[i].set(Main.screen);
+            this.endPoints[i] = new Vector2(Main.screen);
         }
         //the weapon is Initially deactivated.
         this.active = false;
-    }
-
-    public void fixMagnusPathToFinger (Magnus magnus) {
-        magnus.calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
-    }
-
-    public void moveMagnusToBoundary (Magnus magnus) {
-        magnus.add(magnus.velocityComponent);
-    }
-
-    public void moveMagnusToCenter (Magnus magnus) {
-        magnus.calcVelocityComponent(Main.screenCenter);
-        magnus.add(magnus.velocityComponent);
+        this.numberOfSwipes = 8;
     }
 
     /**
      * Set the end point to one of the corners of screen, to start
      * sweeping in anticlockwise direction.
      */
-    public void init() {
+    public void init(int numberOfSwipes) {
         activate();
-        this.endPoints[0].set(2 * center.x, 0);            // Top Right
-        this.endPoints[1].set(0, 0);                       // Top Left
-        this.endPoints[2].set(0, 2 * center.y);            // Bottom Left
-        this.endPoints[3].set(2 * center.x, 2 * center.y); // Bottom Right
+        this.numberOfSwipes = numberOfSwipes;
+        this.endPoints[0].set(2 * Main.screenCenter.x, 0);
+        this.endPoints[1].set(0, 0);
+        this.endPoints[2].set(0, 2 * Main.screenCenter.y);
+        this.endPoints[3].set(2 * Main.screenCenter.x, 2 * Main.screenCenter.y);
     }
 
     public void rotate() {
