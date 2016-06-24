@@ -1,13 +1,15 @@
 package com.sdsmdg.kd.gameplay.controllers;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.gameplay.objects.Laser;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.gameworld.GameWorld;
+import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 /**
  * @author Haresh Khanna
+ * @author Karan Desai
  */
 public class LaserController {
     private Laser laser;
@@ -17,35 +19,32 @@ public class LaserController {
     }
 
     public void control (Magnus magnus) {
-        if (laser.active){
-            if (laser.numberOfTurns>0) {
-                if (magnus.x >= ((Main.screenCenter.x)-10) && magnus.y > ((Main.screenCenter.y)-10)
-                        && magnus.x < ((Main.screenCenter.x)+10) && magnus.y < ((Main.screenCenter.y)+10)) {
-                    Gdx.app.log("LaserController","Laser rotating");
-                    laser.rotateLaser();
+        if (laser.active) {
+            if (laser.numberOfSwipes > 0) {
+                if (magnus.dst(Main.screenCenter) >= 10) {
+                    magnus.calcVelocityComponent(Main.screenCenter);
+                    magnus.add(magnus.velocityComponent);
+
+                    if (magnus.dst(Main.screenCenter) < 10) {
+                        magnus.set(Main.screenCenter);
+                    }
                 }
                 else {
-                    Gdx.app.log("LaserController","Magnus moving to center");
-                    laser.moveMagnusToCenter(magnus);
-                }
+                    laser.rotate();
 
-                /**
-                 * Avoids glitchy motion of Magnus when it migrates to center.
-                 */
-                if ((magnus.x <= Main.screenCenter.x + 25) && (magnus.x >= Main.screenCenter.x - 25)) {
-                    magnus.x = Main.screenCenter.x;
-                }
-                if ((magnus.y <= Main.screenCenter.y + 25) && (magnus.y >= Main.screenCenter.y - 25)) {
-                    magnus.y = Main.screenCenter.y;
+                    // All the arms swipe at once, so checking only one.
+                    if (laser.endPoints[0].x < 1) {
+                        laser.numberOfSwipes--;
+                        laser.init(laser.numberOfSwipes);
+                    }
                 }
             }
             else {
-                Gdx.app.log("LaserController","Laser reset now, Magnus moving to sides");
-                laser.fixMagnusPathToFinger(magnus);
-                laser.reset(magnus);
+                magnus.calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
+                laser.reset();
             }
         }
-        else{
+        else {
             if (magnus.x >= Main.screen.x + 5 || magnus.x <= -5 ||
                     magnus.y >= Main.screen.y + 5 || magnus.y <= -5) {
 
@@ -63,12 +62,10 @@ public class LaserController {
                 if (magnus.y < -5) {
                     magnus.y = 0;
                 }
-                Gdx.app.log("LaserController","Game state changes");
                 GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
             }
             else {
-                Gdx.app.log("LaserController","Laser now inactive, Magnus moving to sides");
-                laser.moveMagnusToBoundary(magnus);
+                magnus.add(magnus.velocityComponent);
             }
         }
     }
