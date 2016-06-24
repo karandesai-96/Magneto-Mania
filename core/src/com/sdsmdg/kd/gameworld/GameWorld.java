@@ -3,6 +3,7 @@ package com.sdsmdg.kd.gameworld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
+import com.sdsmdg.kd.magnetomania.Main;
 import com.sdsmdg.kd.screens.GameScreen;
 
 import com.sdsmdg.kd.gameplay.objects.Magnus;
@@ -116,6 +117,9 @@ public class GameWorld {
             }
             else if (currentWeapon == 4) {
                 laserController.control(magnus);
+                if (magnus.crs(Main.screenCenter) == 0) {
+                    isGameOver = laserController.check();
+                }
             }
             else if (currentWeapon == 5) {
                 boomerangController.control(magnus);
@@ -150,7 +154,7 @@ public class GameWorld {
             /**
              *--------Game Over Handling---------*
              **/
-            isGameOver = isGameOver & magnusController.check();
+            isGameOver = isGameOver || magnusController.check();
 
             if (isGameOver) {
                 gameScore = 0;
