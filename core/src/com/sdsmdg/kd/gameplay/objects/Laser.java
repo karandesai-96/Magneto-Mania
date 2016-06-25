@@ -1,5 +1,6 @@
 package com.sdsmdg.kd.gameplay.objects;
 
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.magnetomania.Main;
 
@@ -8,16 +9,22 @@ import com.sdsmdg.kd.magnetomania.Main;
  * @author Karan Desai
  */
 public class Laser extends GameObject {
-    public Vector2[] endPoints = new Vector2[4];
+    public Vector2[] endPoints;
     public int numberOfSwipes;
+    private int sweepTime;
 
     public Laser() {
+        RandomXS128 random = new RandomXS128();
+
+        this.endPoints = new Vector2[4];
         for (int i = 0; i < 4; i++) {
             this.endPoints[i] = new Vector2(Main.screen);
         }
         //the weapon is Initially deactivated.
         this.active = false;
         this.numberOfSwipes = 8;
+
+        sweepTime = 25 + (random.nextInt() % 20);
     }
 
     /**
@@ -34,10 +41,10 @@ public class Laser extends GameObject {
     }
 
     public void rotate() {
-        this.endPoints[0].x -= Main.screen.x / 30.0;
-        this.endPoints[1].y += Main.screen.y / 30.0;
-        this.endPoints[2].x += Main.screen.x / 30.0;
-        this.endPoints[3].y -= Main.screen.y / 30.0;
+        this.endPoints[0].x -= Main.screen.x / sweepTime;
+        this.endPoints[1].y += Main.screen.y / sweepTime;
+        this.endPoints[2].x += Main.screen.x / sweepTime;
+        this.endPoints[3].y -= Main.screen.y / sweepTime;
     }
 
     public void reset () {
