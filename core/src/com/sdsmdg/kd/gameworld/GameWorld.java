@@ -105,25 +105,25 @@ public class GameWorld {
     public void update(float delta) {
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
-                bulletController.control(magnus);
                 isGameOver = bulletController.check();
+                bulletController.control(magnus);
             }
             else if (currentWeapon == 2) {
                 heatwaveController.control();
             }
             else if (currentWeapon == 3) {
-                rocketController.control();
                 isGameOver = rocketController.check();
+                rocketController.control();
             }
             else if (currentWeapon == 4) {
-                laserController.control(magnus);
                 if (magnus.crs(Main.screenCenter) == 0) {
                     isGameOver = laserController.check();
                 }
+                laserController.control(magnus);
             }
             else if (currentWeapon == 5) {
-                boomerangController.control(magnus);
                 isGameOver = boomerangController.check();
+                boomerangController.control(magnus);
             }
             else {
                 magnusController.control();
