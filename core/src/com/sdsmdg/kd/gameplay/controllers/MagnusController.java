@@ -1,7 +1,9 @@
 package com.sdsmdg.kd.gameplay.controllers;
 
+import com.badlogic.gdx.Gdx;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.gameworld.GameWorld;
+import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 public class MagnusController {
@@ -48,5 +50,13 @@ public class MagnusController {
         else {
             magnus.attack();
         }
+    }
+
+    public boolean check() {
+        if (magnus.dst(InputHandler.touch.x, InputHandler.touch.y) < magnus.radius) {
+            Gdx.app.log("GameOver", "Collision with Magnus!");
+            return true;
+        }
+        return false;
     }
 }

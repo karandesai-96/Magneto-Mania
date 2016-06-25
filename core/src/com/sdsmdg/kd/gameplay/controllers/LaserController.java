@@ -1,5 +1,7 @@
 package com.sdsmdg.kd.gameplay.controllers;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.gameplay.objects.Laser;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
@@ -13,9 +15,13 @@ import com.sdsmdg.kd.magnetomania.Main;
  */
 public class LaserController {
     private Laser laser;
+    int endPointToCenterAngle;
+    int fingerToCenterAngle;
 
     public LaserController (Laser laser) {
         this.laser = laser;
+        this.endPointToCenterAngle = 0;
+        this.fingerToCenterAngle = 0;
     }
 
     public void control (Magnus magnus) {
@@ -69,4 +75,23 @@ public class LaserController {
             }
         }
     }
+
+    public boolean check() {
+        for (int i = 0; i < 4; i++) {
+            endPointToCenterAngle = (int)(180 / MathUtils.PI * MathUtils.atan2(
+                    laser.endPoints[i].y - Main.screenCenter.y,
+                    laser.endPoints[i].x - Main.screenCenter.x));
+            fingerToCenterAngle = (int)(180 / MathUtils.PI * MathUtils.atan2(
+                    InputHandler.touch.y - Main.screenCenter.y,
+                    InputHandler.touch.x - Main.screenCenter.x));
+
+            if (fingerToCenterAngle < endPointToCenterAngle + 3 &&
+                fingerToCenterAngle > endPointToCenterAngle - 3) {
+                Gdx.app.log("GameOver", "Collision with Laser!");
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

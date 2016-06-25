@@ -3,6 +3,7 @@ package com.sdsmdg.kd.gameworld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
+import com.sdsmdg.kd.magnetomania.Main;
 import com.sdsmdg.kd.screens.GameScreen;
 
 import com.sdsmdg.kd.gameplay.objects.Magnus;
@@ -46,6 +47,7 @@ public class GameWorld {
     public RandomXS128 random;
     public float gameScore;
     public String gameScoreToDisplay;
+    public boolean isGameOver;
 
     public Magnus magnus;
     public Bullet bullet;
@@ -82,6 +84,9 @@ public class GameWorld {
 
         this.random = new RandomXS128();
 
+        // Initially isGameOver boolean is set to false.
+        this.isGameOver = false;
+
         /**
          * gameScore is the variable which is incremented with each
          * call of update function. gameScoreToDisplay is the String
@@ -100,18 +105,24 @@ public class GameWorld {
     public void update(float delta) {
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
+                isGameOver = bulletController.check();
                 bulletController.control(magnus);
             }
             else if (currentWeapon == 2) {
                 heatwaveController.control();
             }
             else if (currentWeapon == 3) {
+                isGameOver = rocketController.check();
                 rocketController.control();
             }
             else if (currentWeapon == 4) {
+                if (magnus.crs(Main.screenCenter) == 0) {
+                    isGameOver = laserController.check();
+                }
                 laserController.control(magnus);
             }
             else if (currentWeapon == 5) {
+                isGameOver = boomerangController.check();
                 boomerangController.control(magnus);
             }
             else {
@@ -130,7 +141,7 @@ public class GameWorld {
             }
 
             /**
-             *------------Scoring-------------*
+             *------------------------Scoring---------------------------*
              **/
             if (gameScore >= 10000f) {
                 gameScore += 5.0f;
@@ -139,7 +150,19 @@ public class GameWorld {
                 gameScore += 1.0f + (gameScore / 2500.0f);
             }
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
-            Gdx.app.log("GameScore","Score is "+ gameScore);
+
+            /**
+             *--------Game Over Handling---------*
+             **/
+            isGameOver = isGameOver || magnusController.check();
+
+            if (isGameOver) {
+                gameScore = 0;
+                //This will stop the game rendering for the while and game
+                //needs to be restarted in order to replay. This needs to be
+                //replaced by changing to game-over screen.
+                GameScreen.isTouched = false;
+            }
         }
     }
 
