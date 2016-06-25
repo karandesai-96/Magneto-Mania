@@ -85,8 +85,8 @@ public class LaserController {
                     InputHandler.touch.y - Main.screenCenter.y,
                     InputHandler.touch.x - Main.screenCenter.x));
 
-            if (fingerToCenterAngle < endPointToCenterAngle + 1 &&
-                fingerToCenterAngle > endPointToCenterAngle - 1) {
+            if (fingerToCenterAngle < endPointToCenterAngle + 3 &&
+                fingerToCenterAngle > endPointToCenterAngle - 3) {
                 Gdx.app.log("GameOver", "Collision with Laser!");
                 return true;
             }
