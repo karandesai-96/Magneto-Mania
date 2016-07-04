@@ -69,7 +69,9 @@ public class GameRenderer {
         shapeRenderer.begin(ShapeType.Line);
         Gdx.gl.glLineWidth(32);
         shapeRenderer.setColor(new Color(0xffca28ff));
-        shapeRenderer.circle(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius);
+        for (int i = 0; i < 5; i++) {
+            shapeRenderer.circle(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i]);
+        }
         shapeRenderer.end();
 
         shapeRenderer.begin(ShapeType.Filled);

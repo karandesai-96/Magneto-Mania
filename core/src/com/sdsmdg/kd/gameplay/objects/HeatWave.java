@@ -21,7 +21,7 @@ public class HeatWave extends GameObject {
         this.x = -10;
         this.y = -10;
 
-        this.velocity = 20;
+        this.velocity = 10;
         this.velocity *= Main.scaleFactor;
 
         // Heatwave is inactive when game starts.
@@ -46,12 +46,21 @@ public class HeatWave extends GameObject {
     /**
      * This method adds the velocity to radius of heatwave, hence expanding it.
      */
+<<<<<<< HEAD
     public void expand(float delta) {
         this.radius[0] += this.velocity * delta * 1.0;
         this.radius[1] += this.velocity * delta * 1.2;
         this.radius[2] += this.velocity * delta * 1.4;
         this.radius[3] += this.velocity * delta * 1.6;
         this.radius[4] += this.velocity * delta * 1.8;
+=======
+    public void expand() {
+        this.radius[0] += this.velocity*1.0;
+        this.radius[1] += this.velocity*1.4;
+        this.radius[2] += this.velocity*1.8;
+        this.radius[3] += this.velocity*2.2;
+        this.radius[4] += this.velocity*2.6;
+>>>>>>> e5a59a7... Initialises 5 circles in GameRenderer class
     }
 
     /**
