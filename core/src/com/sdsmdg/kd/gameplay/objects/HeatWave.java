@@ -5,12 +5,17 @@ import com.sdsmdg.kd.magnetomania.Main;
 
 /**
  * @author Karan Desai
+ * @author Haresh Khanna
  */
 public class HeatWave extends GameObject {
+    public float[] radius;
 
     public HeatWave() {
         // Setting the radius 0 as wave propagates radially outwards.
-        this.radius = 0;
+        this.radius = new float[4];
+        for (int i = 0; i < 5; i++) {
+            this.radius[i] = 0;
+        }
 
         // The wave should be just a point in outside the screen when game starts.
         this.x = -10;
@@ -33,14 +38,20 @@ public class HeatWave extends GameObject {
         activate();
         this.x = magnus.x;
         this.y = magnus.y;
-        this.radius = 0;
+        for (int i = 0; i < 5; i++) {
+            this.radius[i] = 0;
+        }
     }
 
     /**
      * This method adds the velocity to radius of heatwave, hence expanding it.
      */
     public void expand(float delta) {
-        this.radius += this.velocity * delta;
+        this.radius[0] += this.velocity * delta * 1.0;
+        this.radius[1] += this.velocity * delta * 1.2;
+        this.radius[2] += this.velocity * delta * 1.4;
+        this.radius[3] += this.velocity * delta * 1.6;
+        this.radius[4] += this.velocity * delta * 1.8;
     }
 
     /**
@@ -52,6 +63,8 @@ public class HeatWave extends GameObject {
         deactivate();
         this.x = -10;
         this.y = -10;
-        this.radius = 0;
+        for (int i = 0; i < 5; i++) {
+            this.radius[i] = 0;
+        }
     }
 }
