@@ -16,7 +16,7 @@ public class HeatWaveController {
 
     public void control(float delta) {
         if (heatWave.active) {
-            if (heatWave.radius <= 3 * Main.screen.y / 2) {
+            if (heatWave.radius[0] <= 3 * Main.screen.y / 2) {
                 heatWave.expand(delta);
             } else {
                 heatWave.reset();
