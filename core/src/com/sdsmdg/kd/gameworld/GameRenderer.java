@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.sdsmdg.kd.helpers.ArcRenderer;
 import com.sdsmdg.kd.magnetomania.Main;
 
 
@@ -15,6 +15,7 @@ public class GameRenderer {
     private GameWorld gameWorld;
     public static OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
+    private ArcRenderer arcRenderer;
     private BitmapFont bitmapFont;
     private SpriteBatch batch;
     private float margin;
@@ -30,6 +31,8 @@ public class GameRenderer {
         batch = new SpriteBatch();
         bitmapFont.setColor(0.1f, 0.1f, 0.1f, 1.0f);
         margin = Main.screen.x / 20;
+        arcRenderer = new ArcRenderer();
+        arcRenderer.setProjectionMatrix(cam.combined);
     }
 
 
@@ -38,7 +41,7 @@ public class GameRenderer {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (gameWorld.laser.active) {
-            shapeRenderer.begin(ShapeType.Line);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             Gdx.gl.glLineWidth(30);
             shapeRenderer.setColor(new Color(0xaa23f4ff));
             for (int i = 0; i < 4; i++) {
@@ -47,12 +50,12 @@ public class GameRenderer {
             shapeRenderer.end();
         }
 
-        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x4caf50ff));
         shapeRenderer.circle(gameWorld.rocket.x, gameWorld.rocket.y, gameWorld.rocket.radius);
         shapeRenderer.end();
 
-        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x03a9f4ff));
         for (int i = 0; i < gameWorld.spanOfBullets; i++) {
             for (int j = 0; j < gameWorld.depthOfBullets; j++) {
@@ -61,20 +64,32 @@ public class GameRenderer {
         }
         shapeRenderer.end();
 
-        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x8dfe7aff));
         shapeRenderer.circle(gameWorld.boomerang.x, gameWorld.boomerang.y, gameWorld.boomerang.radius);
         shapeRenderer.end();
 
-        shapeRenderer.begin(ShapeType.Line);
-        Gdx.gl.glLineWidth(32);
-        shapeRenderer.setColor(new Color(0xffca28ff));
         for (int i = 0; i < 5; i++) {
-            shapeRenderer.circle(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i]);
+            for (int j = 0; j < 3; j++) {
+                if (i % 2 == 0) {
+                    arcRenderer.begin(ArcRenderer.ShapeType.Line);
+                    Gdx.gl.glLineWidth(32);
+                    arcRenderer.setColor(new Color(0xffca28ff));
+                    arcRenderer.arc(gameWorld.heatwave.x ,gameWorld.heatwave.y ,gameWorld.heatwave.radius[i],
+                            gameWorld.heatwave.startAngle[j][0],gameWorld.heatwave.sweepAngle,50);
+                    arcRenderer.end();
+                } else {
+                    arcRenderer.begin(ArcRenderer.ShapeType.Line);
+                    Gdx.gl.glLineWidth(32);
+                    arcRenderer.setColor(new Color(0xffca28ff));
+                    arcRenderer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i],
+                            gameWorld.heatwave.startAngle[j][1], gameWorld.heatwave.sweepAngle,50);
+                    arcRenderer.end();
+                }
+            }
         }
-        shapeRenderer.end();
 
-        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0xf44336ff));
         shapeRenderer.circle(gameWorld.magnus.x, gameWorld.magnus.y, gameWorld.magnus.radius);
         shapeRenderer.end();
