@@ -19,15 +19,19 @@ public class HeatWave extends GameObject {
             this.radius[i] = 0;
         }
 
-        this.startAngle = new int[3][2];
+        this.startAngle = new int[5][2];
         this.startAngle[0][0] = 0;
-        this.startAngle[1][0] = 30;
-        this.startAngle[2][0] = 60;
-        this.startAngle[0][0] = 15;
-        this.startAngle[1][0] = 45;
-        this.startAngle[2][0] = 75;
+        this.startAngle[1][0] = 36;
+        this.startAngle[2][0] = 72;
+        this.startAngle[3][0] = 108;
+        this.startAngle[4][0] = 144;
+        this.startAngle[0][1] = 10;
+        this.startAngle[1][1] = 46;
+        this.startAngle[2][1] = 82;
+        this.startAngle[3][1] = 118;
+        this.startAngle[4][1] = 154;
 
-        this.sweepAngle = 15;
+        this.sweepAngle = 26;
         // The wave should be just a point in outside the screen when game starts.
         this.x = -10;
         this.y = -10;
