@@ -15,8 +15,8 @@ public class MagnusController {
 
 
     public void control () {
-        if (magnus.active && (magnus.x >= Main.screen.x + 5 || magnus.x <= -5 ||
-                              magnus.y >= Main.screen.y + 5 || magnus.y <= -5)) {
+        if (magnus.x >= Main.screen.x + 5 || magnus.x <= -5 ||
+            magnus.y >= Main.screen.y + 5 || magnus.y <= -5) {
 
             // For preventing glitchy movement at the boundary.
             if (magnus.x > Main.screen.x+5) {
@@ -39,10 +39,10 @@ public class MagnusController {
             GameWorld.gameState = GameWorld.GameState.NEXT_WEAPON;
         }
 
-        if (!magnus.active) {
+        if (magnus.sleepTime > 0) {
             magnus.sleep();
 
-            if (magnus.active) {
+            if (magnus.sleepTime == 0) {
                 magnus.prepareForAttack();
                 magnus.attack();
             }
