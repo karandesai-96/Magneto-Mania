@@ -126,7 +126,7 @@ public class GameWorld {
                 boomerangController.control(magnus);
             }
             else {
-                magnusController.control();
+                magnusController.control(delta);
             }
 
             if (gameState == GameState.NEXT_WEAPON || gameState == GameState.NEXT_MAGNUS) {

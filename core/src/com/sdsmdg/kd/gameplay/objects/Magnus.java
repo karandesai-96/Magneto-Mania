@@ -40,7 +40,7 @@ public class Magnus extends GameObject {
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
     }
 
-    public void attack () {
-        add(this.velocityComponent);
+    public void attack (float delta) {
+        mulAdd(this.velocityComponent, delta);
     }
 }

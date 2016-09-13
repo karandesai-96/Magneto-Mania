@@ -14,7 +14,7 @@ public class MagnusController {
     }
 
 
-    public void control () {
+    public void control(float delta) {
         if (magnus.x >= Main.screen.x + 5 || magnus.x <= -5 ||
             magnus.y >= Main.screen.y + 5 || magnus.y <= -5) {
 
@@ -44,11 +44,11 @@ public class MagnusController {
 
             if (magnus.sleepTime == 0) {
                 magnus.prepareForAttack();
-                magnus.attack();
+                magnus.attack(delta);
             }
         }
         else {
-            magnus.attack();
+            magnus.attack(delta);
         }
     }
 
