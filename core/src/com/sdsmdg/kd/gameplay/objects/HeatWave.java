@@ -36,8 +36,8 @@ public class HeatWave extends GameObject {
     /**
      * This method adds the velocity to radius of heatwave, hence expanding it.
      */
-    public void expand() {
-        this.radius += this.velocity;
+    public void expand(float delta) {
+        this.radius += this.velocity * delta;
     }
 
     /**

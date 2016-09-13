@@ -12,9 +12,9 @@ public class RocketController {
         this.rocket = rocket;
     }
 
-    public void control() {
+    public void control(float delta) {
         if (rocket.active && rocket.activeTime > 0) {
-            rocket.follow();
+            rocket.follow(delta);
 
             // Rocket's activeTime decreases on every game update.
             rocket.activeTime--;

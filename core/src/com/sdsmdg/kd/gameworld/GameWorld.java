@@ -109,17 +109,17 @@ public class GameWorld {
                 bulletController.control(magnus, delta);
             }
             else if (currentWeapon == 2) {
-                heatwaveController.control();
+                heatwaveController.control(delta);
             }
             else if (currentWeapon == 3) {
                 isGameOver = rocketController.check();
-                rocketController.control();
+                rocketController.control(delta);
             }
             else if (currentWeapon == 4) {
                 if (magnus.crs(Main.screenCenter) == 0) {
                     isGameOver = laserController.check();
                 }
-                laserController.control(magnus);
+                laserController.control(magnus, delta);
             }
             else if (currentWeapon == 5) {
                 isGameOver = boomerangController.check();

@@ -1,7 +1,6 @@
 package com.sdsmdg.kd.gameplay.objects;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
@@ -50,7 +49,6 @@ public class Rocket extends GameObject {
         this.y = magnus.y;
 
         calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
-        Gdx.app.log("Rocket initialized.","");
     }
 
     /**
@@ -59,10 +57,9 @@ public class Rocket extends GameObject {
      * adds the velocity components to current position of rocket, hence making
      * it look like following the finger, as it happens in every game update.
      */
-    public void follow() {
-        add(velocityComponent);
+    public void follow(float delta) {
+        mulAdd(velocityComponent, delta);
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
-        Gdx.app.log("Rocket following, components:", " " + velocityComponent.x + " " + velocityComponent.y);
     }
 
     /**
@@ -74,6 +71,5 @@ public class Rocket extends GameObject {
 
         this.x = Main.screen.x + (4 * this.radius);
         this.y = Main.screen.y + (4 * this.radius);
-        Gdx.app.log("Rocket has been reset.", "");
     }
 }

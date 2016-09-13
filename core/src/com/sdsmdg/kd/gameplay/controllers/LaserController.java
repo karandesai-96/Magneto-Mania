@@ -24,7 +24,7 @@ public class LaserController {
         this.fingerToCenterAngle = 0;
     }
 
-    public void control (Magnus magnus) {
+    public void control (Magnus magnus, float delta) {
         if (laser.active) {
             if (laser.numberOfSwipes > 0) {
                 if (magnus.dst(Main.screenCenter) >= 10) {
@@ -36,7 +36,7 @@ public class LaserController {
                     }
                 }
                 else {
-                    laser.rotate();
+                    laser.rotate(delta);
 
                     // All the arms swipe at once, so checking only one.
                     if (laser.endPoints[0].x < 1) {
