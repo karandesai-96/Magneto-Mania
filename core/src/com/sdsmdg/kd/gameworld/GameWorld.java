@@ -106,7 +106,7 @@ public class GameWorld {
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
                 isGameOver = bulletController.check();
-                bulletController.control(magnus);
+                bulletController.control(magnus, delta);
             }
             else if (currentWeapon == 2) {
                 heatwaveController.control();
@@ -123,7 +123,7 @@ public class GameWorld {
             }
             else if (currentWeapon == 5) {
                 isGameOver = boomerangController.check();
-                boomerangController.control(magnus);
+                boomerangController.control(magnus, delta);
             }
             else {
                 magnusController.control(delta);
