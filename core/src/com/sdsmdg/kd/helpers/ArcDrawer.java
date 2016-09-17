@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 /**
  * @author Haresh Khanna
  */
-public class ArcRenderer {
+public class ArcDrawer {
     public enum ShapeType {
         Point(GL20.GL_POINTS), Line(GL20.GL_LINES), Filled(GL20.GL_TRIANGLES);
 
@@ -40,15 +40,15 @@ public class ArcRenderer {
     private boolean autoShapeType;
     private float defaultRectLineWidth = 0.75f;
 
-    public ArcRenderer() {
+    public ArcDrawer() {
         this(5000);
     }
 
-    public ArcRenderer(int maxVertices) {
+    public ArcDrawer(int maxVertices) {
         this(maxVertices, null);
     }
 
-    public ArcRenderer(int maxVertices, ShaderProgram defaultShader) {
+    public ArcDrawer(int maxVertices, ShaderProgram defaultShader) {
         if (defaultShader == null) {
             renderer = new ImmediateModeRenderer20(maxVertices, false, true, 0);
         } else {

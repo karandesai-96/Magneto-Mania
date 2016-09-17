@@ -6,7 +6,11 @@ buildscript {
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:2.2.0'
+=======
+        classpath 'com.android.tools.build:gradle:2.1.3'
+>>>>>>> 189993c... Improves Heatwave rendering
         classpath 'org.robovm:robovm-gradle-plugin:1.8.0'
     }
 }

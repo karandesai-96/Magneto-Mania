@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.sdsmdg.kd.helpers.ArcRenderer;
+import com.sdsmdg.kd.helpers.ArcDrawer;
 import com.sdsmdg.kd.magnetomania.Main;
 
 
@@ -15,7 +15,7 @@ public class GameRenderer {
     private GameWorld gameWorld;
     public static OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
-    private ArcRenderer arcRenderer;
+    private ArcDrawer arcDrawer;
     private BitmapFont bitmapFont;
     private SpriteBatch batch;
     private float margin;
@@ -31,8 +31,8 @@ public class GameRenderer {
         batch = new SpriteBatch();
         bitmapFont.setColor(0.1f, 0.1f, 0.1f, 1.0f);
         margin = Main.screen.x / 20;
-        arcRenderer = new ArcRenderer();
-        arcRenderer.setProjectionMatrix(cam.combined);
+        arcDrawer = new ArcDrawer();
+        arcDrawer.setProjectionMatrix(cam.combined);
     }
 
 
@@ -74,17 +74,17 @@ public class GameRenderer {
                 if (i % 2 == 0) {
                     arcRenderer.begin(ArcRenderer.ShapeType.Line);
                     Gdx.gl.glLineWidth(32);
-                    arcRenderer.setColor(new Color(0xffca28ff));
-                    arcRenderer.arc(gameWorld.heatwave.x ,gameWorld.heatwave.y ,gameWorld.heatwave.radius[i],
+                    arcDrawer.setColor(new Color(0xffca28ff));
+                    arcDrawer.arc(gameWorld.heatwave.x ,gameWorld.heatwave.y ,gameWorld.heatwave.radius[i],
                             gameWorld.heatwave.startAngle[j][0],gameWorld.heatwave.sweepAngle,50);
-                    arcRenderer.end();
+                    arcDrawer.end();
                 } else {
-                    arcRenderer.begin(ArcRenderer.ShapeType.Line);
+                    arcDrawer.begin(ArcDrawer.ShapeType.Line);
                     Gdx.gl.glLineWidth(32);
-                    arcRenderer.setColor(new Color(0xffca28ff));
-                    arcRenderer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i],
+                    arcDrawer.setColor(new Color(0xffca28ff));
+                    arcDrawer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i],
                             gameWorld.heatwave.startAngle[j][1], gameWorld.heatwave.sweepAngle,50);
-                    arcRenderer.end();
+                    arcDrawer.end();
                 }
             }
         }

@@ -19,17 +19,8 @@ public class HeatWave extends GameObject {
             this.radius[i] = 0;
         }
 
-        this.startAngle = new int[5][2];
-        this.startAngle[0][0] = 0;
-        this.startAngle[1][0] = 36;
-        this.startAngle[2][0] = 72;
-        this.startAngle[3][0] = 108;
-        this.startAngle[4][0] = 144;
-        this.startAngle[0][1] = 10;
-        this.startAngle[1][1] = 46;
-        this.startAngle[2][1] = 82;
-        this.startAngle[3][1] = 118;
-        this.startAngle[4][1] = 154;
+        this.startAngle = new int[10][2];
+        initStartAngle();
 
         this.sweepAngle = 26;
         // The wave should be just a point in outside the screen when game starts.
@@ -41,6 +32,19 @@ public class HeatWave extends GameObject {
 
         // Heatwave is inactive when game starts.
         this.active = false;
+    }
+
+    /**
+     * This method initialises startAngle to default values
+     */
+    public void initStartAngle() {
+        this.startAngle[0][0] = 0;
+        this.startAngle[0][1] = 10;
+
+        for (int i=1;i<=9;i++) {
+            this.startAngle[i][0] = this.startAngle[i-1][0] + 36;
+            this.startAngle[i][1] = this.startAngle[i][0] + 10;
+        }
     }
 
     /**
