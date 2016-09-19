@@ -118,8 +118,10 @@ public class GameWorld {
                 isGameOver = bulletController.check(spanOfBullets, depthOfBullets);
                 bulletController.control(magnus, delta, spanOfBullets, depthOfBullets);
             } else if (currentWeapon == 2) {
+                isGameOver = heatwaveController.check(magnus);
                 heatwaveController.control(delta);
-            } else if (currentWeapon == 3) {
+            }
+            else if (currentWeapon == 3) {
                 isGameOver = rocketController.check();
                 rocketController.control(delta);
             } else if (currentWeapon == 4) {

@@ -50,10 +50,12 @@ public class GameRenderer {
             shapeRenderer.end();
         }
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0x4caf50ff));
-        shapeRenderer.circle(gameWorld.rocket.x, gameWorld.rocket.y, gameWorld.rocket.radius);
-        shapeRenderer.end();
+        if (gameWorld.rocket.active) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(new Color(0x4caf50ff));
+            shapeRenderer.circle(gameWorld.rocket.x, gameWorld.rocket.y, gameWorld.rocket.radius);
+            shapeRenderer.end();
+        }
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x03a9f4ff));
@@ -64,27 +66,31 @@ public class GameRenderer {
         }
         shapeRenderer.end();
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0x8dfe7aff));
-        shapeRenderer.circle(gameWorld.boomerang.x, gameWorld.boomerang.y, gameWorld.boomerang.radius);
-        shapeRenderer.end();
+        if (gameWorld.boomerang.active) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(new Color(0x8dfe7aff));
+            shapeRenderer.circle(gameWorld.boomerang.x, gameWorld.boomerang.y, gameWorld.boomerang.radius);
+            shapeRenderer.end();
+        }
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (i % 2 == 0) {
-                    arcRenderer.begin(ArcRenderer.ShapeType.Line);
-                    Gdx.gl.glLineWidth(32);
-                    arcDrawer.setColor(new Color(0xffca28ff));
-                    arcDrawer.arc(gameWorld.heatwave.x ,gameWorld.heatwave.y ,gameWorld.heatwave.radius[i],
-                            gameWorld.heatwave.startAngle[j][0],gameWorld.heatwave.sweepAngle,50);
-                    arcDrawer.end();
-                } else {
-                    arcDrawer.begin(ArcDrawer.ShapeType.Line);
-                    Gdx.gl.glLineWidth(32);
-                    arcDrawer.setColor(new Color(0xffca28ff));
-                    arcDrawer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i],
-                            gameWorld.heatwave.startAngle[j][1], gameWorld.heatwave.sweepAngle,50);
-                    arcDrawer.end();
+        if (gameWorld.heatwave.active) {
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if (i % 2 == 0) {
+                        arcDrawer.begin(ArcDrawer.ShapeType.Line);
+                        Gdx.gl.glLineWidth(32);
+                        arcDrawer.setColor(new Color(0xffca28ff));
+                        arcDrawer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i],
+                                gameWorld.heatwave.startAngle[j][0], gameWorld.heatwave.sweepAngle, 50);
+                        arcDrawer.end();
+                    } else {
+                        arcDrawer.begin(ArcDrawer.ShapeType.Line);
+                        Gdx.gl.glLineWidth(32);
+                        arcDrawer.setColor(new Color(0xffca28ff));
+                        arcDrawer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i],
+                                gameWorld.heatwave.startAngle[j][1], gameWorld.heatwave.sweepAngle, 50);
+                        arcDrawer.end();
+                    }
                 }
             }
         }

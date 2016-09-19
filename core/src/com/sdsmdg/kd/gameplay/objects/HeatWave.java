@@ -14,13 +14,19 @@ public class HeatWave extends GameObject {
 
     public HeatWave() {
         // Setting the radius 0 as wave propagates radially outwards.
-        this.radius = new float[4];
+        this.radius = new float[5];
         for (int i = 0; i < 5; i++) {
             this.radius[i] = 0;
         }
 
         this.startAngle = new int[10][2];
-        initStartAngle();
+        this.startAngle[0][0] = 0;
+        this.startAngle[0][1] = 10;
+
+        for (int i = 1; i <= 9; i++) {
+            this.startAngle[i][0] = this.startAngle[i - 1][0] + 36;
+            this.startAngle[i][1] = this.startAngle[i][0] + 10;
+        }
 
         this.sweepAngle = 26;
         // The wave should be just a point in outside the screen when game starts.
@@ -32,19 +38,6 @@ public class HeatWave extends GameObject {
 
         // Heatwave is inactive when game starts.
         this.active = false;
-    }
-
-    /**
-     * This method initialises startAngle to default values
-     */
-    public void initStartAngle() {
-        this.startAngle[0][0] = 0;
-        this.startAngle[0][1] = 10;
-
-        for (int i=1;i<=9;i++) {
-            this.startAngle[i][0] = this.startAngle[i-1][0] + 36;
-            this.startAngle[i][1] = this.startAngle[i][0] + 10;
-        }
     }
 
     /**
@@ -66,11 +59,9 @@ public class HeatWave extends GameObject {
      * This method adds the velocity to radius of heatwave, hence expanding it.
      */
     public void expand(float delta) {
-        this.radius[0] += this.velocity * delta * 1.0;
-        this.radius[1] += this.velocity * delta * 1.2;
-        this.radius[2] += this.velocity * delta * 1.4;
-        this.radius[3] += this.velocity * delta * 1.6;
-        this.radius[4] += this.velocity * delta * 1.8;
+        for (int i = 0; i < 5; i++) {
+            this.radius[i] += this.velocity * delta * (1.0 + (0.35 * i));
+        }
     }
 
     /**
