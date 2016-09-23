@@ -22,6 +22,7 @@ public class Bullet extends GameObject {
         this.y = Main.screen.y + (4 * this.radius);
 
         this.velocity = 30;
+        this.velocity *= Main.scaleFactor;
 
         // Bullet is inactive when game starts.
         this.active = false;
@@ -63,6 +64,7 @@ public class Bullet extends GameObject {
         this.y = Main.screen.y + (4 * this.radius);
         this.bulletsFired = 0;
         this.velocity = 30;
+        this.velocity *= Main.scaleFactor;
 
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
     }

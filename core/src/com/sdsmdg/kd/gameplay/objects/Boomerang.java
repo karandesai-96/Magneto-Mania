@@ -44,7 +44,9 @@ public class Boomerang extends GameObject{
         this.y = magnus.y;
 
         this.velocity = 30 + random.nextInt(15);
+        this.velocity *= Main.scaleFactor;
         this.acceleration = 0.35f + random.nextFloat() / 5;
+        this.acceleration *= Main.scaleFactor;
 
         this.initialTouch.set(InputHandler.touch.x, InputHandler.touch.y);
         this.initialVelocity = this.velocity;
@@ -58,6 +60,7 @@ public class Boomerang extends GameObject{
         this.y = Main.screen.y + (4 * this.radius);
 
         this.velocity = 0;
+        this.initialVelocity = 0;
         this.acceleration = 0;
     }
 

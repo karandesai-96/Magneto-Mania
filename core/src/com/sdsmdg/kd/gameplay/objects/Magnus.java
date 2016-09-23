@@ -22,6 +22,7 @@ public class Magnus extends GameObject {
 
         this.radius = (int)(Math.sqrt((Main.screenArea) / (12 * MathUtils.PI)));
         this.velocity = this.random.nextInt(15) + 15;
+        this.velocity *= Main.scaleFactor;
     }
 
 
@@ -37,6 +38,7 @@ public class Magnus extends GameObject {
 
     public void prepareForAttack () {
         this.velocity = this.random.nextInt(15) + 15;
+        this.velocity *= Main.scaleFactor;
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
     }
 

@@ -11,7 +11,7 @@ import com.sdsmdg.kd.magnetomania.Main;
 public class Laser extends GameObject {
     public Vector2[] endPoints;
     public int numberOfSwipes;
-    private int sweepTime;
+    private double sweepTime;
 
     public Laser() {
         RandomXS128 random = new RandomXS128();
@@ -25,6 +25,7 @@ public class Laser extends GameObject {
         this.numberOfSwipes = 8;
 
         sweepTime = 25 + (random.nextInt() % 20);
+        sweepTime /= Main.scaleFactor;
     }
 
     /**

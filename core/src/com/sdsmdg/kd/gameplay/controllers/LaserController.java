@@ -71,7 +71,7 @@ public class LaserController {
                 GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
             }
             else {
-                magnus.add(magnus.velocityComponent);
+                magnus.mulAdd(magnus.velocityComponent, delta);
             }
         }
     }

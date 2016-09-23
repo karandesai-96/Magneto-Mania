@@ -26,6 +26,7 @@ public class Rocket extends GameObject {
 
         // Velocity of Rocket can be anything between 10 and 24 units.
         this.velocity = random.nextInt(15) + 10;
+        this.velocity *= Main.scaleFactor;
 
         // The variable 'activeTime' is time till which the rocket follows finger.
         this.activeTime = 0;
