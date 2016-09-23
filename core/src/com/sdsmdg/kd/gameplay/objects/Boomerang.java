@@ -19,7 +19,7 @@ public class Boomerang extends GameObject{
 
     public Boomerang () {
         // Setting the radius such that the boomerang is (1/100)th the size of screen.
-        this.radius = (int) Math.sqrt(Main.screenArea/(100* MathUtils.PI));
+        this.radius = (int) Math.sqrt(Main.screenArea / (100 * MathUtils.PI));
 
         // The boomerang should be out of screen when the game starts, hence its
         // coordinates are set a little outside the screen.
@@ -33,7 +33,7 @@ public class Boomerang extends GameObject{
         // Boomerang is inactive when game starts.
         this.active = false;
 
-        this.initialTouch = new Vector2(0,0);
+        this.initialTouch = new Vector2(0, 0);
         this.random = new RandomXS128();
     }
 
@@ -44,14 +44,14 @@ public class Boomerang extends GameObject{
         this.y = magnus.y;
 
         this.velocity = 30 + random.nextInt(15);
+        this.velocity *= Main.scaleFactor;
         this.acceleration = 0.35f + random.nextFloat() / 5;
+        this.acceleration *= Main.scaleFactor;
 
         this.initialTouch.set(InputHandler.touch.x, InputHandler.touch.y);
         this.initialVelocity = this.velocity;
 
         calcVelocityComponent(initialTouch);
-        Gdx.app.log("Boomerang","Velocity and Acceleration set");
-        Gdx.app.log("Boomerang","Velocity components : " + velocityComponent.x + " " + velocityComponent.y);
     }
 
     public void reset () {
@@ -60,13 +60,13 @@ public class Boomerang extends GameObject{
         this.y = Main.screen.y + (4 * this.radius);
 
         this.velocity = 0;
+        this.initialVelocity = 0;
         this.acceleration = 0;
     }
 
-    public void shootBoomerang (Magnus magnus) {
-        add(velocityComponent);
-        velocity -= acceleration;
+    public void shootBoomerang (Magnus magnus, float delta) {
+        mulAdd(this.velocityComponent, delta);
+        velocity -= acceleration * delta;
         calcVelocityComponent(new Vector2(magnus.x, magnus.y), initialTouch);
-        Gdx.app.log("Boomerang", "Velocity components : " + velocityComponent.x + " " + velocityComponent.y);
     }
 }

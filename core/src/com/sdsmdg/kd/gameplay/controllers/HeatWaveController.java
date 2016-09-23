@@ -14,10 +14,10 @@ public class HeatWaveController {
         this.heatWave = heatWave;
     }
 
-    public void control() {
+    public void control(float delta) {
         if (heatWave.active) {
             if (heatWave.radius <= 3 * Main.screen.y / 2) {
-                heatWave.expand();
+                heatWave.expand(delta);
             } else {
                 heatWave.reset();
                 GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;

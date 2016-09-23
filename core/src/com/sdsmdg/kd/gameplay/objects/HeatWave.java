@@ -1,6 +1,8 @@
 package com.sdsmdg.kd.gameplay.objects;
 
 
+import com.sdsmdg.kd.magnetomania.Main;
+
 /**
  * @author Karan Desai
  */
@@ -15,6 +17,7 @@ public class HeatWave extends GameObject {
         this.y = -10;
 
         this.velocity = 20;
+        this.velocity *= Main.scaleFactor;
 
         // Heatwave is inactive when game starts.
         this.active = false;
@@ -36,8 +39,8 @@ public class HeatWave extends GameObject {
     /**
      * This method adds the velocity to radius of heatwave, hence expanding it.
      */
-    public void expand() {
-        this.radius += this.velocity;
+    public void expand(float delta) {
+        this.radius += this.velocity * delta;
     }
 
     /**

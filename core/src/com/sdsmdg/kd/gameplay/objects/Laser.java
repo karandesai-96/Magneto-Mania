@@ -11,7 +11,7 @@ import com.sdsmdg.kd.magnetomania.Main;
 public class Laser extends GameObject {
     public Vector2[] endPoints;
     public int numberOfSwipes;
-    private int sweepTime;
+    private double sweepTime;
 
     public Laser() {
         RandomXS128 random = new RandomXS128();
@@ -25,6 +25,7 @@ public class Laser extends GameObject {
         this.numberOfSwipes = 8;
 
         sweepTime = 25 + (random.nextInt() % 20);
+        sweepTime /= Main.scaleFactor;
     }
 
     /**
@@ -40,11 +41,12 @@ public class Laser extends GameObject {
         this.endPoints[3].set(2 * Main.screenCenter.x, 2 * Main.screenCenter.y);
     }
 
-    public void rotate() {
-        this.endPoints[0].x -= Main.screen.x / sweepTime;
-        this.endPoints[1].y += Main.screen.y / sweepTime;
-        this.endPoints[2].x += Main.screen.x / sweepTime;
-        this.endPoints[3].y -= Main.screen.y / sweepTime;
+    public Vector2 rotate(float delta) {
+        this.endPoints[0].x -= Main.screen.x * delta / sweepTime;
+        this.endPoints[1].y += Main.screen.y * delta / sweepTime;
+        this.endPoints[2].x += Main.screen.x * delta / sweepTime;
+        this.endPoints[3].y -= Main.screen.y * delta / sweepTime;
+        return null;
     }
 
     public void reset () {

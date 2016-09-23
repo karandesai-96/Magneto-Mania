@@ -17,13 +17,13 @@ public class BoomerangController {
         this.boomerang = boomerang;
     }
 
-    public void control (Magnus magnus) {
+    public void control (Magnus magnus, float delta) {
         if (boomerang.active) {
             if (boomerang.velocity < -boomerang.initialVelocity) {
                     boomerang.deactivate();
                     Gdx.app.log("BoomerangController", "Boomerang deactivated.");
             }
-            boomerang.shootBoomerang(magnus);
+            boomerang.shootBoomerang(magnus, delta);
         }
         else{
             boomerang.reset();

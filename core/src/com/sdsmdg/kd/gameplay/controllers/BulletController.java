@@ -14,7 +14,7 @@ public class BulletController {
         this.bullet = bullet;
     }
 
-    public void control(Magnus magnus) {
+    public void control(Magnus magnus, float delta) {
         if (bullet.active &&
                 (bullet.x >= Main.screen.x + 2 * bullet.radius || bullet.x <= -2 * bullet.radius ||
                  bullet.y >= Main.screen.y + 2 * bullet.radius || bullet.y <= -2 * bullet.radius)) {
@@ -36,7 +36,7 @@ public class BulletController {
         }
 
         if (bullet.active) {
-            bullet.shoot();
+            bullet.shoot(delta);
         }
     }
 

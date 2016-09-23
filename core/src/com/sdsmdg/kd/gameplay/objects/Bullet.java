@@ -1,6 +1,5 @@
 package com.sdsmdg.kd.gameplay.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.sdsmdg.kd.helpers.InputHandler;
@@ -12,9 +11,10 @@ import com.sdsmdg.kd.magnetomania.Main;
  */
 public class Bullet extends GameObject {
     public int bulletsFired;
+
     public Bullet() {
         // Setting the radius such that the bullet is (1/300)th the size of screen.
-        this.radius = (int) Math.sqrt(Main.screenArea/(300* MathUtils.PI));
+        this.radius = (int) Math.sqrt(Main.screenArea / (300 * MathUtils.PI));
 
         // The bullet should be out of screen when the game starts, hence its
         // coordinates are set a little outside the screen.
@@ -22,6 +22,7 @@ public class Bullet extends GameObject {
         this.y = Main.screen.y + (4 * this.radius);
 
         this.velocity = 30;
+        this.velocity *= Main.scaleFactor;
 
         // Bullet is inactive when game starts.
         this.active = false;
@@ -40,17 +41,15 @@ public class Bullet extends GameObject {
         this.x = magnus.x;
         this.y = magnus.y;
 
-        calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
-        Gdx.app.log("Bullet direction set.","");
+        calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
     }
 
     /**
      * This method adds the velocity components to current position of bullet,
      * hence making it move in a specific direction.
      */
-    public void shoot() {
-        add(velocityComponent);
-        Gdx.app.log("Bullet attacking, components:", " " + velocityComponent.x + " " + velocityComponent.y);
+    public void shoot(float delta) {
+        mulAdd(this.velocityComponent, delta);
     }
 
     /**
@@ -65,8 +64,8 @@ public class Bullet extends GameObject {
         this.y = Main.screen.y + (4 * this.radius);
         this.bulletsFired = 0;
         this.velocity = 30;
+        this.velocity *= Main.scaleFactor;
 
         calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
-        Gdx.app.log("Bullet has been reset.","");
     }
 }

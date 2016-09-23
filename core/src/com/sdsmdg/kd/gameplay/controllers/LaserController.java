@@ -24,19 +24,19 @@ public class LaserController {
         this.fingerToCenterAngle = 0;
     }
 
-    public void control (Magnus magnus) {
+    public void control (Magnus magnus, float delta) {
         if (laser.active) {
             if (laser.numberOfSwipes > 0) {
                 if (magnus.dst(Main.screenCenter) >= 10) {
                     magnus.calcVelocityComponent(Main.screenCenter);
-                    magnus.add(magnus.velocityComponent);
+                    magnus.mulAdd(magnus.velocityComponent, delta);
 
                     if (magnus.dst(Main.screenCenter) < 10) {
                         magnus.set(Main.screenCenter);
                     }
                 }
                 else {
-                    laser.rotate();
+                    laser.rotate(delta);
 
                     // All the arms swipe at once, so checking only one.
                     if (laser.endPoints[0].x < 1) {
@@ -71,7 +71,7 @@ public class LaserController {
                 GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
             }
             else {
-                magnus.add(magnus.velocityComponent);
+                magnus.mulAdd(magnus.velocityComponent, delta);
             }
         }
     }
