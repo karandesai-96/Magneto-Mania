@@ -29,7 +29,7 @@ public class LaserController {
             if (laser.numberOfSwipes > 0) {
                 if (magnus.dst(Main.screenCenter) >= 10) {
                     magnus.calcVelocityComponent(Main.screenCenter);
-                    magnus.add(magnus.velocityComponent);
+                    magnus.mulAdd(magnus.velocityComponent, delta);
 
                     if (magnus.dst(Main.screenCenter) < 10) {
                         magnus.set(Main.screenCenter);
