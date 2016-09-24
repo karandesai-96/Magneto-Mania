@@ -1,8 +1,6 @@
 package com.sdsmdg.kd.gameplay.controllers;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.MathUtils;
 import com.sdsmdg.kd.gameplay.objects.HeatWave;
 import com.sdsmdg.kd.gameplay.objects.Magnus;
 import com.sdsmdg.kd.gameworld.GameWorld;
@@ -30,39 +28,17 @@ public class HeatWaveController {
         }
     }
 
-
     public boolean check (Magnus magnus) {
         float distance = heatWave.dst(InputHandler.touch.x, InputHandler.touch.y);
-        Gdx.app.log("X: " +InputHandler.touch.x, "Y: " + InputHandler.touch.y);
-//        touchPosition.x = InputHandler.touch.x;
-//        touchPosition.y = InputHandler.touch.y;
-//        angleDifference = touchPosition.angle(magnus);
-//        if (angleDifference < 0) {
-//            angleDifference += 360;
-//        }
-//        Gdx.app.log("Angle", "" + angleDifference);
-//        for (int i = 0; i < 5; i++) {
-//            if (heatWave.dst(touchPosition) <= heatWave.radius[i] + 5 &&
-//                    heatWave.dst(touchPosition) >= heatWave.radius[i] - 5) {
-//                if (i % 2 == 0) {
-//                    for (int j = 0; j < 10; j++) {
-//                        if (angleDifference > heatWave.startAngle[j][0] &&
-//                                angleDifference < heatWave.startAngle[j][0] + heatWave.sweepAngle) {
-//                            Gdx.app.log("GameOver", "Collision with HeatWave!");
-//                            return true;
-//                        }
-//                    }
-//                } else {
-//                    for (int j = 0; j < 10; j++) {
-//                        if (angleDifference > heatWave.startAngle[j][1] &&
-//                                angleDifference < heatWave.startAngle[j][1] + heatWave.sweepAngle) {
-//                            Gdx.app.log("GameOver", "Collision with HeatWave!");
-//                            return true;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        return distance < heatWave.radius;
+        int angle = (int)(MathUtils.atan2(InputHandler.touch.y - heatWave.y,
+                InputHandler.touch.x - heatWave.x) * (180 / MathUtils.PI));
+
+        if (distance <= heatWave.radius + 5 && distance >= heatWave.radius - 30) {
+            for(int i = 0; i < 9; i++) {
+                if (angle > 40 * i && angle < 40 * i + 25)
+                    return true;
+            }
+        }
+        return false;
     }
 }

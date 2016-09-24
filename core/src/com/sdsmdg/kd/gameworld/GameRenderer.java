@@ -74,9 +74,9 @@ public class GameRenderer {
         }
 
         if (gameWorld.heatwave.active) {
-            for(int i = 0; i < 6; i++) {
+            for(int i = 0; i < 9; i++) {
                 arcDrawer.begin(ArcDrawer.ShapeType.Line);
-                Gdx.gl.glLineWidth(512);
+                Gdx.gl.glLineWidth(64);
                 arcDrawer.setColor(new Color(0xffca28ff));
                 arcDrawer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius, 40 * i, 25, 50);
                 arcDrawer.end();
