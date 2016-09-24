@@ -115,9 +115,16 @@ public class GameWorld {
     public void update(float delta) {
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
+<<<<<<< HEAD
                 isGameOver = bulletController.check(spanOfBullets, depthOfBullets);
                 bulletController.control(magnus, delta, spanOfBullets, depthOfBullets);
             } else if (currentWeapon == 2) {
+=======
+                isGameOver = bulletController.check();
+                bulletController.control(magnus, delta);
+            }
+            else if (currentWeapon == 2) {
+>>>>>>> 733030d... Render single heatwave in cuts of 30 degrees.
                 isGameOver = heatwaveController.check(magnus);
                 heatwaveController.control(delta);
             }

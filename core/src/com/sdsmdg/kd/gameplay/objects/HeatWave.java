@@ -8,37 +8,22 @@ import com.sdsmdg.kd.magnetomania.Main;
  * @author Haresh Khanna
  */
 public class HeatWave extends GameObject {
-    public float[] radius;
-    public int[][] startAngle;
-    public int sweepAngle;
 
     public HeatWave() {
         // Setting the radius 0 as wave propagates radially outwards.
-        this.radius = new float[5];
-        for (int i = 0; i < 5; i++) {
-            this.radius[i] = 0;
-        }
+        this.radius = 0;
 
-        this.startAngle = new int[10][2];
-        this.startAngle[0][0] = 0;
-        this.startAngle[0][1] = 10;
-
-        for (int i = 1; i <= 9; i++) {
-            this.startAngle[i][0] = this.startAngle[i - 1][0] + 36;
-            this.startAngle[i][1] = this.startAngle[i][0] + 10;
-        }
-
-        this.sweepAngle = 26;
         // The wave should be just a point in outside the screen when game starts.
         this.x = -10;
         this.y = -10;
 
-        this.velocity = 6;
+        this.velocity = 5;
         this.velocity *= Main.scaleFactor;
 
         // Heatwave is inactive when game starts.
         this.active = false;
     }
+
 
     /**
      * This method initializes the wave when time to release it arrives.
@@ -50,19 +35,17 @@ public class HeatWave extends GameObject {
         activate();
         this.x = magnus.x;
         this.y = magnus.y;
-        for (int i = 0; i < 5; i++) {
-            this.radius[i] = 0;
-        }
+        this.radius = 0;
     }
+
 
     /**
      * This method adds the velocity to radius of heatwave, hence expanding it.
      */
     public void expand(float delta) {
-        for (int i = 0; i < 5; i++) {
-            this.radius[i] += this.velocity * delta * (1.0 + (0.35 * i));
-        }
+        this.radius += this.velocity * delta;
     }
+
 
     /**
      * This method resets the wave when it becomes large enough to cover the screen.
@@ -73,8 +56,6 @@ public class HeatWave extends GameObject {
         deactivate();
         this.x = -10;
         this.y = -10;
-        for (int i = 0; i < 5; i++) {
-            this.radius[i] = 0;
-        }
+        this.radius = 0;
     }
 }

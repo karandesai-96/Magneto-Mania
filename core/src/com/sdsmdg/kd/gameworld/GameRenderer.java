@@ -74,24 +74,12 @@ public class GameRenderer {
         }
 
         if (gameWorld.heatwave.active) {
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 10; j++) {
-                    if (i % 2 == 0) {
-                        arcDrawer.begin(ArcDrawer.ShapeType.Line);
-                        Gdx.gl.glLineWidth(32);
-                        arcDrawer.setColor(new Color(0xffca28ff));
-                        arcDrawer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i],
-                                gameWorld.heatwave.startAngle[j][0], gameWorld.heatwave.sweepAngle, 50);
-                        arcDrawer.end();
-                    } else {
-                        arcDrawer.begin(ArcDrawer.ShapeType.Line);
-                        Gdx.gl.glLineWidth(32);
-                        arcDrawer.setColor(new Color(0xffca28ff));
-                        arcDrawer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius[i],
-                                gameWorld.heatwave.startAngle[j][1], gameWorld.heatwave.sweepAngle, 50);
-                        arcDrawer.end();
-                    }
-                }
+            for(int i = 0; i < 6; i++) {
+                arcDrawer.begin(ArcDrawer.ShapeType.Line);
+                Gdx.gl.glLineWidth(512);
+                arcDrawer.setColor(new Color(0xffca28ff));
+                arcDrawer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius, 40 * i, 25, 50);
+                arcDrawer.end();
             }
         }
 
