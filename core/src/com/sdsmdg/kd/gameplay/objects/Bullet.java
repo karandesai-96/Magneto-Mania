@@ -10,7 +10,8 @@ import com.sdsmdg.kd.magnetomania.Main;
  * @author Karan Desai
  */
 public class Bullet extends GameObject {
-    public int bulletsFired;
+    public double r;
+    public float theta;
 
     public Bullet() {
         // Setting the radius such that the bullet is (1/300)th the size of screen.
@@ -21,12 +22,13 @@ public class Bullet extends GameObject {
         this.x = Main.screen.x + (4 * this.radius);
         this.y = Main.screen.y + (4 * this.radius);
 
-        this.velocity = 30;
-        this.velocity *= Main.scaleFactor;
+        this.velocity = 0;
+
+        this.r = 0.0;
+        this.theta = 0.0f;
 
         // Bullet is inactive when game starts.
         this.active = false;
-        this.bulletsFired = 0;
     }
 
     /**
@@ -40,16 +42,20 @@ public class Bullet extends GameObject {
         activate();
         this.x = magnus.x;
         this.y = magnus.y;
-
-        calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
+        this.velocity = 30;
+        this.velocity *= Main.scaleFactor;
+        this.r = 0;
+        this.theta = MathUtils.atan2(InputHandler.touch.y - magnus.y, InputHandler.touch.x - magnus.x);
     }
 
     /**
      * This method adds the velocity components to current position of bullet,
      * hence making it move in a specific direction.
      */
-    public void shoot(float delta) {
-        mulAdd(this.velocityComponent, delta);
+    public void shoot(Magnus magnus, float delta) {
+        r += this.velocity * delta;
+        this.x = (float) (magnus.x + r * MathUtils.cos(theta));
+        this.y = (float) (magnus.y + r * MathUtils.sin(theta));
     }
 
     /**
@@ -62,10 +68,6 @@ public class Bullet extends GameObject {
 
         this.x = Main.screen.x + (4 * this.radius);
         this.y = Main.screen.y + (4 * this.radius);
-        this.bulletsFired = 0;
-        this.velocity = 30;
-        this.velocity *= Main.scaleFactor;
-
-        calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
+        this.velocity = 0;
     }
 }

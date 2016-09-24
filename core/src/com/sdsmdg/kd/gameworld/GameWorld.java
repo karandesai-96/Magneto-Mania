@@ -31,7 +31,7 @@ public class GameWorld {
         NEXT_WEAPON,
         // Weapon was active till now, next magnus would be active.
         NEXT_MAGNUS
-    };
+    }
 
     public static GameState gameState;
 

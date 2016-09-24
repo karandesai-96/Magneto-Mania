@@ -23,25 +23,17 @@ public class BulletController {
              * goes out of the screen, it is reset to its default position
              * and the gameState is changed.
              */
-
-            if(bullet.bulletsFired == 7) {
-                bullet.reset();
-                GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
-            }
-            else {
-                bullet.bulletsFired++;
-                bullet.init(magnus);
-                bullet.velocity += (bullet.bulletsFired);
-            }
+            bullet.reset();
+            GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
         }
 
         if (bullet.active) {
-            bullet.shoot(delta);
+            bullet.shoot(magnus, delta);
         }
     }
 
     public boolean check() {
-        if (bullet.dst(InputHandler.touch.x, InputHandler.touch.y) < bullet.radius) {
+        if (bullet.dst(InputHandler.touch.x, InputHandler.touch.y) < bullet.radius + 4) {
             Gdx.app.log("GameOver","Collision with Bullet!");
             return true;
         }
