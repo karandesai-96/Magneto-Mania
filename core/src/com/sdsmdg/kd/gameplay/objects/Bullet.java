@@ -38,14 +38,14 @@ public class Bullet extends GameObject {
      *
      * @param magnus For using the coordinates of its center.
      */
-    public void init(Magnus magnus) {
+    public void init(Magnus magnus, float theta) {
         activate();
         this.x = magnus.x;
         this.y = magnus.y;
-        this.velocity = 30;
+        this.velocity = 25;
         this.velocity *= Main.scaleFactor;
         this.r = 0;
-        this.theta = MathUtils.atan2(InputHandler.touch.y - magnus.y, InputHandler.touch.x - magnus.x);
+        this.theta = theta;
     }
 
     /**

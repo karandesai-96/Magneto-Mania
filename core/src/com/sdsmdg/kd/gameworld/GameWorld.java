@@ -3,6 +3,7 @@ package com.sdsmdg.kd.gameworld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
+import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 import com.sdsmdg.kd.screens.GameScreen;
 
@@ -50,7 +51,7 @@ public class GameWorld {
     public boolean isGameOver;
 
     public Magnus magnus;
-    public Bullet bullet;
+    public Bullet[] bullet;
     public HeatWave heatwave;
     public Rocket rocket;
     public Laser laser;
@@ -69,7 +70,10 @@ public class GameWorld {
         currentWeapon = 0;
 
         magnus = new Magnus();
-        bullet = new Bullet();
+        bullet = new Bullet[7];
+        for (int i = 0; i < 7; i++) {
+            bullet[i] = new Bullet();
+        }
         heatwave = new HeatWave();
         rocket = new Rocket();
         laser = new Laser();
@@ -167,11 +171,15 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = random.nextInt(6);
+        currentWeapon = 1;
         if (currentWeapon == 1) {
             // Bullets selected.
             Gdx.app.log("GameWorld","Bullet Initialised");
-            bullet.init(magnus);
+            float theta = MathUtils.atan2(InputHandler.touch.y - magnus.y, InputHandler.touch.x - magnus.x);
+            float difference = 6;
+            for (int i = 0; i < 7; i++) {
+                bullet[i].init(magnus, (theta + (i - 3) * difference));
+            }
         }
         else if (currentWeapon == 2) {
             // Heatwave selected.

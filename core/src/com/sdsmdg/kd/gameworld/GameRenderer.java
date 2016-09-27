@@ -54,7 +54,9 @@ public class GameRenderer {
 
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x03a9f4ff));
-        shapeRenderer.circle(gameWorld.bullet.x, gameWorld.bullet.y, gameWorld.bullet.radius);
+        for (int i = 0; i < 7; i++) {
+            shapeRenderer.circle(gameWorld.bullet[i].x, gameWorld.bullet[i].y, gameWorld.bullet[i].radius);
+        }
         shapeRenderer.end();
 
         shapeRenderer.begin(ShapeType.Filled);
