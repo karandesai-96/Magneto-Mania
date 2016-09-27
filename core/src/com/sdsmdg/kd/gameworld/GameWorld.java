@@ -171,7 +171,7 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = 1;
+        currentWeapon = random.nextInt(6);
         if (currentWeapon == 1) {
             // Bullets selected.
             Gdx.app.log("GameWorld","Bullet Initialised");
