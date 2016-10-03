@@ -11,7 +11,8 @@ import com.sdsmdg.kd.magnetomania.Main;
  */
 public class Bullet extends GameObject {
     public double r;
-    public float theta;
+    public double sine;
+    public double cosine;
 
     public Bullet() {
         // Setting the radius such that the bullet is (1/300)th the size of screen.
@@ -25,7 +26,8 @@ public class Bullet extends GameObject {
         this.velocity = 0;
 
         this.r = 0.0;
-        this.theta = 0.0f;
+        this.sine = 0.0;
+        this.cosine = 0.0;
 
         // Bullet is inactive when game starts.
         this.active = false;
@@ -45,7 +47,8 @@ public class Bullet extends GameObject {
         this.velocity = 25;
         this.velocity *= Main.scaleFactor;
         this.r = 0;
-        this.theta = theta;
+        this.sine = MathUtils.sin(theta);
+        this.cosine = MathUtils.cos(theta);
     }
 
     /**
@@ -54,8 +57,8 @@ public class Bullet extends GameObject {
      */
     public void shoot(Magnus magnus, float delta) {
         r += this.velocity * delta;
-        this.x = (float) (magnus.x + r * MathUtils.cos(theta));
-        this.y = (float) (magnus.y + r * MathUtils.sin(theta));
+        this.x = (float) (magnus.x + r * this.cosine);
+        this.y = (float) (magnus.y + r * this.sine);
     }
 
     /**
