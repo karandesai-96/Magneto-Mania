@@ -1,6 +1,5 @@
 package com.sdsmdg.kd.gameplay.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
@@ -45,13 +44,17 @@ public class Boomerang extends GameObject{
 
         this.velocity = 30 + random.nextInt(15);
         this.velocity *= Main.scaleFactor;
-        this.acceleration = 0.35f + random.nextFloat() / 5;
+        this.acceleration = 20.0f + (random.nextFloat() * (3 + random.nextInt(8)));
         this.acceleration *= Main.scaleFactor;
 
         this.initialTouch.set(InputHandler.touch.x, InputHandler.touch.y);
         this.initialVelocity = this.velocity;
+    }
 
-        calcVelocityComponent(initialTouch);
+    public void shootBoomerang (Magnus magnus, float delta) {
+        calcVelocityComponent(new Vector2(magnus.x, magnus.y), initialTouch);
+        this.velocity -= this.acceleration * delta;
+        mulAdd(this.velocityComponent, delta);
     }
 
     public void reset () {
@@ -62,11 +65,5 @@ public class Boomerang extends GameObject{
         this.velocity = 0;
         this.initialVelocity = 0;
         this.acceleration = 0;
-    }
-
-    public void shootBoomerang (Magnus magnus, float delta) {
-        mulAdd(this.velocityComponent, delta);
-        velocity -= acceleration * delta;
-        calcVelocityComponent(new Vector2(magnus.x, magnus.y), initialTouch);
     }
 }
