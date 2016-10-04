@@ -13,19 +13,18 @@ import com.sdsmdg.kd.helpers.InputHandler;
 public class BoomerangController {
     private Boomerang boomerang;
 
-    public BoomerangController (Boomerang boomerang) {
+    public BoomerangController(Boomerang boomerang) {
         this.boomerang = boomerang;
     }
 
-    public void control (Magnus magnus, float delta) {
+    public void control(Magnus magnus, float delta) {
         if (boomerang.active) {
             if (boomerang.velocity < -boomerang.initialVelocity) {
-                    boomerang.deactivate();
-                    Gdx.app.log("BoomerangController", "Boomerang deactivated.");
+                boomerang.deactivate();
+                Gdx.app.log("BoomerangController", "Boomerang deactivated.");
             }
             boomerang.shootBoomerang(magnus, delta);
-        }
-        else{
+        } else {
             boomerang.reset();
             GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
         }
@@ -33,7 +32,7 @@ public class BoomerangController {
 
     public boolean check() {
         if (boomerang.dst(InputHandler.touch.x, InputHandler.touch.y) < boomerang.radius) {
-            Gdx.app.log("GameOver","Collision with Boomerang!");
+            Gdx.app.log("GameOver", "Collision with Boomerang!");
             return true;
         }
         return false;

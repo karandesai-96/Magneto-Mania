@@ -17,7 +17,7 @@ public class BulletController {
     public void control(Magnus magnus, float delta, int spanOfBullets, int depthOfBullets) {
         for (int i = 0; i < spanOfBullets; i++) {
             for (int j = 0; j < depthOfBullets; j++) {
-                if (bullet[spanOfBullets/2][depthOfBullets-1].active && (bullet[spanOfBullets/2][depthOfBullets-1].dst(magnus) > Main.d)) {
+                if (bullet[spanOfBullets / 2][depthOfBullets - 1].active && (bullet[spanOfBullets / 2][depthOfBullets - 1].dst(magnus) > Main.d)) {
                     bullet[i][j].reset();
                     GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
                 }

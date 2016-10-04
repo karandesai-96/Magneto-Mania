@@ -18,13 +18,13 @@ public class LaserController {
     int endPointToCenterAngle;
     int fingerToCenterAngle;
 
-    public LaserController (Laser laser) {
+    public LaserController(Laser laser) {
         this.laser = laser;
         this.endPointToCenterAngle = 0;
         this.fingerToCenterAngle = 0;
     }
 
-    public void control (Magnus magnus, float delta) {
+    public void control(Magnus magnus, float delta) {
         if (laser.active) {
             if (laser.numberOfSwipes > 0) {
                 if (magnus.dst(Main.screenCenter) >= 10) {
@@ -34,8 +34,7 @@ public class LaserController {
                     if (magnus.dst(Main.screenCenter) < 10) {
                         magnus.set(Main.screenCenter);
                     }
-                }
-                else {
+                } else {
                     laser.rotate(delta);
 
                     // All the arms swipe at once, so checking only one.
@@ -44,13 +43,11 @@ public class LaserController {
                         laser.init(laser.numberOfSwipes);
                     }
                 }
-            }
-            else {
+            } else {
                 magnus.calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
                 laser.reset();
             }
-        }
-        else {
+        } else {
             if (magnus.x >= Main.screen.x + 5 || magnus.x <= -5 ||
                     magnus.y >= Main.screen.y + 5 || magnus.y <= -5) {
 
@@ -69,8 +66,7 @@ public class LaserController {
                     magnus.y = 0;
                 }
                 GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
-            }
-            else {
+            } else {
                 magnus.mulAdd(magnus.velocityComponent, delta);
             }
         }
@@ -78,15 +74,15 @@ public class LaserController {
 
     public boolean check() {
         for (int i = 0; i < 4; i++) {
-            endPointToCenterAngle = (int)(180 / MathUtils.PI * MathUtils.atan2(
+            endPointToCenterAngle = (int) (180 / MathUtils.PI * MathUtils.atan2(
                     laser.endPoints[i].y - Main.screenCenter.y,
                     laser.endPoints[i].x - Main.screenCenter.x));
-            fingerToCenterAngle = (int)(180 / MathUtils.PI * MathUtils.atan2(
+            fingerToCenterAngle = (int) (180 / MathUtils.PI * MathUtils.atan2(
                     InputHandler.touch.y - Main.screenCenter.y,
                     InputHandler.touch.x - Main.screenCenter.x));
 
             if (fingerToCenterAngle < endPointToCenterAngle + 3 &&
-                fingerToCenterAngle > endPointToCenterAngle - 3) {
+                    fingerToCenterAngle > endPointToCenterAngle - 3) {
                 Gdx.app.log("GameOver", "Collision with Laser!");
                 return true;
             }

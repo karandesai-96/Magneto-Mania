@@ -10,13 +10,13 @@ import com.sdsmdg.kd.magnetomania.Main;
  * @author Haresh Khanna
  * @author Karan Desai
  */
-public class Boomerang extends GameObject{
+public class Boomerang extends GameObject {
     public float acceleration;
     private Vector2 initialTouch;
     public float initialVelocity;
     private RandomXS128 random;
 
-    public Boomerang () {
+    public Boomerang() {
         // Setting the radius such that the boomerang is (1/100)th the size of screen.
         this.radius = (int) Math.sqrt(Main.screenArea / (100 * MathUtils.PI));
 
@@ -37,7 +37,7 @@ public class Boomerang extends GameObject{
     }
 
 
-    public void init (Magnus magnus) {
+    public void init(Magnus magnus) {
         activate();
         this.x = magnus.x;
         this.y = magnus.y;
@@ -51,13 +51,13 @@ public class Boomerang extends GameObject{
         this.initialVelocity = this.velocity;
     }
 
-    public void shootBoomerang (Magnus magnus, float delta) {
+    public void shootBoomerang(Magnus magnus, float delta) {
         calcVelocityComponent(new Vector2(magnus.x, magnus.y), initialTouch);
         this.velocity -= this.acceleration * delta;
         mulAdd(this.velocityComponent, delta);
     }
 
-    public void reset () {
+    public void reset() {
         deactivate();
         this.x = Main.screen.x + (4 * this.radius);
         this.y = Main.screen.y + (4 * this.radius);

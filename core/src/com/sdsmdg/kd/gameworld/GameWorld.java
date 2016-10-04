@@ -38,11 +38,11 @@ public class GameWorld {
 
     /**
      * Different values of currentWeapon integer correspond to:
-     *      0: Magnus
-     *      1: Bullets
-     *      2: Heatwave
-     *      3: Rocket
-     *      4: Laser
+     * 0: Magnus
+     * 1: Bullets
+     * 2: Heatwave
+     * 3: Rocket
+     * 4: Laser
      */
     public static int currentWeapon;
     public RandomXS128 random;
@@ -117,25 +117,20 @@ public class GameWorld {
             if (currentWeapon == 1) {
                 isGameOver = bulletController.check(spanOfBullets, depthOfBullets);
                 bulletController.control(magnus, delta, spanOfBullets, depthOfBullets);
-            }
-            else if (currentWeapon == 2) {
+            } else if (currentWeapon == 2) {
                 heatwaveController.control(delta);
-            }
-            else if (currentWeapon == 3) {
+            } else if (currentWeapon == 3) {
                 isGameOver = rocketController.check();
                 rocketController.control(delta);
-            }
-            else if (currentWeapon == 4) {
+            } else if (currentWeapon == 4) {
                 if (magnus.crs(Main.screenCenter) == 0) {
                     isGameOver = laserController.check();
                 }
                 laserController.control(magnus, delta);
-            }
-            else if (currentWeapon == 5) {
+            } else if (currentWeapon == 5) {
                 isGameOver = boomerangController.check();
                 boomerangController.control(magnus, delta);
-            }
-            else {
+            } else {
                 magnusController.control(delta);
             }
 
@@ -143,8 +138,7 @@ public class GameWorld {
                 if (gameState == GameState.NEXT_WEAPON) {
                     selectWeapon();
                     gameState = GameState.WEAPON_ACTIVE;
-                }
-                else {
+                } else {
                     currentWeapon = 0;
                     gameState = GameState.MAGNUS_ACTIVE;
                 }
@@ -155,8 +149,7 @@ public class GameWorld {
              **/
             if (gameScore >= 10000f) {
                 gameScore += 5.0f;
-            }
-            else {
+            } else {
                 gameScore += 1.0f + (gameScore / 2500.0f);
             }
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
@@ -180,33 +173,29 @@ public class GameWorld {
         currentWeapon = 1;
         if (currentWeapon == 1) {
             // Bullets selected.
-            Gdx.app.log("GameWorld","Bullet Initialised");
+            Gdx.app.log("GameWorld", "Bullet Initialised");
             float theta = MathUtils.atan2(InputHandler.touch.y - magnus.y, InputHandler.touch.x - magnus.x);
             float difference = 6;
             for (int i = 0; i < spanOfBullets; i++) {
-                for (int j = 0; j <  depthOfBullets; j++) {
-                    bullet[i][j].init(magnus, (0 - (j * 200)), (theta + (i - (spanOfBullets/2)) * difference));
+                for (int j = 0; j < depthOfBullets; j++) {
+                    bullet[i][j].init(magnus, (0 - (j * 200)), (theta + (i - (spanOfBullets / 2)) * difference));
                 }
             }
-        }
-        else if (currentWeapon == 2) {
+        } else if (currentWeapon == 2) {
             // Heatwave selected.
-            Gdx.app.log("GameWorld","HeatWave Initialised");
+            Gdx.app.log("GameWorld", "HeatWave Initialised");
             heatwave.init(magnus);
-        }
-        else if (currentWeapon == 3) {
+        } else if (currentWeapon == 3) {
             // Rocket selected.
-            Gdx.app.log("GameWorld","Rocket Initialised");
+            Gdx.app.log("GameWorld", "Rocket Initialised");
             rocket.init(magnus);
-        }
-        else if (currentWeapon == 4) {
+        } else if (currentWeapon == 4) {
             //Laser selected.
-            Gdx.app.log("GameWorld","Laser Initialised");
+            Gdx.app.log("GameWorld", "Laser Initialised");
             laser.init(8);
-        }
-        else if (currentWeapon == 5) {
+        } else if (currentWeapon == 5) {
             //Boomerang Selected.
-            Gdx.app.log("GameWorld","Boomerang Initialised");
+            Gdx.app.log("GameWorld", "Boomerang Initialised");
             boomerang.init(magnus);
         }
     }

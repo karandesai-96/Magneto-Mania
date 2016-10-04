@@ -1,8 +1,6 @@
 package com.sdsmdg.kd.gameplay.objects;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 /**
@@ -38,7 +36,7 @@ public class Bullet extends GameObject {
      * The bullets' center is set as Magnus' center and the direction to
      * shoot them is determined, by finger's position.
      *
-     * @param r For defining the radius.
+     * @param r      For defining the radius.
      * @param magnus For using coordinates of its center
      */
     public void init(Magnus magnus, double r, float theta) {

@@ -8,50 +8,51 @@ import com.sdsmdg.kd.screens.GameScreen;
 
 
 public class InputHandler implements InputProcessor {
-    public static Vector3 touch = new Vector3(0,0,0);
+    public static Vector3 touch = new Vector3(0, 0, 0);
 
-    public InputHandler () {}
+    public InputHandler() {
+    }
 
     @Override
-    public boolean keyDown (int keycode) {
+    public boolean keyDown(int keycode) {
         return false;
     }
 
     @Override
-    public boolean keyUp (int keycode) {
+    public boolean keyUp(int keycode) {
         return false;
     }
 
     @Override
-    public boolean keyTyped (char character) {
+    public boolean keyTyped(char character) {
         return false;
     }
 
     @Override
-    public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         GameScreen.isTouched = true;
         GameRenderer.cam.unproject(touch.set(screenX, screenY, 0));
         return false;
     }
 
     @Override
-    public boolean touchUp (int screenX, int screenY, int pointer, int button) {
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         return false;
     }
 
     @Override
-    public boolean touchDragged (int screenX, int screenY, int pointer) {
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
         GameRenderer.cam.unproject(touch.set(screenX, screenY, 0));
         return false;
     }
 
     @Override
-    public boolean mouseMoved (int screenX, int screenY) {
+    public boolean mouseMoved(int screenX, int screenY) {
         return false;
     }
 
     @Override
-    public boolean scrolled (int amount) {
+    public boolean scrolled(int amount) {
         return false;
     }
 }

@@ -20,7 +20,7 @@ public class GameRenderer {
     private float margin;
 
 
-    public GameRenderer (GameWorld gameWorld) {
+    public GameRenderer(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
         cam = new OrthographicCamera();
         cam.setToOrtho(true, Main.screen.x, Main.screen.y);

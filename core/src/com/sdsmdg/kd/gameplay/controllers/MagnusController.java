@@ -16,13 +16,13 @@ public class MagnusController {
 
     public void control(float delta) {
         if (magnus.x >= Main.screen.x + 5 || magnus.x <= -5 ||
-            magnus.y >= Main.screen.y + 5 || magnus.y <= -5) {
+                magnus.y >= Main.screen.y + 5 || magnus.y <= -5) {
 
             // For preventing glitchy movement at the boundary.
-            if (magnus.x > Main.screen.x+5) {
+            if (magnus.x > Main.screen.x + 5) {
                 magnus.x = Main.screen.x;
             }
-            if (magnus.y > Main.screen.y+5) {
+            if (magnus.y > Main.screen.y + 5) {
                 magnus.y = Main.screen.y;
             }
 
@@ -46,8 +46,7 @@ public class MagnusController {
                 magnus.prepareForAttack();
                 magnus.attack(delta);
             }
-        }
-        else {
+        } else {
             magnus.attack(delta);
         }
     }

@@ -10,18 +10,18 @@ public abstract class GameObject extends Vector2 {
     public boolean active;
     public Vector2 velocityComponent = new Vector2(0, 0);
 
-    public GameObject () {
+    public GameObject() {
     }
 
-    public void activate () {
+    public void activate() {
         this.active = true;
     }
 
-    public void deactivate () {
+    public void deactivate() {
         this.active = false;
     }
 
-    public void calcVelocityComponent (Vector2 destination) {
+    public void calcVelocityComponent(Vector2 destination) {
         float distance = dst(destination);
 
         // velocity times cos(theta)
@@ -31,7 +31,7 @@ public abstract class GameObject extends Vector2 {
         velocityComponent.y = velocity * (destination.y - this.y) / distance;
     }
 
-    public void calcVelocityComponent (Vector2 source, Vector2 destination) {
+    public void calcVelocityComponent(Vector2 source, Vector2 destination) {
         float distance = source.dst(destination);
 
         // velocity times cos(theta)

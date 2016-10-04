@@ -49,7 +49,7 @@ public class Laser extends GameObject {
         return null;
     }
 
-    public void reset () {
+    public void reset() {
         deactivate();
     }
 }
