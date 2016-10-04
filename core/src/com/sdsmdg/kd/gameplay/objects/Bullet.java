@@ -38,17 +38,22 @@ public class Bullet extends GameObject {
      * The bullets' center is set as Magnus' center and the direction to
      * shoot them is determined, by finger's position.
      *
-     * @param magnus For using the coordinates of its center.
+     * @param r For defining the radius.
+     * @param magnus For using coordinates of its center
      */
-    public void init(Magnus magnus, float theta) {
+    public void init(Magnus magnus, double r, float theta) {
         activate();
-        this.x = magnus.x;
-        this.y = magnus.y;
         this.velocity = 25;
         this.velocity *= Main.scaleFactor;
-        this.r = 0;
+        this.r = r;
         this.sine = MathUtils.sin(theta);
         this.cosine = MathUtils.cos(theta);
+        this.x = (float) (magnus.x + r * cosine);
+        this.y = (float) (magnus.y + r * sine);
+        if (this.x - magnus.x < 0)
+            this.x = magnus.x;
+        if (this.y - magnus.y < 0)
+            this.y = magnus.y;
     }
 
     /**

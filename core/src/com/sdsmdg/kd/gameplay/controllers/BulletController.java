@@ -8,30 +8,34 @@ import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 public class BulletController {
-    private Bullet[] bullet;
+    private Bullet[][] bullet;
 
-    public BulletController(Bullet[] bullet) {
+    public BulletController(Bullet[][] bullet) {
         this.bullet = bullet;
     }
 
-    public void control(Magnus magnus, float delta, int spanOfBullets) {
+    public void control(Magnus magnus, float delta, int spanOfBullets, int depthOfBullets) {
         for (int i = 0; i < spanOfBullets; i++) {
-            if (bullet[spanOfBullets/2].active && (bullet[spanOfBullets/2].dst(magnus) > Main.d)) {
-                bullet[i].reset();
-                GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
-            }
+            for (int j = 0; j < depthOfBullets; j++) {
+                if (bullet[spanOfBullets/2][depthOfBullets-1].active && (bullet[spanOfBullets/2][depthOfBullets-1].dst(magnus) > Main.d)) {
+                    bullet[i][j].reset();
+                    GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
+                }
 
-            if (bullet[i].active) {
-                bullet[i].shoot(magnus, delta);
+                if (bullet[i][j].active) {
+                    bullet[i][j].shoot(magnus, delta);
+                }
             }
         }
     }
 
-    public boolean check(int spanOfBullets) {
+    public boolean check(int spanOfBullets, int depthOfBullets) {
         for (int i = 0; i < spanOfBullets; i++) {
-            if (bullet[i].dst(InputHandler.touch.x, InputHandler.touch.y) < bullet[i].radius + 4) {
-                Gdx.app.log("GameOver", "Collision with Bullet!");
-                return true;
+            for (int j = 0; j < depthOfBullets; j++) {
+                if (bullet[i][j].dst(InputHandler.touch.x, InputHandler.touch.y) < bullet[i][j].radius + 4) {
+                    Gdx.app.log("GameOver", "Collision with Bullet!");
+                    return true;
+                }
             }
         }
         return false;

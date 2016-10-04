@@ -50,9 +50,10 @@ public class GameWorld {
     public String gameScoreToDisplay;
     public boolean isGameOver;
     public int spanOfBullets;
+    public int depthOfBullets;
 
     public Magnus magnus;
-    public Bullet[] bullet;
+    public Bullet[][] bullet;
     public HeatWave heatwave;
     public Rocket rocket;
     public Laser laser;
@@ -70,11 +71,14 @@ public class GameWorld {
         gameState = GameState.NEXT_MAGNUS;
         currentWeapon = 0;
         spanOfBullets = 7;
+        depthOfBullets = 3;
 
         magnus = new Magnus();
-        bullet = new Bullet[spanOfBullets];
+        bullet = new Bullet[spanOfBullets][depthOfBullets];
         for (int i = 0; i < spanOfBullets; i++) {
-            bullet[i] = new Bullet();
+            for (int j = 0; j < depthOfBullets; j++) {
+                bullet[i][j] = new Bullet();
+            }
         }
         heatwave = new HeatWave();
         rocket = new Rocket();
@@ -111,8 +115,8 @@ public class GameWorld {
     public void update(float delta) {
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
-                isGameOver = bulletController.check(spanOfBullets);
-                bulletController.control(magnus, delta, spanOfBullets);
+                isGameOver = bulletController.check(spanOfBullets, depthOfBullets);
+                bulletController.control(magnus, delta, spanOfBullets, depthOfBullets);
             }
             else if (currentWeapon == 2) {
                 heatwaveController.control(delta);
@@ -173,14 +177,16 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = random.nextInt(6);
+        currentWeapon = 1;
         if (currentWeapon == 1) {
             // Bullets selected.
             Gdx.app.log("GameWorld","Bullet Initialised");
             float theta = MathUtils.atan2(InputHandler.touch.y - magnus.y, InputHandler.touch.x - magnus.x);
             float difference = 6;
             for (int i = 0; i < spanOfBullets; i++) {
-                bullet[i].init(magnus, (theta + (i - (spanOfBullets/2)) * difference));
+                for (int j = 0; j <  depthOfBullets; j++) {
+                    bullet[i][j].init(magnus, (0 - (j * 200)), (theta + (i - (spanOfBullets/2)) * difference));
+                }
             }
         }
         else if (currentWeapon == 2) {

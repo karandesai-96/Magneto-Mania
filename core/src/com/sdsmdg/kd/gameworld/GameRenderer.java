@@ -54,8 +54,10 @@ public class GameRenderer {
 
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x03a9f4ff));
-        for (int i = 0; i < 7; i++) {
-            shapeRenderer.circle(gameWorld.bullet[i].x, gameWorld.bullet[i].y, gameWorld.bullet[i].radius);
+        for (int i = 0; i < gameWorld.spanOfBullets; i++) {
+            for (int j = 0; j < gameWorld.depthOfBullets; j++) {
+                shapeRenderer.circle(gameWorld.bullet[i][j].x, gameWorld.bullet[i][j].y, gameWorld.bullet[i][j].radius);
+            }
         }
         shapeRenderer.end();
 
