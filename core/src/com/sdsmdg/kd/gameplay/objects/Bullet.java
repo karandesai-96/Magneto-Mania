@@ -48,10 +48,10 @@ public class Bullet extends GameObject {
         this.cosine = MathUtils.cos(theta);
         this.x = (float) (magnus.x + r * cosine);
         this.y = (float) (magnus.y + r * sine);
-        if (this.x - magnus.x < 0)
+        if (r < 0) {
             this.x = magnus.x;
-        if (this.y - magnus.y < 0)
             this.y = magnus.y;
+        }
     }
 
     /**
@@ -62,6 +62,11 @@ public class Bullet extends GameObject {
         r += this.velocity * delta;
         this.x = (float) (magnus.x + r * this.cosine);
         this.y = (float) (magnus.y + r * this.sine);
+
+        if (r < 0) {
+            this.x = magnus.x;
+            this.y = magnus.y;
+        }
     }
 
     /**
