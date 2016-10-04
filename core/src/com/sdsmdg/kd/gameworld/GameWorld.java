@@ -49,6 +49,7 @@ public class GameWorld {
     public float gameScore;
     public String gameScoreToDisplay;
     public boolean isGameOver;
+    public int spanOfBullets;
 
     public Magnus magnus;
     public Bullet[] bullet;
@@ -68,10 +69,11 @@ public class GameWorld {
     public GameWorld() {
         gameState = GameState.NEXT_MAGNUS;
         currentWeapon = 0;
+        spanOfBullets = 7;
 
         magnus = new Magnus();
-        bullet = new Bullet[7];
-        for (int i = 0; i < 7; i++) {
+        bullet = new Bullet[spanOfBullets];
+        for (int i = 0; i < spanOfBullets; i++) {
             bullet[i] = new Bullet();
         }
         heatwave = new HeatWave();
@@ -109,8 +111,8 @@ public class GameWorld {
     public void update(float delta) {
         if (GameScreen.isTouched) {
             if (currentWeapon == 1) {
-                isGameOver = bulletController.check();
-                bulletController.control(magnus, delta);
+                isGameOver = bulletController.check(spanOfBullets);
+                bulletController.control(magnus, delta, spanOfBullets);
             }
             else if (currentWeapon == 2) {
                 heatwaveController.control(delta);
@@ -177,8 +179,8 @@ public class GameWorld {
             Gdx.app.log("GameWorld","Bullet Initialised");
             float theta = MathUtils.atan2(InputHandler.touch.y - magnus.y, InputHandler.touch.x - magnus.x);
             float difference = 6;
-            for (int i = 0; i < 7; i++) {
-                bullet[i].init(magnus, (theta + (i - 3) * difference));
+            for (int i = 0; i < spanOfBullets; i++) {
+                bullet[i].init(magnus, (theta + (i - (spanOfBullets/2)) * difference));
             }
         }
         else if (currentWeapon == 2) {

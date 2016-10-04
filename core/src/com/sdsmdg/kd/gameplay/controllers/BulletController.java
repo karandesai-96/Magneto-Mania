@@ -14,9 +14,9 @@ public class BulletController {
         this.bullet = bullet;
     }
 
-    public void control(Magnus magnus, float delta) {
-        for (int i = 0; i < 7; i++) {
-            if (bullet[3].active && (bullet[3].dst(magnus) > Main.d)) {
+    public void control(Magnus magnus, float delta, int spanOfBullets) {
+        for (int i = 0; i < spanOfBullets; i++) {
+            if (bullet[spanOfBullets/2].active && (bullet[spanOfBullets/2].dst(magnus) > Main.d)) {
                 bullet[i].reset();
                 GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
             }
@@ -27,8 +27,8 @@ public class BulletController {
         }
     }
 
-    public boolean check() {
-        for (int i = 0; i < 7; i++) {
+    public boolean check(int spanOfBullets) {
+        for (int i = 0; i < spanOfBullets; i++) {
             if (bullet[i].dst(InputHandler.touch.x, InputHandler.touch.y) < bullet[i].radius + 4) {
                 Gdx.app.log("GameOver", "Collision with Bullet!");
                 return true;
