@@ -49,7 +49,7 @@ public class Rocket extends GameObject {
         this.x = magnus.x;
         this.y = magnus.y;
 
-        calcVelocityComponent(new Vector2(InputHandler.touch.x,InputHandler.touch.y));
+        calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
     }
 
     /**

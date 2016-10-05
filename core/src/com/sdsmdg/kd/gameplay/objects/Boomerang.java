@@ -1,6 +1,5 @@
 package com.sdsmdg.kd.gameplay.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
@@ -11,13 +10,13 @@ import com.sdsmdg.kd.magnetomania.Main;
  * @author Haresh Khanna
  * @author Karan Desai
  */
-public class Boomerang extends GameObject{
+public class Boomerang extends GameObject {
     public float acceleration;
     private Vector2 initialTouch;
     public float initialVelocity;
     private RandomXS128 random;
 
-    public Boomerang () {
+    public Boomerang() {
         // Setting the radius such that the boomerang is (1/100)th the size of screen.
         this.radius = (int) Math.sqrt(Main.screenArea / (100 * MathUtils.PI));
 
@@ -38,23 +37,27 @@ public class Boomerang extends GameObject{
     }
 
 
-    public void init (Magnus magnus) {
+    public void init(Magnus magnus) {
         activate();
         this.x = magnus.x;
         this.y = magnus.y;
 
         this.velocity = 30 + random.nextInt(15);
         this.velocity *= Main.scaleFactor;
-        this.acceleration = 0.35f + random.nextFloat() / 5;
+        this.acceleration = 20.0f + (random.nextFloat() * (3 + random.nextInt(8)));
         this.acceleration *= Main.scaleFactor;
 
         this.initialTouch.set(InputHandler.touch.x, InputHandler.touch.y);
         this.initialVelocity = this.velocity;
-
-        calcVelocityComponent(initialTouch);
     }
 
-    public void reset () {
+    public void shootBoomerang(Magnus magnus, float delta) {
+        calcVelocityComponent(new Vector2(magnus.x, magnus.y), initialTouch);
+        this.velocity -= this.acceleration * delta;
+        mulAdd(this.velocityComponent, delta);
+    }
+
+    public void reset() {
         deactivate();
         this.x = Main.screen.x + (4 * this.radius);
         this.y = Main.screen.y + (4 * this.radius);
@@ -62,11 +65,5 @@ public class Boomerang extends GameObject{
         this.velocity = 0;
         this.initialVelocity = 0;
         this.acceleration = 0;
-    }
-
-    public void shootBoomerang (Magnus magnus, float delta) {
-        mulAdd(this.velocityComponent, delta);
-        velocity -= acceleration * delta;
-        calcVelocityComponent(new Vector2(magnus.x, magnus.y), initialTouch);
     }
 }

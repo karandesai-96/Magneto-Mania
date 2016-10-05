@@ -1,8 +1,6 @@
 package com.sdsmdg.kd.gameplay.objects;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 /**
@@ -10,7 +8,9 @@ import com.sdsmdg.kd.magnetomania.Main;
  * @author Karan Desai
  */
 public class Bullet extends GameObject {
-    public int bulletsFired;
+    public double r;
+    public double sine;
+    public double cosine;
 
     public Bullet() {
         // Setting the radius such that the bullet is (1/300)th the size of screen.
@@ -21,12 +21,14 @@ public class Bullet extends GameObject {
         this.x = Main.screen.x + (4 * this.radius);
         this.y = Main.screen.y + (4 * this.radius);
 
-        this.velocity = 30;
-        this.velocity *= Main.scaleFactor;
+        this.velocity = 0;
+
+        this.r = 0.0;
+        this.sine = 0.0;
+        this.cosine = 0.0;
 
         // Bullet is inactive when game starts.
         this.active = false;
-        this.bulletsFired = 0;
     }
 
     /**
@@ -34,22 +36,37 @@ public class Bullet extends GameObject {
      * The bullets' center is set as Magnus' center and the direction to
      * shoot them is determined, by finger's position.
      *
-     * @param magnus For using the coordinates of its center.
+     * @param r      For defining the radius.
+     * @param magnus For using coordinates of its center
      */
-    public void init(Magnus magnus) {
+    public void init(Magnus magnus, double r, float theta) {
         activate();
-        this.x = magnus.x;
-        this.y = magnus.y;
-
-        calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
+        this.velocity = 25;
+        this.velocity *= Main.scaleFactor;
+        this.r = r;
+        this.sine = MathUtils.sin(theta);
+        this.cosine = MathUtils.cos(theta);
+        this.x = (float) (magnus.x + r * cosine);
+        this.y = (float) (magnus.y + r * sine);
+        if (r < 0) {
+            this.x = magnus.x;
+            this.y = magnus.y;
+        }
     }
 
     /**
      * This method adds the velocity components to current position of bullet,
      * hence making it move in a specific direction.
      */
-    public void shoot(float delta) {
-        mulAdd(this.velocityComponent, delta);
+    public void shoot(Magnus magnus, float delta) {
+        r += this.velocity * delta;
+        this.x = (float) (magnus.x + r * this.cosine);
+        this.y = (float) (magnus.y + r * this.sine);
+
+        if (r < 0) {
+            this.x = magnus.x;
+            this.y = magnus.y;
+        }
     }
 
     /**
@@ -62,10 +79,6 @@ public class Bullet extends GameObject {
 
         this.x = Main.screen.x + (4 * this.radius);
         this.y = Main.screen.y + (4 * this.radius);
-        this.bulletsFired = 0;
-        this.velocity = 30;
-        this.velocity *= Main.scaleFactor;
-
-        calcVelocityComponent(new Vector2(InputHandler.touch.x, InputHandler.touch.y));
+        this.velocity = 0;
     }
 }

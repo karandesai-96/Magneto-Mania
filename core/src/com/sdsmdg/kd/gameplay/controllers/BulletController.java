@@ -8,42 +8,35 @@ import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 public class BulletController {
-    private Bullet bullet;
+    private Bullet[][] bullet;
 
-    public BulletController(Bullet bullet) {
+    public BulletController(Bullet[][] bullet) {
         this.bullet = bullet;
     }
 
-    public void control(Magnus magnus, float delta) {
-        if (bullet.active &&
-                (bullet.x >= Main.screen.x + 2 * bullet.radius || bullet.x <= -2 * bullet.radius ||
-                 bullet.y >= Main.screen.y + 2 * bullet.radius || bullet.y <= -2 * bullet.radius)) {
+    public void control(Magnus magnus, float delta, int spanOfBullets, int depthOfBullets) {
+        for (int i = 0; i < spanOfBullets; i++) {
+            for (int j = 0; j < depthOfBullets; j++) {
+                if (bullet[spanOfBullets / 2][depthOfBullets - 1].active && (bullet[spanOfBullets / 2][depthOfBullets - 1].dst(magnus) > Main.d)) {
+                    bullet[i][j].reset();
+                    GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
+                }
 
-            /* Currently, only one bullet is being shot, and when it
-             * goes out of the screen, it is reset to its default position
-             * and the gameState is changed.
-             */
-
-            if(bullet.bulletsFired == 7) {
-                bullet.reset();
-                GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
+                if (bullet[i][j].active) {
+                    bullet[i][j].shoot(magnus, delta);
+                }
             }
-            else {
-                bullet.bulletsFired++;
-                bullet.init(magnus);
-                bullet.velocity += (bullet.bulletsFired);
-            }
-        }
-
-        if (bullet.active) {
-            bullet.shoot(delta);
         }
     }
 
-    public boolean check() {
-        if (bullet.dst(InputHandler.touch.x, InputHandler.touch.y) < bullet.radius) {
-            Gdx.app.log("GameOver","Collision with Bullet!");
-            return true;
+    public boolean check(int spanOfBullets, int depthOfBullets) {
+        for (int i = 0; i < spanOfBullets; i++) {
+            for (int j = 0; j < depthOfBullets; j++) {
+                if (bullet[i][j].dst(InputHandler.touch.x, InputHandler.touch.y) < bullet[i][j].radius + 4) {
+                    Gdx.app.log("GameOver", "Collision with Bullet!");
+                    return true;
+                }
+            }
         }
         return false;
     }

@@ -20,7 +20,7 @@ public class GameRenderer {
     private float margin;
 
 
-    public GameRenderer (GameWorld gameWorld) {
+    public GameRenderer(GameWorld gameWorld) {
         this.gameWorld = gameWorld;
         cam = new OrthographicCamera();
         cam.setToOrtho(true, Main.screen.x, Main.screen.y);
@@ -54,7 +54,11 @@ public class GameRenderer {
 
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(new Color(0x03a9f4ff));
-        shapeRenderer.circle(gameWorld.bullet.x, gameWorld.bullet.y, gameWorld.bullet.radius);
+        for (int i = 0; i < gameWorld.spanOfBullets; i++) {
+            for (int j = 0; j < gameWorld.depthOfBullets; j++) {
+                shapeRenderer.circle(gameWorld.bullet[i][j].x, gameWorld.bullet[i][j].y, gameWorld.bullet[i][j].radius);
+            }
+        }
         shapeRenderer.end();
 
         shapeRenderer.begin(ShapeType.Filled);

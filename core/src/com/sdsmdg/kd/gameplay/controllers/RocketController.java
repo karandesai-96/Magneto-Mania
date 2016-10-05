@@ -18,8 +18,7 @@ public class RocketController {
 
             // Rocket's activeTime decreases on every game update.
             rocket.activeTime--;
-        }
-        else {
+        } else {
             rocket.reset();
             GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
         }
@@ -27,7 +26,7 @@ public class RocketController {
 
     public boolean check() {
         if (rocket.dst(InputHandler.touch.x, InputHandler.touch.y) < rocket.radius) {
-            Gdx.app.log("GameOver","Collision with Rocket!");
+            Gdx.app.log("GameOver", "Collision with Rocket!");
             return true;
         }
         return false;
