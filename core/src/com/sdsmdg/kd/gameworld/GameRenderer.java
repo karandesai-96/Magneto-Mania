@@ -57,14 +57,16 @@ public class GameRenderer {
             shapeRenderer.end();
         }
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0x03a9f4ff));
         for (int i = 0; i < gameWorld.spanOfBullets; i++) {
             for (int j = 0; j < gameWorld.depthOfBullets; j++) {
-                shapeRenderer.circle(gameWorld.bullet[i][j].x, gameWorld.bullet[i][j].y, gameWorld.bullet[i][j].radius);
+                if (gameWorld.bullet[i][j].active) {
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                    shapeRenderer.setColor(new Color(0x03a9f4ff));
+                    shapeRenderer.circle(gameWorld.bullet[i][j].x, gameWorld.bullet[i][j].y, gameWorld.bullet[i][j].radius);
+                    shapeRenderer.end();
+                }
             }
         }
-        shapeRenderer.end();
 
         if (gameWorld.boomerang.active) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -74,7 +76,7 @@ public class GameRenderer {
         }
 
         if (gameWorld.heatwave.active) {
-            for(int i = 0; i < 9; i++) {
+            for (int i = 0; i < 9; i++) {
                 arcDrawer.begin(ArcDrawer.ShapeType.Line);
                 Gdx.gl.glLineWidth(64);
                 arcDrawer.setColor(new Color(0xffca28ff));

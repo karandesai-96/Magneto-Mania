@@ -28,13 +28,13 @@ public class HeatWaveController {
         }
     }
 
-    public boolean check (Magnus magnus) {
+    public boolean check(Magnus magnus) {
         float distance = heatWave.dst(InputHandler.touch.x, InputHandler.touch.y);
-        int angle = (int)(MathUtils.atan2(InputHandler.touch.y - heatWave.y,
+        int angle = (int) (MathUtils.atan2(InputHandler.touch.y - heatWave.y,
                 InputHandler.touch.x - heatWave.x) * (180 / MathUtils.PI));
 
         if (distance <= heatWave.radius + 5 && distance >= heatWave.radius - 30) {
-            for(int i = 0; i < 9; i++) {
+            for (int i = 0; i < 9; i++) {
                 if (angle > 40 * i && angle < 40 * i + 25)
                     return true;
             }

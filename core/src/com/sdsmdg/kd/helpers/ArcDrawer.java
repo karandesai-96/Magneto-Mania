@@ -241,7 +241,7 @@ public class ArcDrawer {
         renderer.vertex(x + cx, y + cy, 0);
     }
 
-    private void check (ShapeType preferred, ShapeType other, int newVertices) {
+    private void check(ShapeType preferred, ShapeType other, int newVertices) {
         if (shapeType == null) throw new IllegalStateException("begin must be called first.");
 
         if (shapeType != preferred && shapeType != other) {
@@ -267,13 +267,15 @@ public class ArcDrawer {
         }
     }
 
-    /** Finishes the batch of shapes and ensures they get rendered. */
-    public void end () {
+    /**
+     * Finishes the batch of shapes and ensures they get rendered.
+     */
+    public void end() {
         renderer.end();
         shapeType = null;
     }
 
-    public void flush () {
+    public void flush() {
         ShapeType type = shapeType;
         end();
         begin(type);
