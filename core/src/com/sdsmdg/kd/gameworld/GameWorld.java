@@ -51,10 +51,11 @@ public class GameWorld {
     public boolean isGameOver;
     public int spanOfBullets;
     public int depthOfBullets;
+    public int nHeatWaves;
 
     public Magnus magnus;
     public Bullet[][] bullet;
-    public HeatWave heatwave;
+    public HeatWave[] heatwaves;
     public Rocket rocket;
     public Laser laser;
     public Boomerang boomerang;
@@ -80,14 +81,15 @@ public class GameWorld {
                 bullet[i][j] = new Bullet();
             }
         }
-        heatwave = new HeatWave();
+
+        heatwaves = new HeatWave[nHeatWaves];
         rocket = new Rocket();
         laser = new Laser();
         boomerang = new Boomerang();
 
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
-        heatwaveController = new HeatWaveController(heatwave);
+        heatwaveController = new HeatWaveController(heatwaves);
         rocketController = new RocketController(rocket);
         laserController = new LaserController(laser);
         boomerangController = new BoomerangController(boomerang);
@@ -185,7 +187,9 @@ public class GameWorld {
         } else if (currentWeapon == 2) {
             // Heatwave selected.
             Gdx.app.log("GameWorld", "HeatWave Initialised");
-            heatwave.init(magnus);
+            for (HeatWave heatwave : heatwaves) {
+                heatwave.init(magnus);
+            }
         } else if (currentWeapon == 3) {
             // Rocket selected.
             Gdx.app.log("GameWorld", "Rocket Initialised");

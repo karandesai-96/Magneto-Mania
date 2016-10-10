@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.sdsmdg.kd.gameplay.objects.HeatWave;
 import com.sdsmdg.kd.helpers.ArcDrawer;
 import com.sdsmdg.kd.magnetomania.Main;
 
@@ -75,13 +76,15 @@ public class GameRenderer {
             shapeRenderer.end();
         }
 
-        if (gameWorld.heatwave.active) {
-            for (int i = 0; i < 9; i++) {
-                arcDrawer.begin(ArcDrawer.ShapeType.Line);
-                Gdx.gl.glLineWidth(64);
-                arcDrawer.setColor(new Color(0xffca28ff));
-                arcDrawer.arc(gameWorld.heatwave.x, gameWorld.heatwave.y, gameWorld.heatwave.radius, 40 * i, 25, 50);
-                arcDrawer.end();
+        for (HeatWave heatwave : gameWorld.heatwaves) {
+            if (heatwave.active) {
+                for (int i = 0; i < 6; i++) {
+                    arcDrawer.begin(ArcDrawer.ShapeType.Line);
+                    Gdx.gl.glLineWidth(64);
+                    arcDrawer.setColor(new Color(0xffca28ff));
+                    arcDrawer.arc(heatwave.x, heatwave.y, heatwave.radius, 30 * (i + (i % 2)), 30, 50);
+                    arcDrawer.end();
+                }
             }
         }
 
