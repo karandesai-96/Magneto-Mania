@@ -11,32 +11,44 @@ import com.sdsmdg.kd.magnetomania.Main;
  * @author Karan Desai
  */
 public class HeatWaveController {
-    private HeatWave heatWave;
+    private HeatWave[] heatWaves;
 
-    public HeatWaveController(HeatWave heatWave) {
-        this.heatWave = heatWave;
+    public HeatWaveController(HeatWave[] heatWave) {
+        this.heatWaves = heatWave;
     }
 
     public void control(float delta) {
-        if (heatWave.active) {
-            if (heatWave.radius <= Main.d) {
-                heatWave.expand(delta);
-            } else {
-                heatWave.reset();
-                GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
+        for (HeatWave heatWave : heatWaves) {
+            if (heatWave.active) {
+                if (heatWave.radius <= Main.d) {
+                    heatWave.expand(delta);
+                } else {
+                    heatWave.reset();
+                }
             }
+        }
+        if (!heatWaves[heatWaves.length - 1].active) {
+            GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
         }
     }
 
     public boolean check(Magnus magnus) {
-        float distance = heatWave.dst(InputHandler.touch.x, InputHandler.touch.y);
-        int angle = (int) (MathUtils.atan2(InputHandler.touch.y - heatWave.y,
-                InputHandler.touch.x - heatWave.x) * (180 / MathUtils.PI));
+        float distance, angle;
 
-        if (distance <= heatWave.radius + 5 && distance >= heatWave.radius - 30) {
-            for (int i = 0; i < 9; i++) {
-                if (angle > 40 * i && angle < 40 * i + 25)
-                    return true;
+        for (int i = 0; i < heatWaves.length; i++) {
+            distance = heatWaves[i].dst(InputHandler.touch.x, InputHandler.touch.y);
+            angle = (int) (MathUtils.atan2(InputHandler.touch.y - heatWaves[i].y,
+                    InputHandler.touch.x - heatWaves[i].x) * (180 / MathUtils.PI));
+
+            if (distance <= heatWaves[i].radius + 5 && distance >= heatWaves[i].radius - 30) {
+                if (i % 2 == 1) {
+                    return ((angle > 30 && angle < 60)  || (angle > 90  && angle < 120) || (angle > 150  && angle < 180) ||
+                            (angle < 0  && angle > -30) || (angle < -60 && angle > -90) || (angle < -120 && angle > -150));
+                }
+                else {
+                    return (angle > 0   && angle < 30)  || (angle > 60  && angle < 90)   || (angle > 120 && angle < 150) ||
+                            (angle < -30 && angle > -60) || (angle < -90 && angle > -120) || (angle < -150 && angle > -180);
+                }
             }
         }
         return false;
