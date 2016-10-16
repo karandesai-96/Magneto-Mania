@@ -173,6 +173,10 @@ public class GameWorld {
                 //replaced by changing to game-over screen.
                 GameScreen.isTouched = false;
             }
+
+            if (isGameOver && GameScreen.isTouched) {
+                isGameOver = false;
+            }
         }
     }
 
