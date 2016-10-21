@@ -141,6 +141,46 @@ public class GameWorld {
                 magnusController.control(delta);
             }
 
+            /**
+             *------------------Game Over Handling-----------------------*
+             **/
+            isGameOver = isGameOver || magnusController.check();
+
+            if (isGameOver) {
+                gameScore = 0;
+                GameScreen.isTouched = false;
+            }
+
+            if (isGameOver && GameScreen.isTouched) {
+                magnus = new Magnus();
+                bullet = new Bullet[spanOfBullets][depthOfBullets];
+                for (int i = 0; i < spanOfBullets; i++) {
+                    for (int j = 0; j < depthOfBullets; j++) {
+                        bullet[i][j] = new Bullet();
+                    }
+                }
+                heatwave = new HeatWave();
+                rocket = new Rocket();
+                laser = new Laser();
+                boomerang = new Boomerang();
+
+                magnusController = new MagnusController(magnus);
+                bulletController = new BulletController(bullet);
+                heatwaveController = new HeatWaveController(heatwave);
+                rocketController = new RocketController(rocket);
+                laserController = new LaserController(laser);
+                boomerangController = new BoomerangController(boomerang);
+
+                this.isGameOver = false;
+
+                this.gameScore = 0.0f;
+                this.gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
+
+                gameState = GameState.NEXT_MAGNUS;
+                currentWeapon = 0;
+                magnus.prepareForAttack();
+            }
+
             if (gameState == GameState.NEXT_WEAPON || gameState == GameState.NEXT_MAGNUS) {
                 if (gameState == GameState.NEXT_WEAPON) {
                     selectWeapon();
@@ -160,23 +200,6 @@ public class GameWorld {
                 gameScore += 1.0f + (gameScore / 2500.0f);
             }
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
-
-            /**
-             *--------Game Over Handling---------*
-             **/
-            isGameOver = isGameOver || magnusController.check();
-
-            if (isGameOver) {
-                gameScore = 0;
-                //This will stop the game rendering for the while and game
-                //needs to be restarted in order to replay. This needs to be
-                //replaced by changing to game-over screen.
-                GameScreen.isTouched = false;
-            }
-
-            if (isGameOver && GameScreen.isTouched) {
-                isGameOver = false;
-            }
         }
     }
 

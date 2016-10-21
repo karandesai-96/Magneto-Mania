@@ -101,7 +101,7 @@ public class GameRenderer {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(new Color(0x134256ff));
             shapeRenderer.rect((Main.screenCenter.x - (Main.screen.x / 3)),
-                    (Main.screenCenter.y - (Main.screen.y / 3)),
+                    (Main.screenCenter.y - (Main.screen.y / 9)),
                     Main.screen.x * 2 / 3,
                     Main.screen.y * 2 / 9);
             shapeRenderer.end();
