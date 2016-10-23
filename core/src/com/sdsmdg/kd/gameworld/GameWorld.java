@@ -119,7 +119,45 @@ public class GameWorld {
     }
 
     public void update(float delta) {
-        if (GameScreen.isTouched) {
+
+        /**
+         *-----------------Game reset Handling-----------------------*
+         **/
+        if (isGameOver && GameScreen.isTouched) {
+            Gdx.app.log("GameWorld", "Reset Game");
+            magnus = new Magnus();
+            bullet = new Bullet[spanOfBullets][depthOfBullets];
+            for (int i = 0; i < spanOfBullets; i++) {
+                for (int j = 0; j < depthOfBullets; j++) {
+                    bullet[i][j] = new Bullet();
+                }
+            }
+            heatwave = new HeatWave();
+            rocket = new Rocket();
+            laser = new Laser();
+            boomerang = new Boomerang();
+
+            magnusController = new MagnusController(magnus);
+            bulletController = new BulletController(bullet);
+            heatwaveController = new HeatWaveController(heatwave);
+            rocketController = new RocketController(rocket);
+            laserController = new LaserController(laser);
+            boomerangController = new BoomerangController(boomerang);
+
+            this.isGameOver = false;
+
+            this.gameScore = 0.0f;
+            this.gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
+
+            gameState = GameState.NEXT_MAGNUS;
+            currentWeapon = 0;
+            magnus.prepareForAttack();
+        }
+
+        /**
+         *-------------Game Over checking and updates--------------*
+         **/
+        if (!isGameOver && GameScreen.isTouched) {
             if (currentWeapon == 1) {
                 isGameOver = bulletController.check(spanOfBullets, depthOfBullets);
                 bulletController.control(magnus, delta, spanOfBullets, depthOfBullets);
@@ -140,60 +178,26 @@ public class GameWorld {
             } else {
                 magnusController.control(delta);
             }
-
-            /**
-             *------------------Game Over Handling-----------------------*
-             **/
             isGameOver = isGameOver || magnusController.check();
+        }
 
-            if (isGameOver) {
-                gameScore = 0;
-                GameScreen.isTouched = false;
-            }
-
-            if (isGameOver && GameScreen.isTouched) {
-                magnus = new Magnus();
-                bullet = new Bullet[spanOfBullets][depthOfBullets];
-                for (int i = 0; i < spanOfBullets; i++) {
-                    for (int j = 0; j < depthOfBullets; j++) {
-                        bullet[i][j] = new Bullet();
-                    }
-                }
-                heatwave = new HeatWave();
-                rocket = new Rocket();
-                laser = new Laser();
-                boomerang = new Boomerang();
-
-                magnusController = new MagnusController(magnus);
-                bulletController = new BulletController(bullet);
-                heatwaveController = new HeatWaveController(heatwave);
-                rocketController = new RocketController(rocket);
-                laserController = new LaserController(laser);
-                boomerangController = new BoomerangController(boomerang);
-
-                this.isGameOver = false;
-
-                this.gameScore = 0.0f;
-                this.gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
-
-                gameState = GameState.NEXT_MAGNUS;
+        /**
+         *-------------------Changing Game state--------------------*
+         **/
+        if (gameState == GameState.NEXT_WEAPON || gameState == GameState.NEXT_MAGNUS) {
+            if (gameState == GameState.NEXT_WEAPON) {
+                selectWeapon();
+                gameState = GameState.WEAPON_ACTIVE;
+            } else {
                 currentWeapon = 0;
-                magnus.prepareForAttack();
+                gameState = GameState.MAGNUS_ACTIVE;
             }
+        }
 
-            if (gameState == GameState.NEXT_WEAPON || gameState == GameState.NEXT_MAGNUS) {
-                if (gameState == GameState.NEXT_WEAPON) {
-                    selectWeapon();
-                    gameState = GameState.WEAPON_ACTIVE;
-                } else {
-                    currentWeapon = 0;
-                    gameState = GameState.MAGNUS_ACTIVE;
-                }
-            }
-
-            /**
-             *------------------------Scoring---------------------------*
-             **/
+        /**
+         *------------------------Scoring---------------------------*
+         **/
+        if (!isGameOver && GameScreen.isTouched) {
             if (gameScore >= 10000f) {
                 gameScore += 5.0f;
             } else {
@@ -201,9 +205,17 @@ public class GameWorld {
             }
             gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
         }
+
+        /**
+         *------------------Game Over Handling-----------------------*
+         **/
+        if (isGameOver) {
+            gameScore = 0;
+            GameScreen.isTouched = false;
+        }
     }
 
-    public void selectWeapon() {
+    private void selectWeapon() {
         currentWeapon = 1 + random.nextInt(5);
         if (currentWeapon == 1) {
             // Bullets selected.
