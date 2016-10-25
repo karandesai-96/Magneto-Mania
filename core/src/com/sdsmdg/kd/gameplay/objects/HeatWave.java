@@ -22,6 +22,8 @@ public class HeatWave extends GameObject {
         this.velocity = 5;
         this.velocity *= Main.scaleFactor;
 
+        // This works as a unique identity of every heatWave and helps in rendering all heatwaves at
+        // different radii. The greater the heatWave number, sooner it strikes the finger.
         this.heatWaveNo = number + 1;
 
         // Heatwave is inactive when game starts.
@@ -44,10 +46,11 @@ public class HeatWave extends GameObject {
 
 
     /**
-     * This method adds the velocity to radius of heatwave, hence expanding it.
+     * This method adds the velocity to radius of heatwave, hence expanding it. Radius expansion
+     * takes place at various rates depending on the unique heatWaveNo of each heatwave.
      */
     public void expand(float delta) {
-        this.radius += 0.3 * this.heatWaveNo * this.velocity * delta;
+        this.radius += 0.6 * (this.heatWaveNo + 1) * this.velocity * delta;
     }
 
 
