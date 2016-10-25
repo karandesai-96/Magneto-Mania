@@ -76,13 +76,14 @@ public class GameRenderer {
             shapeRenderer.end();
         }
 
-        for (HeatWave heatwave : gameWorld.heatwaves) {
-            if (heatwave.active) {
-                for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < gameWorld.nHeatWaves; i++) {
+            if (gameWorld.heatWaves[i].active) {
+                for (int j = 0; j < 11; j += 2) {
                     arcDrawer.begin(ArcDrawer.ShapeType.Line);
                     Gdx.gl.glLineWidth(64);
                     arcDrawer.setColor(new Color(0xffca28ff));
-                    arcDrawer.arc(heatwave.x, heatwave.y, heatwave.radius, 30 * (i + (i % 2)), 30, 50);
+                    arcDrawer.arc(gameWorld.heatWaves[i].x, gameWorld.heatWaves[i].y, gameWorld.heatWaves[i].radius,
+                            30 * (j + (i % 2)), 30, 50);
                     arcDrawer.end();
                 }
             }

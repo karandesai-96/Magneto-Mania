@@ -9,7 +9,9 @@ import com.sdsmdg.kd.magnetomania.Main;
  */
 public class HeatWave extends GameObject {
 
-    public HeatWave() {
+
+    public int heatWaveNo;
+    public HeatWave(int number) {
         // Setting the radius 0 as wave propagates radially outwards.
         this.radius = 0;
 
@@ -19,6 +21,8 @@ public class HeatWave extends GameObject {
 
         this.velocity = 5;
         this.velocity *= Main.scaleFactor;
+
+        this.heatWaveNo = number + 1;
 
         // Heatwave is inactive when game starts.
         this.active = false;
@@ -43,7 +47,7 @@ public class HeatWave extends GameObject {
      * This method adds the velocity to radius of heatwave, hence expanding it.
      */
     public void expand(float delta) {
-        this.radius += this.velocity * delta;
+        this.radius += 0.3 * this.heatWaveNo * this.velocity * delta;
     }
 
 

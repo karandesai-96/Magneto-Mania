@@ -55,7 +55,7 @@ public class GameWorld {
 
     public Magnus magnus;
     public Bullet[][] bullet;
-    public HeatWave[] heatwaves;
+    public HeatWave[] heatWaves;
     public Rocket rocket;
     public Laser laser;
     public Boomerang boomerang;
@@ -73,6 +73,7 @@ public class GameWorld {
         currentWeapon = 0;
         spanOfBullets = 7;
         depthOfBullets = 3;
+        nHeatWaves = 5;
 
         magnus = new Magnus();
         bullet = new Bullet[spanOfBullets][depthOfBullets];
@@ -82,14 +83,17 @@ public class GameWorld {
             }
         }
 
-        heatwaves = new HeatWave[nHeatWaves];
+        heatWaves = new HeatWave[nHeatWaves];
+        for (int i = 0; i < nHeatWaves; i++) {
+            heatWaves[i] = new HeatWave(i);
+        }
         rocket = new Rocket();
         laser = new Laser();
         boomerang = new Boomerang();
 
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
-        heatwaveController = new HeatWaveController(heatwaves);
+        heatwaveController = new HeatWaveController(heatWaves);
         rocketController = new RocketController(rocket);
         laserController = new LaserController(laser);
         boomerangController = new BoomerangController(boomerang);
@@ -173,7 +177,8 @@ public class GameWorld {
     }
 
     public void selectWeapon() {
-        currentWeapon = 1 + random.nextInt(5);
+        //currentWeapon = 1 + random.nextInt(5);
+        currentWeapon = 2;
         if (currentWeapon == 1) {
             // Bullets selected.
             Gdx.app.log("GameWorld", "Bullet Initialised");
@@ -187,8 +192,8 @@ public class GameWorld {
         } else if (currentWeapon == 2) {
             // Heatwave selected.
             Gdx.app.log("GameWorld", "HeatWave Initialised");
-            for (HeatWave heatwave : heatwaves) {
-                heatwave.init(magnus);
+            for (int i = 0; i < nHeatWaves; i++) {
+                heatWaves[i].init(magnus);
             }
         } else if (currentWeapon == 3) {
             // Rocket selected.

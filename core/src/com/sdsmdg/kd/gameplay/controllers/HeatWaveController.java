@@ -27,7 +27,7 @@ public class HeatWaveController {
                 }
             }
         }
-        if (!heatWaves[heatWaves.length - 1].active) {
+        if (!heatWaves[0].active) {
             GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
         }
     }
