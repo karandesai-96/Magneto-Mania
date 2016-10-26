@@ -13,8 +13,8 @@ import com.sdsmdg.kd.magnetomania.Main;
 public class HeatWaveController {
     private HeatWave[] heatWaves;
 
-    public HeatWaveController(HeatWave[] heatWave) {
-        this.heatWaves = heatWave;
+    public HeatWaveController(HeatWave[] heatWaves) {
+        this.heatWaves = heatWaves;
     }
 
     public void control(float delta) {
