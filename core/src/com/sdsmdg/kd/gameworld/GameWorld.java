@@ -51,10 +51,11 @@ public class GameWorld {
     public boolean isGameOver;
     public int spanOfBullets;
     public int depthOfBullets;
+    public int nHeatWaves;
 
     public Magnus magnus;
     public Bullet[][] bullet;
-    public HeatWave heatwave;
+    public HeatWave[] heatWaves;
     public Rocket rocket;
     public Laser laser;
     public Boomerang boomerang;
@@ -72,6 +73,7 @@ public class GameWorld {
         currentWeapon = 0;
         spanOfBullets = 7;
         depthOfBullets = 3;
+        nHeatWaves = 5;
 
         magnus = new Magnus();
         bullet = new Bullet[spanOfBullets][depthOfBullets];
@@ -80,14 +82,18 @@ public class GameWorld {
                 bullet[i][j] = new Bullet();
             }
         }
-        heatwave = new HeatWave();
+
+        heatWaves = new HeatWave[nHeatWaves];
+        for (int i = 0; i < nHeatWaves; i++) {
+            heatWaves[i] = new HeatWave(i);
+        }
         rocket = new Rocket();
         laser = new Laser();
         boomerang = new Boomerang();
 
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
-        heatwaveController = new HeatWaveController(heatwave);
+        heatwaveController = new HeatWaveController(heatWaves);
         rocketController = new RocketController(rocket);
         laserController = new LaserController(laser);
         boomerangController = new BoomerangController(boomerang);
@@ -118,6 +124,7 @@ public class GameWorld {
                 isGameOver = bulletController.check(spanOfBullets, depthOfBullets);
                 bulletController.control(magnus, delta, spanOfBullets, depthOfBullets);
             } else if (currentWeapon == 2) {
+                isGameOver = heatwaveController.check(magnus);
                 heatwaveController.control(delta);
             } else if (currentWeapon == 3) {
                 isGameOver = rocketController.check();
@@ -184,7 +191,9 @@ public class GameWorld {
         } else if (currentWeapon == 2) {
             // Heatwave selected.
             Gdx.app.log("GameWorld", "HeatWave Initialised");
-            heatwave.init(magnus);
+            for (int i = 0; i < nHeatWaves; i++) {
+                heatWaves[i].init(magnus);
+            }
         } else if (currentWeapon == 3) {
             // Rocket selected.
             Gdx.app.log("GameWorld", "Rocket Initialised");

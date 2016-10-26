@@ -5,10 +5,13 @@ import com.sdsmdg.kd.magnetomania.Main;
 
 /**
  * @author Karan Desai
+ * @author Haresh Khanna
  */
 public class HeatWave extends GameObject {
 
-    public HeatWave() {
+
+    public int heatWaveNo;
+    public HeatWave(int number) {
         // Setting the radius 0 as wave propagates radially outwards.
         this.radius = 0;
 
@@ -16,12 +19,17 @@ public class HeatWave extends GameObject {
         this.x = -10;
         this.y = -10;
 
-        this.velocity = 20;
+        this.velocity = 5;
         this.velocity *= Main.scaleFactor;
+
+        // This works as a unique identity of every heatWave and helps in rendering all heatwaves at
+        // different radii. The greater the heatWave number, sooner it strikes the finger.
+        this.heatWaveNo = number + 1;
 
         // Heatwave is inactive when game starts.
         this.active = false;
     }
+
 
     /**
      * This method initializes the wave when time to release it arrives.
@@ -36,12 +44,15 @@ public class HeatWave extends GameObject {
         this.radius = 0;
     }
 
+
     /**
-     * This method adds the velocity to radius of heatwave, hence expanding it.
+     * This method adds the velocity to radius of heatwave, hence expanding it. Radius expansion
+     * takes place at various rates depending on the unique heatWaveNo of each heatwave.
      */
     public void expand(float delta) {
-        this.radius += this.velocity * delta;
+        this.radius += 0.6 * (this.heatWaveNo + 1) * this.velocity * delta;
     }
+
 
     /**
      * This method resets the wave when it becomes large enough to cover the screen.

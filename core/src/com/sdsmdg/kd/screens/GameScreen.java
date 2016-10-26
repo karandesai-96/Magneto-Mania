@@ -14,7 +14,6 @@ public class GameScreen implements Screen {
     private GameWorld gameWorld;
     private GameRenderer gameRenderer;
 
-
     public GameScreen() {
         isTouched = false;
         this.gameWorld = new GameWorld();

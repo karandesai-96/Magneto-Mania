@@ -9,7 +9,7 @@ import com.sdsmdg.kd.screens.GameScreen;
 
 public class Main extends Game {
 
-    public static Vector2 screen = new Vector2(0, 0);
+    public static Vector2 screen = new Vector2();
     public static float screenArea;
     public static Vector2 screenCenter = new Vector2(0, 0);
     public static double scaleFactor;
