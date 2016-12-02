@@ -132,14 +132,17 @@ public class GameWorld {
                     bullet[i][j] = new Bullet();
                 }
             }
-            heatwave = new HeatWave();
+            heatWaves = new HeatWave[nHeatWaves];
+            for (int i = 0; i < nHeatWaves; i++) {
+                heatWaves[i] = new HeatWave(i);
+            }
             rocket = new Rocket();
             laser = new Laser();
             boomerang = new Boomerang();
 
             magnusController = new MagnusController(magnus);
             bulletController = new BulletController(bullet);
-            heatwaveController = new HeatWaveController(heatwave);
+            heatwaveController = new HeatWaveController(heatWaves);
             rocketController = new RocketController(rocket);
             laserController = new LaserController(laser);
             boomerangController = new BoomerangController(boomerang);
