@@ -44,7 +44,7 @@ public class ScoreBubble extends GameObject {
 
     public void init() {
         activate();
-        activeTime = random.nextInt(150) + 200;
+        activeTime = random.nextInt(200) + 100;
 
         this.x = ((int) (Main.screen.x)) * random.nextFloat();
         this.y = ((int) (Main.screen.y)) * random.nextFloat();
