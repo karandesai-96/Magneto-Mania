@@ -2,6 +2,7 @@ package com.sdsmdg.kd.gameplay.controllers;
 
 import com.badlogic.gdx.Gdx;
 import com.sdsmdg.kd.gameplay.objects.ScoreBubble;
+import com.sdsmdg.kd.gameworld.GameWorld;
 import com.sdsmdg.kd.helpers.InputHandler;
 
 /**
@@ -15,12 +16,19 @@ public class ScoreBubbleController {
         this.scoreBubble = scoreBubble;
     }
 
-    public void control() {
-
+    public void control(float delta) {
+        if (scoreBubble.active && scoreBubble.activeTime > 0) {
+            scoreBubble.move(delta);
+            scoreBubble.activeTime--;
+        } else {
+            scoreBubble.reset();
+            GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
+        }
     }
 
     public boolean check() {
         if (scoreBubble.dst(InputHandler.touch.x, InputHandler.touch.y) < scoreBubble.radius) {
+            GameWorld.gameScore += scoreBubble.scoreValue;
             Gdx.app.log("ScoreAdded", "Score Bubble burst! Score added to main score.");
             return true;
         }

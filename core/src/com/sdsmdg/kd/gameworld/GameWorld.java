@@ -46,7 +46,7 @@ public class GameWorld {
      */
     public static int currentWeapon;
     public RandomXS128 random;
-    public float gameScore;
+    public static float gameScore;
     public String gameScoreToDisplay;
     public boolean isGameOver;
     public int spanOfBullets;

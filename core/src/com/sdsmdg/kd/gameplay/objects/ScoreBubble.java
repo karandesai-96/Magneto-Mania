@@ -2,6 +2,8 @@ package com.sdsmdg.kd.gameplay.objects;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
+import com.badlogic.gdx.math.Vector2;
+import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 
 /**
@@ -41,12 +43,20 @@ public class ScoreBubble extends GameObject {
     }
 
     public void init() {
+        activate();
+        activeTime = random.nextInt(150) + 200;
 
+        this.x = ((int) (Main.screen.x)) * random.nextFloat();
+        this.y = ((int) (Main.screen.y)) * random.nextFloat();
+
+        calcVelocityComponent(new Vector2(random.nextInt((int) Main.screen.x), InputHandler.touch.y));
     }
 
     public void move(float delta) {
-
+        mulAdd(velocityComponent, delta);
+        calcVelocityComponent(new Vector2(random.nextInt((int) Main.screen.x), InputHandler.touch.y));
     }
+
     public void reset() {
         deactivate();
 
