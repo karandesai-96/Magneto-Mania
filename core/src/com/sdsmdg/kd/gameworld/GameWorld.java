@@ -132,7 +132,7 @@ public class GameWorld {
     public void update(float delta) {
         if (GameScreen.isTouched) {
             iterationCount = (iterationCount + 1) % 100;
-            if(scoreBubble.active) {
+            if (scoreBubble.active) {
                 scoreBubbleController.check();
                 scoreBubbleController.control(delta);
             }
@@ -228,7 +228,7 @@ public class GameWorld {
         if (iterationCount == 99 && random.nextBoolean()) {
             //Score Bubble activated
             Gdx.app.log("GameWorld", "ScoreBubble Initialised");
-            scoreBubble.init();
+            scoreBubble.init(scoreBubbleValue[random.nextInt(4)]);
         }
     }
 }

@@ -42,12 +42,14 @@ public class ScoreBubble extends GameObject {
         this.active = false;
     }
 
-    public void init() {
+    public void init(int scoreValue) {
         activate();
         activeTime = random.nextInt(200) + 100;
 
         this.x = ((int) (Main.screen.x)) * random.nextFloat();
         this.y = ((int) (Main.screen.y)) * random.nextFloat();
+
+        this.scoreValue = scoreValue;
 
         calcVelocityComponent(new Vector2(random.nextInt((int) Main.screen.x), InputHandler.touch.y));
     }
