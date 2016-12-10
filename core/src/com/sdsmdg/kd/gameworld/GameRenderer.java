@@ -49,7 +49,8 @@ public class GameRenderer {
 
             batch.begin();
             bitmapFont.draw(batch, "" + gameWorld.scoreBubble.scoreValue,
-                    gameWorld.scoreBubble.x - gameWorld.scoreBubble.radius / 2, gameWorld.scoreBubble.y);
+                    gameWorld.scoreBubble.x - gameWorld.scoreBubble.radius / 2,
+                    Main.screen.y - gameWorld.scoreBubble.y);
             batch.end();
         }
 

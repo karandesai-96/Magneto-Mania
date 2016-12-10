@@ -131,10 +131,16 @@ public class GameWorld {
 
     public void update(float delta) {
         if (GameScreen.isTouched) {
-            iterationCount = (iterationCount + 1) % 100;
+            iterationCount = (iterationCount + 1) % 1000;
             if (scoreBubble.active) {
                 scoreBubbleController.check();
                 scoreBubbleController.control(delta);
+            }
+
+            if (iterationCount >= 900 && random.nextBoolean() && !scoreBubble.active) {
+                //Score Bubble activated
+                Gdx.app.log("GameWorld", "ScoreBubble Initialised");
+                scoreBubble.init(scoreBubbleValue[random.nextInt(4)]);
             }
 
             if (currentWeapon == 1) {
@@ -223,12 +229,6 @@ public class GameWorld {
             //Boomerang Selected.
             Gdx.app.log("GameWorld", "Boomerang Initialised");
             boomerang.init(magnus);
-        }
-
-        if (iterationCount == 99 && random.nextBoolean()) {
-            //Score Bubble activated
-            Gdx.app.log("GameWorld", "ScoreBubble Initialised");
-            scoreBubble.init(scoreBubbleValue[random.nextInt(4)]);
         }
     }
 }

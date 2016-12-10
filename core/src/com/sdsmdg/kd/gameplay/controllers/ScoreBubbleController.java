@@ -22,13 +22,13 @@ public class ScoreBubbleController {
             scoreBubble.activeTime--;
         } else {
             scoreBubble.reset();
-            GameWorld.gameState = GameWorld.GameState.NEXT_MAGNUS;
         }
     }
 
     public boolean check() {
-        if (scoreBubble.dst(InputHandler.touch.x, InputHandler.touch.y) < scoreBubble.radius) {
+        if (scoreBubble.dst(InputHandler.touch.x, InputHandler.touch.y) < scoreBubble.radius + 4) {
             GameWorld.gameScore += scoreBubble.scoreValue;
+            scoreBubble.reset();
             Gdx.app.log("ScoreAdded", "Score Bubble burst! Score added to main score.");
             return true;
         }

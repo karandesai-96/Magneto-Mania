@@ -12,6 +12,7 @@ import com.sdsmdg.kd.magnetomania.Main;
 
 public class ScoreBubble extends GameObject {
     private RandomXS128 random;
+    private int addCount;
     public int activeTime;
     public int scoreValue;
 
@@ -38,6 +39,9 @@ public class ScoreBubble extends GameObject {
         // Initially set to '0'.
         this.activeTime = 0;
 
+        // The variable 'addCount' stores the number of times scoreBubble is updated.
+        this.addCount = 0;
+
         // Score Bubble is inactive when game starts
         this.active = false;
     }
@@ -51,12 +55,17 @@ public class ScoreBubble extends GameObject {
 
         this.scoreValue = scoreValue;
 
-        calcVelocityComponent(new Vector2(random.nextInt((int) Main.screen.x), InputHandler.touch.y));
+        this.addCount = 0;
+
+        calcVelocityComponent(new Vector2(random.nextInt((int) Main.screen.x), random.nextInt((int) Main.screen.y)));
     }
 
     public void move(float delta) {
         mulAdd(velocityComponent, delta);
-        calcVelocityComponent(new Vector2(random.nextInt((int) Main.screen.x), InputHandler.touch.y));
+        addCount = (addCount + 1) % 1000;
+        if (addCount == 999 && random.nextBoolean()) {
+            calcVelocityComponent(new Vector2(random.nextInt((int) Main.screen.x), random.nextInt((int) Main.screen.y)));
+        }
     }
 
     public void reset() {
