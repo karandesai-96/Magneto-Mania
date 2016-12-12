@@ -3,6 +3,8 @@ package com.sdsmdg.kd.gameworld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.RandomXS128;
+import com.sdsmdg.kd.gameplay.controllers.ScoreBubbleController;
+import com.sdsmdg.kd.gameplay.objects.ScoreBubble;
 import com.sdsmdg.kd.helpers.InputHandler;
 import com.sdsmdg.kd.magnetomania.Main;
 import com.sdsmdg.kd.screens.GameScreen;
@@ -46,12 +48,14 @@ public class GameWorld {
      */
     public static int currentWeapon;
     public RandomXS128 random;
-    public float gameScore;
+    public static float gameScore;
     public String gameScoreToDisplay;
     public boolean isGameOver;
     public int spanOfBullets;
     public int depthOfBullets;
     public int nHeatWaves;
+    public int[] scoreBubbleValue;
+    public int iterationCount;
 
     public Magnus magnus;
     public Bullet[][] bullet;
@@ -59,6 +63,7 @@ public class GameWorld {
     public Rocket rocket;
     public Laser laser;
     public Boomerang boomerang;
+    public ScoreBubble scoreBubble;
 
     public MagnusController magnusController;
     public BulletController bulletController;
@@ -66,6 +71,7 @@ public class GameWorld {
     public RocketController rocketController;
     public LaserController laserController;
     public BoomerangController boomerangController;
+    public ScoreBubbleController scoreBubbleController;
 
 
     public GameWorld() {
@@ -75,6 +81,10 @@ public class GameWorld {
         depthOfBullets = 3;
         nHeatWaves = 5;
 
+        iterationCount = 0;
+
+        scoreBubbleValue = new int[]{10, 50, 100, 500};
+
         magnus = new Magnus();
         bullet = new Bullet[spanOfBullets][depthOfBullets];
         for (int i = 0; i < spanOfBullets; i++) {
@@ -82,7 +92,6 @@ public class GameWorld {
                 bullet[i][j] = new Bullet();
             }
         }
-
         heatWaves = new HeatWave[nHeatWaves];
         for (int i = 0; i < nHeatWaves; i++) {
             heatWaves[i] = new HeatWave(i);
@@ -90,6 +99,7 @@ public class GameWorld {
         rocket = new Rocket();
         laser = new Laser();
         boomerang = new Boomerang();
+        scoreBubble = new ScoreBubble();
 
         magnusController = new MagnusController(magnus);
         bulletController = new BulletController(bullet);
@@ -97,6 +107,7 @@ public class GameWorld {
         rocketController = new RocketController(rocket);
         laserController = new LaserController(laser);
         boomerangController = new BoomerangController(boomerang);
+        scoreBubbleController = new ScoreBubbleController(scoreBubble);
 
         this.random = new RandomXS128();
 
@@ -111,7 +122,7 @@ public class GameWorld {
          * score as well as rate of score keeps on increasing. The rate
          * of increase of score becomes constant after a certain limit.
          */
-        this.gameScore = 0.0f;
+        gameScore = 0.0f;
         this.gameScoreToDisplay = String.valueOf(MathUtils.floor(gameScore));
 
         //Sets the initial firing direction for the Magnus, as it is the first weapon to be fired.
@@ -120,6 +131,18 @@ public class GameWorld {
 
     public void update(float delta) {
         if (GameScreen.isTouched) {
+            iterationCount = (iterationCount + 1) % 1000;
+            if (scoreBubble.active) {
+                scoreBubbleController.check();
+                scoreBubbleController.control(delta);
+            }
+
+            if (iterationCount >= 900 && random.nextBoolean() && !scoreBubble.active) {
+                //Score Bubble activated
+                Gdx.app.log("GameWorld", "ScoreBubble Initialised");
+                scoreBubble.init(scoreBubbleValue[random.nextInt(4)]);
+            }
+
             if (currentWeapon == 1) {
                 isGameOver = bulletController.check(spanOfBullets, depthOfBullets);
                 bulletController.control(magnus, delta, spanOfBullets, depthOfBullets);

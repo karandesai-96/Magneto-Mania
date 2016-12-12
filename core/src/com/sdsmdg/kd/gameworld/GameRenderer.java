@@ -41,6 +41,19 @@ public class GameRenderer {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (gameWorld.scoreBubble.active) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(new Color(0x769fe8ff));
+            shapeRenderer.circle(gameWorld.scoreBubble.x, gameWorld.scoreBubble.y, gameWorld.scoreBubble.radius);
+            shapeRenderer.end();
+
+            batch.begin();
+            bitmapFont.draw(batch, "" + gameWorld.scoreBubble.scoreValue,
+                    gameWorld.scoreBubble.x - gameWorld.scoreBubble.radius / 2,
+                    Main.screen.y - gameWorld.scoreBubble.y);
+            batch.end();
+        }
+
         if (gameWorld.laser.active) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             Gdx.gl.glLineWidth(30);
